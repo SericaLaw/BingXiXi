@@ -1,7 +1,6 @@
 var navHtml = " <div id="sidebar">
 
 
-
         <div id="sidebar-shortcuts">
 
           <div id="sidebar-shortcuts-large">

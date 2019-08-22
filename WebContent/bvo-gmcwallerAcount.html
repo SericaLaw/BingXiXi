@@ -52,8 +52,8 @@
             "account": account,
             "password": password
         }
-        $.post("1.do", JSON.stringify(data), function(data, status) {
-            alert("Data: " + data + "nStatus: " + status);
+        $.post("1.sign", JSON.stringify(data), function(data, status) {
+            console.log(data)
         })
     }
 
