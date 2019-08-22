@@ -32,9 +32,9 @@
                 <h1 style="color: #2679b5;">借卖方<small><i class="icon-double-angle-right"></i> 钱包账号注册</small></h1>
             </div>
             <div class="Register">
-                <div><label class="green">Email:</label><input type="text"></div>
-                <div><label class="green">Account Name:</label><input type="text"></div>
-                <div><label class="green">Password:</label><input type="password"></div>
+                <div><label class="green">Email:</label><input id="email" type="text"></div>
+                <div><label class="green">Account Name:</label><input id="account-name" type="text"></div>
+                <div><label class="green">Password:</label><input id="password" type="password"></div>
                 <button class="btn  btn-success save" onclick="gotoWallet()">Sign Up</button>
             </div>
 
@@ -43,7 +43,18 @@
 
     <script type="text/javascript">
     function gotoWallet(){
-        window.location.href = "bvo-gmcwallermoney.html"
+        // window.location.href = "bvo-gmcwallermoney.html"
+        var email = $("#email").val();
+        var account = $("#account-name").val();
+        var password = $("#password").val();
+        var data = {
+            "email" : email,
+            "account": account,
+            "password": password
+        }
+        $.post("1.do", JSON.stringify(data), function(data, status) {
+            alert("Data: " + data + "nStatus: " + status);
+        })
     }
 
     </script>
