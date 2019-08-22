@@ -18,22 +18,23 @@ public class main {
 		EWallet ew4 = new EWallet("111111111@qq.com", "CF", "12345678", 500.0, "01");
 
 		DBOp op = new SignupDBOp();//////////
-//		op.insert(ew);
-//		op.insert(ew1);
-//		op.insert(ew2);
-//		op.insert(ew3);
-		
-//		op.delete(ew);
-//		
-//		op.update(ew4, ew3);
-		
+		// op.insert(ew);
+		// op.insert(ew1);
+		// op.insert(ew2);
+		// op.insert(ew3);
+
+		// op.delete(ew);
+		//
+		// op.update(ew4, ew3);
+
 		EWallet ew5 = new EWallet(null, "CF", null, null, null);
-		ArrayList<Object> arr = op.select(ew5);
-		for(Object item:arr) {
-			EWallet ee = (EWallet)item;
+		EWallet ew6 = new EWallet(null, null, null, null, null);
+		ArrayList<Object> arr = op.select(ew6);
+		for (Object item : arr) {
+			EWallet ee = (EWallet) item;
 			System.out.println(ee.toString());
 		}
-		
+
 		System.out.println("success");
 	}
 }

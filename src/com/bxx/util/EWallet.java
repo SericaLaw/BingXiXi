@@ -59,21 +59,23 @@ public class EWallet {
 	@Override
 	public String toString() {
 		String str = "";
-		if (this.getEmail()!=null) {
-			str+=String.format("and Email = '%s' ", this.getEmail());
+		if (this.getEmail() != null) {
+			str += String.format("and Email = '%s' ", this.getEmail());
 		}
-		if (this.getAccountName()!=null) {
-			str+=String.format("and AccountName = '%s' ", this.getAccountName());
+		if (this.getAccountName() != null) {
+			str += String.format("and AccountName = '%s' ", this.getAccountName());
 		}
-		if (this.getPassword()!=null) {
-			str+=String.format("and Password = '%s' ", this.getPassword());
+		if (this.getPassword() != null) {
+			str += String.format("and Password = '%s' ", this.getPassword());
 		}
-		if (this.getBalance()!=null) {
-			str+=String.format("and Balance = %f ", this.getBalance());
+		if (this.getBalance() != null) {
+			str += String.format("and Balance = %f ", this.getBalance());
 		}
-		if (this.getTranscationNumber()!=null) {
-			str+=String.format("and TranscationNumber = '%s' ", this.getTranscationNumber());
+		if (this.getTranscationNumber() != null) {
+			str += String.format("and TranscationNumber = '%s' ", this.getTranscationNumber());
 		}
+		if(str.equals(""))
+			return str;
 		return str.substring(4);
 	}
 }
