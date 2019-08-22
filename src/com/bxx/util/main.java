@@ -2,6 +2,7 @@ package com.bxx.util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.bxx.util.JdbcTool;
 import com.bxx.util.EWallet;
@@ -24,7 +25,14 @@ public class main {
 		
 //		op.delete(ew);
 //		
-		op.update(ew3, ew4);
+//		op.update(ew4, ew3);
+		
+		EWallet ew5 = new EWallet(null, "CF", null, null, null);
+		ArrayList<Object> arr = op.select(ew5);
+		for(Object item:arr) {
+			EWallet ee = (EWallet)item;
+			System.out.println(ee.toString());
+		}
 		
 		System.out.println("success");
 	}

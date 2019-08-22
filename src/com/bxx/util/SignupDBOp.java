@@ -1,7 +1,12 @@
 package com.bxx.util;
 
 import com.bxx.util.JdbcTool;
+
+import java.util.ArrayList;
+
 import com.bxx.util.EWallet;
+
+import java.sql.*;
 
 public class SignupDBOp extends DBOp {
 	@Override
@@ -31,12 +36,21 @@ public class SignupDBOp extends DBOp {
 	}
 
 	@Override
-	public Object select(Object obj) {
+	public ArrayList<Object> select(Object obj) {
 		EWallet ew = (EWallet) obj;
-		String sqlstmt = "select ... from EWallet ...";
-
-		JdbcTool.executeSqlByQuery(sqlstmt);
-
-		return null;
+		String sqlstmt = String.format("select * from EWallet where %s", ew.toString());
+		System.out.println(sqlstmt);
+		ResultSet rs = JdbcTool.executeSqlByQuery(sqlstmt);
+		ArrayList<Object> arr = new ArrayList<Object>();
+		try {
+			while(rs.next()) {
+				EWallet ewallet = new EWallet(rs.getString(1), rs.getString(2),
+						rs.getString(3), rs.getDouble(4), rs.getString(5));
+				arr.add(ewallet);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return arr;
 	}
 }
