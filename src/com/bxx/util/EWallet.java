@@ -61,7 +61,7 @@ public class EWallet {
 		if (this.getBalance() != null) {
 			str += String.format("and Balance = %f ", this.getBalance());
 		}
-		if(str.equals(""))
+		if (str.equals(""))
 			return str;
 		return str.substring(4);
 	}

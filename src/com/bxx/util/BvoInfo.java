@@ -1,80 +1,67 @@
 package com.bxx.util;
 
 public class BvoInfo {
-	private String Email;
-	private String AccountName;
-	private String Password;
-	private Double Balance;
-	private String TranscationNumber;
+	private String SellerID;
+	private String Tel;
+	private String EMail;
+	private String SellerName;
 
-	public BvoInfo(String email, String accountName, String password, Double balance, String transcationNumber) {
+	public BvoInfo(String sellerID, String tel, String eMail, String sellerName) {
 		super();
-		Email = email;
-		AccountName = accountName;
-		Password = password;
-		Balance = balance;
-		TranscationNumber = transcationNumber;
+		SellerID = sellerID;
+		Tel = tel;
+		EMail = eMail;
+		SellerName = sellerName;
 	}
 
-	public String getEmail() {
-		return Email;
+	public String getSellerID() {
+		return SellerID;
 	}
 
-	public void setEmail(String email) {
-		Email = email;
+	public void setSellerID(String sellerID) {
+		SellerID = sellerID;
 	}
 
-	public String getAccountName() {
-		return AccountName;
+	public String getTel() {
+		return Tel;
 	}
 
-	public void setAccountName(String accountName) {
-		AccountName = accountName;
+	public void setTel(String tel) {
+		Tel = tel;
 	}
 
-	public String getPassword() {
-		return Password;
+	public String getEMail() {
+		return EMail;
 	}
 
-	public void setPassword(String password) {
-		Password = password;
+	public void setEMail(String eMail) {
+		EMail = eMail;
 	}
 
-	public Double getBalance() {
-		return Balance;
+	public String getSellerName() {
+		return SellerName;
 	}
 
-	public void setBalance(Double balance) {
-		Balance = balance;
-	}
-
-	public String getTranscationNumber() {
-		return TranscationNumber;
-	}
-
-	public void setTranscationNumber(String transcationNumber) {
-		TranscationNumber = transcationNumber;
+	public void setSellerName(String sellerName) {
+		SellerName = sellerName;
 	}
 
 	@Override
 	public String toString() {
 		String str = "";
-		if (this.getEmail() != null) {
-			str += String.format("and Email = '%s' ", this.getEmail());
+		if (this.getSellerID() != null) {
+			str += String.format("and SellerID = '%s' ", this.getSellerID());
 		}
-		if (this.getAccountName() != null) {
-			str += String.format("and AccountName = '%s' ", this.getAccountName());
+		if (this.getTel() != null) {
+			str += String.format("and Tel = '%s' ", this.getTel());
 		}
-		if (this.getPassword() != null) {
-			str += String.format("and Password = '%s' ", this.getPassword());
+		if (this.getEMail() != null) {
+			str += String.format("and EMail = '%s' ", this.getEMail());
 		}
-		if (this.getBalance() != null) {
-			str += String.format("and Balance = %f ", this.getBalance());
+		if (this.getSellerName() != null) {
+			str += String.format("and SellerName = %s ", this.getSellerName());
 		}
-		if (this.getTranscationNumber() != null) {
-			str += String.format("and TranscationNumber = '%s' ", this.getTranscationNumber());
-		}
-		if(str.equals(""))
+		if (str.equals(""))
 			return str;
 		return str.substring(4);
 	}

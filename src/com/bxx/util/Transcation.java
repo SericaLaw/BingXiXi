@@ -1,51 +1,19 @@
 package com.bxx.util;
 
 public class Transcation {
-	private String Email;
-	private String AccountName;
-	private String Password;
-	private Double Balance;
 	private String TranscationNumber;
+	private String Type;
+	private String State;
+	private Double Time;
+	private String EWalletEMail;
 
-	public Transcation(String email, String accountName, String password, Double balance, String transcationNumber) {
+	public Transcation(String transcationNumber, String type, String state, Double time, String eWalletEMail) {
 		super();
-		Email = email;
-		AccountName = accountName;
-		Password = password;
-		Balance = balance;
 		TranscationNumber = transcationNumber;
-	}
-
-	public String getEmail() {
-		return Email;
-	}
-
-	public void setEmail(String email) {
-		Email = email;
-	}
-
-	public String getAccountName() {
-		return AccountName;
-	}
-
-	public void setAccountName(String accountName) {
-		AccountName = accountName;
-	}
-
-	public String getPassword() {
-		return Password;
-	}
-
-	public void setPassword(String password) {
-		Password = password;
-	}
-
-	public Double getBalance() {
-		return Balance;
-	}
-
-	public void setBalance(Double balance) {
-		Balance = balance;
+		Type = type;
+		State = state;
+		Time = time;
+		EWalletEMail = eWalletEMail;
 	}
 
 	public String getTranscationNumber() {
@@ -56,25 +24,57 @@ public class Transcation {
 		TranscationNumber = transcationNumber;
 	}
 
+	public String getType() {
+		return Type;
+	}
+
+	public void setType(String type) {
+		Type = type;
+	}
+
+	public String getState() {
+		return State;
+	}
+
+	public void setState(String state) {
+		State = state;
+	}
+
+	public Double getTime() {
+		return Time;
+	}
+
+	public void setTime(Double time) {
+		Time = time;
+	}
+
+	public String getEWalletEMail() {
+		return EWalletEMail;
+	}
+
+	public void setEWalletEMail(String eWalletEMail) {
+		EWalletEMail = eWalletEMail;
+	}
+
 	@Override
 	public String toString() {
 		String str = "";
-		if (this.getEmail() != null) {
-			str += String.format("and Email = '%s' ", this.getEmail());
-		}
-		if (this.getAccountName() != null) {
-			str += String.format("and AccountName = '%s' ", this.getAccountName());
-		}
-		if (this.getPassword() != null) {
-			str += String.format("and Password = '%s' ", this.getPassword());
-		}
-		if (this.getBalance() != null) {
-			str += String.format("and Balance = %f ", this.getBalance());
-		}
 		if (this.getTranscationNumber() != null) {
 			str += String.format("and TranscationNumber = '%s' ", this.getTranscationNumber());
 		}
-		if(str.equals(""))
+		if (this.getType() != null) {
+			str += String.format("and Type = '%s' ", this.getType());
+		}
+		if (this.getState() != null) {
+			str += String.format("and State = '%s' ", this.getState());
+		}
+		if (this.getTime() != null) {
+			str += String.format("and Balance = %f ", this.getTime());
+		}
+		if (this.getEWalletEMail() != null) {
+			str += String.format("and EWalletEMail = '%s' ", this.getEWalletEMail());
+		}
+		if (str.equals(""))
 			return str;
 		return str.substring(4);
 	}
