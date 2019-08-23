@@ -24,18 +24,7 @@ public class brandServlet extends HttpServlet {
 		lasturl = lasturl.substring(0, lasturl.lastIndexOf("."));
 		return lasturl;
 	}
-	/** @apiParam {json} register request body:
-		 * {
-		 * 	"email": xxx@xxx.com,
-		 *  "account": accountName,
-		 *  "password": pwd
-		 * } 
-		 * 
-		 * @apiSuccess {json} response body example
-		 * {
-		 * "result": true
-		 * }
-		 */
+
 	private Boolean register(JSONObject obj) {
 		String email = obj.get("email").toString(), 
 				account = obj.get("account").toString(),
@@ -48,20 +37,7 @@ public class brandServlet extends HttpServlet {
 		return succ;
 	}
 	
-	/** @apiParam {json} add request body:
-	 * {
-	 * 	"email": xxx@xxx.com,
-	 *  "account": accountName,
-	 *  "password": pwd
-	 * } 
-	 * 
-	 * @apiSuccess {json} response body example
-	 * {
-	 * "result": true
-	 * }
-	 */
 	private Boolean add(JSONObject obj) {
-		System.out.println("这是BrandServlet的Post请求中的add操作");
 		String chineseName = obj.get("chineseName").toString(),
 				englishName = obj.get("englishName").toString(),
 				introduction = obj.get("introduction").toString(),
@@ -69,6 +45,19 @@ public class brandServlet extends HttpServlet {
 				url = obj.getString("url").toString();
 		System.out.println(obj);
 		boolean succ = FuncSet.addFunc(chineseName, englishName, introduction, type, url);
+		System.out.println(succ);
+		obj.clear();
+		obj.fluentPut("result", succ);
+		return succ;
+	}
+	
+	private Boolean check(JSONObject obj) {
+		// TODO Auto-generated method stub
+		String cash = obj.get("cash").toString(),
+				password = obj.get("password").toString();
+				
+		System.out.println(obj);
+		boolean succ = FuncSet.checkFunc(cash, password);
 		System.out.println(succ);
 		obj.clear();
 		obj.fluentPut("result", succ);
@@ -111,11 +100,14 @@ public class brandServlet extends HttpServlet {
 		String type = this.parseRequestURI(req);
 		System.out.println(type);
 		switch(type) {
-		case "/register":
+		case "/register":    //注册公司
 			this.register(obj);
 			break;
-		case "/add":
+		case "/add":         //增加一个公司信息
 			this.add(obj);
+			break;
+		case "/check":     //提现
+			this.check(obj);
 			break;
 		default:
 			System.out.println("Not yet!");
@@ -127,4 +119,5 @@ public class brandServlet extends HttpServlet {
 
 	
 	}
+	
 }
