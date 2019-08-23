@@ -8,9 +8,11 @@ public class FuncSet {
 		DBOp op = new EWalletDBOp();
 		return op.insert(ew);
 	}
-	
-	public static boolean addCompany(String name, String type, String description, String renzheng) {
-		
+
+	public static boolean addFunc(String chineseName, String englishName, String introduction, String type,
+			String url) {
+		// TODO Auto-generated method stub
+		System.out.println("此处需要数据库增操作");
 		return false;
 	}
 }

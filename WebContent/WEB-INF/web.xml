@@ -21,4 +21,13 @@
         <servlet-name>sign</servlet-name>
         <url-pattern>*.sign</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>brand</servlet-name>
+        <servlet-class>com.bxx.servlet.brandServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>brand</servlet-name>
+        <url-pattern>*.brand</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

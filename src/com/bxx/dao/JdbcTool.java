@@ -3,8 +3,7 @@ package com.bxx.dao;
 import java.sql.*;
 
 public class JdbcTool {
-	//将databasePath改成自己电脑上数据库的 绝对路径
-	static final String databasePath = "jdbc:Access:///C:\\Users\\Cao Fang\\Desktop\\BingXiXi\\db.accdb";
+	static final String databasePath = "jdbc:Access:///C:/Users/Surface/Documents/GitHub/BingXiXi/db.accdb";
 	public static Connection conn;
 
 	static {

@@ -33,9 +33,9 @@
                 <h1 style="color: #2679b5;">品牌商<small><i class="icon-double-angle-right"></i> 钱包账号注册</small></h1>
             </div>
             <div class="Register">
-                <div><label class="green">账号:</label><input type="text"></div>
-                <div><label class="green">邮箱:</label><input type="text"></div>
-                <div><label class="green">密码:</label><input type="password"></div>
+                <div><label class="green">账号:</label><input id="account" type="text"></div>
+                <div><label class="green">邮箱:</label><input id="email" type="text"></div>
+                <div><label class="green">密码:</label><input id="password" type="password"></div>
                 <button class="btn  btn-success save" onclick="gotoWallet()">注册</button>
             </div>
 
@@ -43,7 +43,18 @@
     </div>
     <script type="text/javascript">
     function gotoWallet(){
-        window.location.href = "brand-gmcwallerAcount.html"
+    	 var email = $("#email").val();
+         var account = $("#account").val();
+         var password = $("#password").val();
+         var data = {
+             "email" : email,
+             "account": account,
+             "password": password
+         }
+         $.post("register.brand", JSON.stringify(data), function(data, status) {
+             console.log(data)
+             window.location.href = "brand-gmcwallerAcount.html"
+         })
     }
 
     </script>
