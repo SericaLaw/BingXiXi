@@ -1,4 +1,4 @@
-package com.bxx.util;
+package com.bxx.dao;
 
 import java.sql.*;
 

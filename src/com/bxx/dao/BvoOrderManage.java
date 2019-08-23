@@ -1,4 +1,4 @@
-package com.bxx.util;
+package com.bxx.dao;
 
 public class BvoOrderManage {
 	private String OrderNumber;
@@ -114,7 +114,7 @@ public class BvoOrderManage {
 			str += String.format("and OrderNumber = '%s' ", this.getOrderNumber());
 		}
 		if (this.getQTY() != null) {
-			str += String.format("and QTY = '%f' ", this.getQTY());
+			str += String.format("and QTY = %f ", this.getQTY());
 		}
 		if (this.getSku() != null) {
 			str += String.format("and Sku = '%s' ", this.getSku());
@@ -135,7 +135,7 @@ public class BvoOrderManage {
 			str += String.format("and RcvAddr = '%s' ", this.getRcvAddr());
 		}
 		if (this.getRcverTel() != null) {
-			str += String.format("and RcverTel = %s ", this.getRcverTel());
+			str += String.format("and RcverTel = '%s' ", this.getRcverTel());
 		}
 		if (this.getRcverZip() != null) {
 			str += String.format("and RcverZip = '%s' ", this.getRcverZip());

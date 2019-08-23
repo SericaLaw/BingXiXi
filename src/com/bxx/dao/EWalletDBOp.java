@@ -1,8 +1,10 @@
-package com.bxx.util;
+package com.bxx.dao;
 
-import com.bxx.util.JdbcTool;
 import java.util.ArrayList;
-import com.bxx.util.EWallet;
+
+import com.bxx.dao.EWallet;
+import com.bxx.dao.JdbcTool;
+
 import java.sql.*;
 
 public class EWalletDBOp extends DBOp {

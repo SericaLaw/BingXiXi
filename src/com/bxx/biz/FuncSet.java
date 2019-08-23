@@ -1,6 +1,6 @@
 package com.bxx.biz;
 
-import com.bxx.util.*;
+import com.bxx.dao.*;
 
 public class FuncSet {
 	public static boolean signUpFunc(String email, String account, String password) {
