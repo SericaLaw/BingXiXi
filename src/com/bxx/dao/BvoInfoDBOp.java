@@ -1,8 +1,10 @@
-package com.bxx.util;
+package com.bxx.dao;
 
-import com.bxx.util.JdbcTool;
 import java.util.ArrayList;
-import com.bxx.util.BvoInfo;
+
+import com.bxx.dao.BvoInfo;
+import com.bxx.dao.JdbcTool;
+
 import java.sql.*;
 
 public class BvoInfoDBOp extends DBOp {
@@ -19,7 +21,7 @@ public class BvoInfoDBOp extends DBOp {
 	public boolean delete(Object obj) {
 		BvoInfo bi = (BvoInfo) obj;
 		String sqlstmt = String.format("delete from BvoInfo where %s", bi.toString());
-		// System.out.println(sqlstmt);
+		 System.out.println(sqlstmt);
 		return JdbcTool.executeSql(sqlstmt);
 	}
 
