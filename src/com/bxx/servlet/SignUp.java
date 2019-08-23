@@ -14,6 +14,8 @@ import com.alibaba.*;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import com.bxx.biz.FuncSet;
+
 /**
  * Servlet implementation class SignUp
  */
@@ -70,8 +72,16 @@ public class SignUp extends HttpServlet {
 		}*/
 		JSONObject obj = JSON.parseObject(request.getReader().readLine());
 		System.out.println(obj);
+		String email = obj.get("email").toString(), 
+				account = obj.get("account").toString(),
+				password = obj.get("password").toString();
+		
+		
+		boolean succ = FuncSet.signUpFunc(email, account, password);
+		
+		
 		obj.clear();
-		obj.fluentPut("result", true);
+		obj.fluentPut("result", succ);
 		out.append(obj.toString());
 		out.flush();
 		out.close();
