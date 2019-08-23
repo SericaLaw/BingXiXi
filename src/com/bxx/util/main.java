@@ -29,7 +29,7 @@ public class main {
 
 		EWallet ew5 = new EWallet(null, "CF", null, null);
 		EWallet ew6 = new EWallet(null, null, null, null);
-		ArrayList<Object> arr = op.select(ew6);
+		ArrayList<Object> arr = op.select(ew6); 
 		for (Object item : arr) {
 			EWallet ee = (EWallet) item;
 			System.out.println(ee.toString());

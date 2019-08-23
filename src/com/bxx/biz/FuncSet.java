@@ -4,8 +4,8 @@ import com.bxx.util.*;
 
 public class FuncSet {
 	public static boolean signUpFunc(String email, String account, String password) {
-		EWallet ew = new EWallet(email, account, password, null, null);
-		DBOp op = new SignupDBOp();
+		EWallet ew = new EWallet(email, account, password, null);
+		DBOp op = new EWalletDBOp();
 		return op.insert(ew);
 	}
 }

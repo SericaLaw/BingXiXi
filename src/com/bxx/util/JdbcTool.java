@@ -3,7 +3,7 @@ package com.bxx.util;
 import java.sql.*;
 
 public class JdbcTool {
-	static final String databasePath = "jdbc:Access:///db.accdb";
+	static final String databasePath = "C:\\Users\\Surface\\Documents\\GitHub\\BingXiXi\\db.accdb";
 	public static Connection conn;
 
 	static {

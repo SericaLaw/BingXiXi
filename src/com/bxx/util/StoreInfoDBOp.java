@@ -2,13 +2,13 @@ package com.bxx.util;
 
 import com.bxx.util.JdbcTool;
 import java.util.ArrayList;
-import com.bxx.util.BvoInfo;
+import com.bxx.util.EWallet;
 import java.sql.*;
 
-public class BvoInfoDBOp extends DBOp {
+public class StoreInfoDBOp extends DBOp {
 	@Override
 	public boolean insert(Object obj) {
-		BvoOrderManage ew = (BvoOrderManage) obj;
+		EWallet ew = (EWallet) obj;
 		String sqlstmt = String.format("insert into EWallet values ('%s', '%s', '%s', %f)", ew.getEmail(),
 				ew.getAccountName(), ew.getPassword(), ew.getBalance());
 		// System.out.println(sqlstmt);

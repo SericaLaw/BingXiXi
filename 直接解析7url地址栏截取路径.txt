@@ -1,0 +1,10 @@
+/**
+ * 解析请求路径，获取到请求的路径，如【http://localhost/MySpringMVC/testServlet】--> 【/testServlet】
+ */
+private String pareRequestURI(HttpServletRequest request) {
+	String path = request.getContextPath();
+	String requestUri = request.getRequestURI();
+	String lasturl = requestUri.replaceFirst(path, "");
+	lasturl = lasturl.substring(0, lasturl.lastIndexOf("."));
+	return lasturl;
+}
