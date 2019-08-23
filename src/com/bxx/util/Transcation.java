@@ -1,17 +1,19 @@
 package com.bxx.util;
 
-public class EWallet {
+public class Transcation {
 	private String Email;
 	private String AccountName;
 	private String Password;
 	private Double Balance;
+	private String TranscationNumber;
 
-	public EWallet(String email, String accountName, String password, Double balance) {
+	public Transcation(String email, String accountName, String password, Double balance, String transcationNumber) {
 		super();
 		Email = email;
 		AccountName = accountName;
 		Password = password;
 		Balance = balance;
+		TranscationNumber = transcationNumber;
 	}
 
 	public String getEmail() {
@@ -46,6 +48,14 @@ public class EWallet {
 		Balance = balance;
 	}
 
+	public String getTranscationNumber() {
+		return TranscationNumber;
+	}
+
+	public void setTranscationNumber(String transcationNumber) {
+		TranscationNumber = transcationNumber;
+	}
+
 	@Override
 	public String toString() {
 		String str = "";
@@ -60,6 +70,9 @@ public class EWallet {
 		}
 		if (this.getBalance() != null) {
 			str += String.format("and Balance = %f ", this.getBalance());
+		}
+		if (this.getTranscationNumber() != null) {
+			str += String.format("and TranscationNumber = '%s' ", this.getTranscationNumber());
 		}
 		if(str.equals(""))
 			return str;
