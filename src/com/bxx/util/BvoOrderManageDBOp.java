@@ -7,29 +7,29 @@ import java.sql.*;
 
 public class BvoOrderManageDBOp extends DBOp {
 	@Override
-	public void insert(Object obj) {
+	public boolean insert(Object obj) {
 		EWallet ew = (EWallet) obj;
-		String sqlstmt = String.format("insert into EWallet values ('%s', '%s', '%s', %f, '%s')", ew.getEmail(),
-				ew.getAccountName(), ew.getPassword(), ew.getBalance(), ew.getTranscationNumber());
+		String sqlstmt = String.format("insert into EWallet values ('%s', '%s', '%s', %f)", ew.getEmail(),
+				ew.getAccountName(), ew.getPassword(), ew.getBalance());
 		// System.out.println(sqlstmt);
-		JdbcTool.executeSql(sqlstmt);
+		return JdbcTool.executeSql(sqlstmt);
 	}
 
 	@Override
-	public void delete(Object obj) {
+	public boolean delete(Object obj) {
 		EWallet ew = (EWallet) obj;
 		String sqlstmt = String.format("delete from EWallet where %s", ew.toString());
 		// System.out.println(sqlstmt);
-		JdbcTool.executeSql(sqlstmt);
+		return JdbcTool.executeSql(sqlstmt);
 	}
 
 	@Override
-	public void update(Object oldObj, Object newObj) {
+	public boolean update(Object oldObj, Object newObj) {
 		EWallet oldEw = (EWallet) oldObj, newEw = (EWallet) newObj;
 		String sqlstmt = String.format("update EWallet set %s where %s", newEw.toString().replaceAll("and", ","),
 				oldEw.toString());
 		// System.out.println(sqlstmt);
-		JdbcTool.executeSql(sqlstmt);
+		return JdbcTool.executeSql(sqlstmt);
 	}
 
 	@Override
@@ -45,8 +45,7 @@ public class BvoOrderManageDBOp extends DBOp {
 		ArrayList<Object> arr = new ArrayList<Object>();
 		try {
 			while (rs.next()) {
-				EWallet ewallet = new EWallet(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDouble(4),
-						rs.getString(5));
+				EWallet ewallet = new EWallet(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDouble(4));
 				arr.add(ewallet);
 			}
 		} catch (SQLException e) {

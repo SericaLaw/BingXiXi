@@ -19,13 +19,15 @@ public class JdbcTool {
 	/**
 	 * 执行sql 增删改 不包括查询
 	 */
-	public static void executeSql(String sql) {
+	public static boolean executeSql(String sql) {
 		try {
 			Statement st = (Statement) conn.createStatement();
 			st.execute(sql);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 	}
 

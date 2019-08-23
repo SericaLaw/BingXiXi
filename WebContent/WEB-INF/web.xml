@@ -13,5 +13,12 @@
         <servlet-name>my</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-
+	 <servlet>
+        <servlet-name>sign</servlet-name>
+        <servlet-class>com.bxx.servlet.SignUp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sign</servlet-name>
+        <url-pattern>*.sign</url-pattern>
+    </servlet-mapping>
 </web-app>
