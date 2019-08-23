@@ -57,6 +57,8 @@ public class SignUp extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("这是signUp servlet的一个请求");
+		
 		request.setCharacterEncoding("UTF-8");
 		response.setHeader("content-type","text/html;charset=UTF-8");
 		response.setHeader("Access-Control-Allow-Origin", "*");

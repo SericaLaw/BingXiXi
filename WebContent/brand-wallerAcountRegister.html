@@ -44,17 +44,17 @@
     <script type="text/javascript">
     function gotoWallet(){
     	 var email = $("#email").val();
-         var account = $("#account=").val();
+         var account = $("#account").val();
          var password = $("#password").val();
          var data = {
              "email" : email,
              "account": account,
              "password": password
          }
-         $.post("1.brand", JSON.stringify(data), function(data, status) {
+         $.post("register.brand", JSON.stringify(data), function(data, status) {
              console.log(data)
+             window.location.href = "brand-gmcwallerAcount.html"
          })
-        //window.location.href = "brand-gmcwallerAcount.html"
     }
 
     </script>
