@@ -1,80 +1,80 @@
 package com.bxx.util;
 
 public class StoreInfo {
-	private String Email;
-	private String AccountName;
-	private String Password;
-	private Double Balance;
-	private String TranscationNumber;
+	private String StoreName;
+	private String StoreUrl;
+	private String SellerID;
+	private String MarketID;
+	private String MWS;
 
-	public StoreInfo(String email, String accountName, String password, Double balance, String transcationNumber) {
+	public StoreInfo(String storeName, String storeUrl, String sellerID, String marketID, String mWS) {
 		super();
-		Email = email;
-		AccountName = accountName;
-		Password = password;
-		Balance = balance;
-		TranscationNumber = transcationNumber;
+		StoreName = storeName;
+		StoreUrl = storeUrl;
+		SellerID = sellerID;
+		MarketID = marketID;
+		MWS = mWS;
 	}
 
-	public String getEmail() {
-		return Email;
+	public String getStoreName() {
+		return StoreName;
 	}
 
-	public void setEmail(String email) {
-		Email = email;
+	public void setStoreName(String storeName) {
+		StoreName = storeName;
 	}
 
-	public String getAccountName() {
-		return AccountName;
+	public String getStoreUrl() {
+		return StoreUrl;
 	}
 
-	public void setAccountName(String accountName) {
-		AccountName = accountName;
+	public void setStoreUrl(String storeUrl) {
+		StoreUrl = storeUrl;
 	}
 
-	public String getPassword() {
-		return Password;
+	public String getSellerID() {
+		return SellerID;
 	}
 
-	public void setPassword(String password) {
-		Password = password;
+	public void setSellerID(String sellerID) {
+		SellerID = sellerID;
 	}
 
-	public Double getBalance() {
-		return Balance;
+	public String getMarketID() {
+		return MarketID;
 	}
 
-	public void setBalance(Double balance) {
-		Balance = balance;
+	public void setMarketID(String marketID) {
+		MarketID = marketID;
 	}
 
-	public String getTranscationNumber() {
-		return TranscationNumber;
+	public String getMWS() {
+		return MWS;
 	}
 
-	public void setTranscationNumber(String transcationNumber) {
-		TranscationNumber = transcationNumber;
+	public void setMWS(String mWS) {
+		MWS = mWS;
 	}
 
 	@Override
 	public String toString() {
 		String str = "";
-		if (this.getEmail() != null) {
-			str += String.format("and Email = '%s' ", this.getEmail());
+		if (this.getStoreName() != null) {
+			str += String.format("and StoreName = '%s' ", this.getStoreName());
 		}
-		if (this.getAccountName() != null) {
-			str += String.format("and AccountName = '%s' ", this.getAccountName());
+		if (this.getStoreUrl() != null) {
+			str += String.format("and StoreUrl = '%s' ", this.getStoreUrl());
 		}
-		if (this.getPassword() != null) {
-			str += String.format("and Password = '%s' ", this.getPassword());
+		if (this.getSellerID() != null) {
+			str += String.format("and SellerID = '%s' ", this.getSellerID());
 		}
-		if (this.getBalance() != null) {
-			str += String.format("and Balance = %f ", this.getBalance());
+		if (this.getMarketID() != null) {
+			str += String.format("and MarketID = %s ", this.getMarketID());
 		}
-		if (this.getTranscationNumber() != null) {
-			str += String.format("and TranscationNumber = '%s' ", this.getTranscationNumber());
+		if (this.getMWS() != null) {
+			str += String.format("and MWS = '%s' ", this.getMWS());
 		}
-		if(str.equals(""))
+		if (str.equals(""))
 			return str;
 		return str.substring(4);
 	}

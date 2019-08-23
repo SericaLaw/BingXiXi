@@ -1,80 +1,146 @@
 package com.bxx.util;
 
 public class BvoOrderManage {
-	private String Email;
-	private String AccountName;
-	private String Password;
-	private Double Balance;
-	private String TranscationNumber;
+	private String OrderNumber;
+	private Double QTY;
+	private String Sku;
+	private Double TotalPrice;
+	private String TrackNumber;
+	private String State;
+	private String RcverName;
+	private String RcvAddr;
+	private String RcverTel;
+	private String RcverZip;
 
-	public BvoOrderManage(String email, String accountName, String password, Double balance, String transcationNumber) {
+	public BvoOrderManage(String orderNumber, Double qTY, String sku, Double totalPrice, String trackNumber,
+			String state, String rcverName, String rcvAddr, String rcverTel, String rcverZip) {
 		super();
-		Email = email;
-		AccountName = accountName;
-		Password = password;
-		Balance = balance;
-		TranscationNumber = transcationNumber;
+		OrderNumber = orderNumber;
+		QTY = qTY;
+		Sku = sku;
+		TotalPrice = totalPrice;
+		TrackNumber = trackNumber;
+		State = state;
+		RcverName = rcverName;
+		RcvAddr = rcvAddr;
+		RcverTel = rcverTel;
+		RcverZip = rcverZip;
 	}
 
-	public String getEmail() {
-		return Email;
+	public String getOrderNumber() {
+		return OrderNumber;
 	}
 
-	public void setEmail(String email) {
-		Email = email;
+	public void setOrderNumber(String orderNumber) {
+		OrderNumber = orderNumber;
 	}
 
-	public String getAccountName() {
-		return AccountName;
+	public Double getQTY() {
+		return QTY;
 	}
 
-	public void setAccountName(String accountName) {
-		AccountName = accountName;
+	public void setQTY(Double qTY) {
+		QTY = qTY;
 	}
 
-	public String getPassword() {
-		return Password;
+	public String getSku() {
+		return Sku;
 	}
 
-	public void setPassword(String password) {
-		Password = password;
+	public void setSku(String sku) {
+		Sku = sku;
 	}
 
-	public Double getBalance() {
-		return Balance;
+	public Double getTotalPrice() {
+		return TotalPrice;
 	}
 
-	public void setBalance(Double balance) {
-		Balance = balance;
+	public void setTotalPrice(Double totalPrice) {
+		TotalPrice = totalPrice;
 	}
 
-	public String getTranscationNumber() {
-		return TranscationNumber;
+	public String getTrackNumber() {
+		return TrackNumber;
 	}
 
-	public void setTranscationNumber(String transcationNumber) {
-		TranscationNumber = transcationNumber;
+	public void setTrackNumber(String trackNumber) {
+		TrackNumber = trackNumber;
+	}
+
+	public String getState() {
+		return State;
+	}
+
+	public void setState(String state) {
+		State = state;
+	}
+
+	public String getRcverName() {
+		return RcverName;
+	}
+
+	public void setRcverName(String rcverName) {
+		RcverName = rcverName;
+	}
+
+	public String getRcvAddr() {
+		return RcvAddr;
+	}
+
+	public void setRcvAddr(String rcvAddr) {
+		RcvAddr = rcvAddr;
+	}
+
+	public String getRcverTel() {
+		return RcverTel;
+	}
+
+	public void setRcverTel(String rcverTel) {
+		RcverTel = rcverTel;
+	}
+
+	public String getRcverZip() {
+		return RcverZip;
+	}
+
+	public void setRcverZip(String rcverZip) {
+		RcverZip = rcverZip;
 	}
 
 	@Override
 	public String toString() {
 		String str = "";
-		if (this.getEmail() != null) {
-			str += String.format("and Email = '%s' ", this.getEmail());
+		if (this.getOrderNumber() != null) {
+			str += String.format("and OrderNumber = '%s' ", this.getOrderNumber());
 		}
-		if (this.getAccountName() != null) {
-			str += String.format("and AccountName = '%s' ", this.getAccountName());
+		if (this.getQTY() != null) {
+			str += String.format("and QTY = '%f' ", this.getQTY());
 		}
-		if (this.getPassword() != null) {
-			str += String.format("and Password = '%s' ", this.getPassword());
+		if (this.getSku() != null) {
+			str += String.format("and Sku = '%s' ", this.getSku());
 		}
-		if (this.getBalance() != null) {
-			str += String.format("and Balance = %f ", this.getBalance());
+		if (this.getTotalPrice() != null) {
+			str += String.format("and TotalPrice = %f ", this.getTotalPrice());
 		}
-		if (this.getTranscationNumber() != null) {
-			str += String.format("and TranscationNumber = '%s' ", this.getTranscationNumber());
+		if (this.getTrackNumber() != null) {
+			str += String.format("and TrackNumber = '%s' ", this.getTrackNumber());
 		}
-		if(str.equals(""))
+		if (this.getState() != null) {
+			str += String.format("and State = '%s' ", this.getState());
+		}
+		if (this.getRcverName() != null) {
+			str += String.format("and RcverName = '%s' ", this.getRcverName());
+		}
+		if (this.getRcvAddr() != null) {
+			str += String.format("and RcvAddr = '%s' ", this.getRcvAddr());
+		}
+		if (this.getRcverTel() != null) {
+			str += String.format("and RcverTel = %s ", this.getRcverTel());
+		}
+		if (this.getRcverZip() != null) {
+			str += String.format("and RcverZip = '%s' ", this.getRcverZip());
+		}
+		if (str.equals(""))
 			return str;
 		return str.substring(4);
 	}
