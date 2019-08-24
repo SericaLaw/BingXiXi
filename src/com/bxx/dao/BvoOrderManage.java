@@ -2,17 +2,22 @@ package com.bxx.dao;
 
 public class BvoOrderManage {
 	private String OrderNumber;
-	private Double QTY;
+	private Integer QTY;
 	private String Sku;
 	private Double TotalPrice;
 	private String TrackNumber;
-	private String State;
+	private String State;//Awaiting Payment, Awaiting Shipment, Shiped, Completed Orders, Cancelled Orders
 	private String RcverName;
 	private String RcvAddr;
 	private String RcverTel;
 	private String RcverZip;
 
-	public BvoOrderManage(String orderNumber, Double qTY, String sku, Double totalPrice, String trackNumber,
+	public BvoOrderManage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public BvoOrderManage(String orderNumber, Integer qTY, String sku, Double totalPrice, String trackNumber,
 			String state, String rcverName, String rcvAddr, String rcverTel, String rcverZip) {
 		super();
 		OrderNumber = orderNumber;
@@ -35,11 +40,11 @@ public class BvoOrderManage {
 		OrderNumber = orderNumber;
 	}
 
-	public Double getQTY() {
+	public Integer getQTY() {
 		return QTY;
 	}
 
-	public void setQTY(Double qTY) {
+	public void setQTY(Integer qTY) {
 		QTY = qTY;
 	}
 

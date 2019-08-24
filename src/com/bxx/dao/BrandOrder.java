@@ -9,8 +9,13 @@ public class BrandOrder {
 	private String Sku;
 	private Date Time;
 	private String TrackNumber;
-	private String State;
+	private String State;//待支付，待发货，已发货，已完成，已取消
 	private String BvoStore;
+
+	public BrandOrder() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public BrandOrder(String orderNumber, Integer qTY, String sku, Date time, String trackNumber, String state,
 			String bvoStore) {
@@ -48,6 +53,10 @@ public class BrandOrder {
 		Sku = sku;
 	}
 
+	public Date getTime_Date() {
+		return Time;
+	}
+	
 	public String getTime() {
 		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		if (Time == null)
