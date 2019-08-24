@@ -1,4 +1,4 @@
-package com.bxx.util;
+package com.bxx.dao;
 
 public class BvoInfo {
 	private String SellerID;
@@ -59,7 +59,7 @@ public class BvoInfo {
 			str += String.format("and EMail = '%s' ", this.getEMail());
 		}
 		if (this.getSellerName() != null) {
-			str += String.format("and SellerName = %s ", this.getSellerName());
+			str += String.format("and SellerName = '%s' ", this.getSellerName());
 		}
 		if (str.equals(""))
 			return str;

@@ -1,0 +1,15 @@
+boolean FuncSet.addFunc(String chineseName, String englishName, String introduction, String type, String url);
+//brand-addbrand.html品牌商-公司信息（保存），需要增操作
+//修改操作会跳转到这，此时需要显示之前的信息
+
+boolean FuncSet.UpdateFunc(String chineseName, String englishName, String introduction, String type, String url);
+//brand-addbrand.html品牌商-公司信息修改，需要改操作
+
+boolean FuncSet.addFunc(String brandName, 图片);
+//brand-addbrand.html品牌商-品牌信息增加，需要增操作
+
+boolean FuncSet.UpdateFunc(String brandName, 图片);
+//brand-addbrand.html品牌商-品牌信息修改，需要改操作
+
+boolean FuncSet.deleteFunc(String brandName, 图片);
+//brand-addbrand.html品牌商-品牌信息删除，需要删操作

@@ -70,20 +70,20 @@
             <div class="control-group">
               <label class="control-label" for="form-field-1">提现：$</label>
               <div class="controls">
-                <input type="text" id="form-field-1" >
+                <input type="text" id="cash" >
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="form-field-1">密码：</label>
               <div class="controls">
-                <input tid="form-field-1" type="password">
+                <input id="password" type="password">
               </div>
             </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+        <button type="button" class="btn btn-primary" id="check" data-dismiss="modal">确认</button>
       </div>
     </div>
   </div>
@@ -95,7 +95,17 @@
     <script src="js/jquery-1.9.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
-      $(function(){
+      $('#check').click(function(){
+    	  var cash = $("#cash").val();
+          var password = $("#password").val();
+          var data = {
+              "cash" : cash,
+              "password": password
+          }
+          $.post("check.brand", JSON.stringify(data), function(data, status) {
+              console.log(data)
+              window.location.href = "brand-brandInput.html";
+          })
 
 })
 

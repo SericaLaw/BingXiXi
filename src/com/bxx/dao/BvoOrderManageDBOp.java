@@ -1,8 +1,10 @@
-package com.bxx.util;
+package com.bxx.dao;
 
-import com.bxx.util.JdbcTool;
 import java.util.ArrayList;
-import com.bxx.util.BvoOrderManage;
+
+import com.bxx.dao.BvoOrderManage;
+import com.bxx.dao.JdbcTool;
+
 import java.sql.*;
 
 public class BvoOrderManageDBOp extends DBOp {

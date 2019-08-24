@@ -1,4 +1,4 @@
-package com.bxx.util;
+package com.bxx.dao;
 
 public class StoreInfo {
 	private String StoreName;
@@ -69,7 +69,7 @@ public class StoreInfo {
 			str += String.format("and SellerID = '%s' ", this.getSellerID());
 		}
 		if (this.getMarketID() != null) {
-			str += String.format("and MarketID = %s ", this.getMarketID());
+			str += String.format("and MarketID = '%s' ", this.getMarketID());
 		}
 		if (this.getMWS() != null) {
 			str += String.format("and MWS = '%s' ", this.getMWS());

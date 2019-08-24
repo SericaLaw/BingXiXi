@@ -1,9 +1,10 @@
-package com.bxx.util;
+package com.bxx.dao;
 
-import com.bxx.util.JdbcTool;
 import java.util.ArrayList;
 
-import com.bxx.util.StoreInfo;
+import com.bxx.dao.JdbcTool;
+import com.bxx.dao.StoreInfo;
+
 import java.sql.*;
 
 public class StoreInfoDBOp extends DBOp {
