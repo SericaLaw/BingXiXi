@@ -192,4 +192,21 @@ public class FuncBorrow {
 		return op.update(bom, newBom);
 	}
 
+	public static boolean deposit(String password, double money) //若password正确，且余额充足，返回true
+	{
+		return true;
+	}
+
+	public static ArrayList<Message> record() // 返回钱包流水的Transaction Number、Available Money、Create Time、State
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static boolean changePassword(String oldPassword, String newPassword)  //修改密码，若旧密码正确，则返回true
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

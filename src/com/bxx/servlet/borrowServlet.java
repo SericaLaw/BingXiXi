@@ -62,13 +62,41 @@ public class borrowServlet extends HttpServlet {
 		System.out.println(obj);
 		String type=parseRequestURI(request);
 		ArrayList<Message> result;
+		String email=null,account=null,password=null;
+		boolean succ=null;
 		switch (type)
 		{
 			case "/signUp":
-				String email = obj.get("email").toString(), 
-				account = obj.get("account").toString(),
+				email = obj.get("email").toString();
+				account = obj.get("account").toString();
 				password = obj.get("password").toString();
-				boolean succ = FuncBorrow.signUpFunc(email, account, password);
+				succ = FuncBorrow.signUpFunc(email, account, password);
+				obj.clear();
+				obj.fluentPut("result", succ);
+				out.append(obj.toString());
+				out.flush();
+				out.close();
+				break;
+			case "/deposit":
+				password=obj.getString("password");
+				double money=obj.getDoubleValue("deposit");
+				succ=FuncBorrow.deposit(password,money);
+				obj.clear();
+				obj.fluentPut("result", succ);
+				out.append(obj.toString());
+				out.flush();
+				out.close();
+				break;
+			case "/record":
+				result=FuncBorrow.record();
+				out.append(JSON.toJSONString(result));
+				out.flush();
+				out.close();
+				break;
+			case "/changePassword":
+				String newPassword=obj.getString("newPassword");
+				String oldPassword=obj.getString("oldPassword");
+				succ=FuncBorrow.changePassword(oldPassword,newPassword);
 				obj.clear();
 				obj.fluentPut("result", succ);
 				out.append(obj.toString());
