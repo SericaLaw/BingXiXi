@@ -51,19 +51,19 @@
           <form class="form-horizontal">
 
             <div class="control-group">
-              <label class="control-label" for="form-field-1">Company Name<br>公司名称(中)</label>
+              <label class="control-label" for="ChineseName">Company Name<br>公司名称(中)</label>
               <div class="controls">
-                <input type="text" id="chineseName" >
+                <input type="text" id="ChineseName" >
               </div>
             </div>
            <div class="control-group">
-                  <label class="control-label" for="form-field-1">Company Name<br>公司名称(英)</label>
+                  <label class="control-label" for="EnglishName">Company Name<br>公司名称(英)</label>
                   <div class="controls">
-                    <input type="text" id="englishName" >
+                    <input type="text" id="EnglishName" >
                   </div>
                 </div>
             <div class="control-group">
-              <label class="control-label" for="form-field-1">Brief Introduction<br>公司简介</label>
+              <label class="control-label" for="BriefIntroduction">Brief Introduction<br>公司简介</label>
               <div class="controls">
                   <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
                       <div class="btn-group">
@@ -103,7 +103,7 @@
                           <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
                           <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
                       </div>
-                      <input type="text" data-edit="inserttext" id="introduction" x-webkit-speech="">
+                      <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
                   </div>
 
                   <div id="editor">
@@ -113,24 +113,24 @@
             </div>
 
             <div class="control-group">
-              <label class="control-label" for="form-field-1">GMC Report Type<br> 品牌商认证类型</label>
+              <label class="control-label" for="GMCType">GMC Report Type<br> 品牌商认证类型</label>
               <div class="controls">
-                <input type="text" id="type">
+                <input type="text" id="GMCType">
               </div>
             </div>
 
             <div class="control-group">
-              <label class="control-label" for="form-field-1">GMC Report Url<br>证书地址</label>
+              <label class="control-label" for="GMCUrl">GMC Report Url<br>证书地址</label>
               <div class="controls">
-                <input type="text" id="url">
+                <input type="text" id="GMCUrl">
               </div>
             </div>
 
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" id="btnsave" >保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">取消</button>
+        <button type="button" class="btn btn-primary" id="btnsave">保存</button>
       </div>
     </div>
   </div>
@@ -173,54 +173,33 @@
             $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+
                     '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
         };
-
         initToolbarBootstrapBindings();
         $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
+        $('#cancel').click(function(){
+        	$("#ChineseName").val("");
+        	$("#EnglishName").val("");
+        	$("#editor").text("输入内容...");
+        	$("#GMCType").val("");
+        	$("#GMCUrl").val("");
+        });
         $('#btnsave').click(function () {
-        	 var chineseName = $("#chineseName").val();
-             var englishName = $("#englishName").val();
-             var introduction = $("#introduction").val();
-             var type = $("#type").val();
-             var url = $("#url").val();
-             var data = {
-                 "chineseName" : chineseName,
-                 "englishName": englishName,
-                 "introduction": introduction,
-                 "type": type,
-                 "url": url
-             }
-             $.post("add.brand", JSON.stringify(data), function(data, status) {
-                 console.log(data)
-                 window.location.href = "brand-brandInput.html";
-             })
-            
+        	var name_1=$("#ChineseName").val();
+        	var name_2=$("#EnglishName").val();
+        	var introduction=$("#editor").text();
+        	var GMCtype=$("#GMCType").val();
+        	var GMCurl=$("#GMCUrl").val();
+        	var data={
+        			"chineseName":name_1,
+        			"englishName":name_2,
+        			"introduction":introduction,
+        			"type":GMCtype,
+        			"url":GMCurl
+        	}
+        	var data_1=JSON.stringify(data);
+        	$.post("addCompany.brand",JSON.stringify(data),function(){
+                window.location.href = "brand-brandInput.html?data="+data_1;;
+        	});
         })
-      </script>
-      <script>
-        $(document).ready(function(){
-          initToolbarBootstrapBindings();
-          $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
-          $('#btnsave').click(function () {
-            var chineseName = $("#chineseName").val();
-              var englishName = $("#englishName").val();
-              var introduction = $("#introduction").val();
-              var type = $("type").val();
-              var url = $("url").val();
-              var data = {
-                  "chineseName" : chineseName,
-                  "englishName": englishName,
-                  "introduction": introduction,
-                  "type": type,
-                  "url": url
-              }
-              $.post("addCompany.brand", JSON.stringify(data), function(data, status) {
-                  console.log(data)
-                  window.location.href = "brand-brandInput.html";
-              })
-              
-          })
-        })
-        
-        </script>
+    </script>
     </body>
 </html>

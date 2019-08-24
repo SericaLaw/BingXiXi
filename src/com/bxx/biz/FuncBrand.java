@@ -14,7 +14,7 @@ import com.bxx.dao.*;
 
 public class FuncBrand {
 	public static void main(String[] args) {
-		// boolean succ = addCompanyFunc("ä¸­æ–‡å", "name", "introduction", "type", "url");
+		// boolean succ = addCompanyFunc("ÖĞÎÄÃû", "name", "introduction", "type", "url");
 		// boolean succ = checkCashFunc("123@qq.com", 600.0, "1234567");
 		// boolean succ = addGoods("12345", 1.1, 2.2, 3.3, 4.4, null, null, null, null,
 		// null, null, null, null, null, null, null, null);
@@ -35,10 +35,10 @@ public class FuncBrand {
 		// System.out.println("success");
 	}
 
-	// å¢åŠ ä¸€ä¸ªå…¬å¸ä¿¡æ¯
+	// Ôö¼ÓÒ»¸ö¹«Ë¾ĞÅÏ¢
 
 	public static Boolean addCompanyFunc(String chineseName, String englishName, String introduction, String type,
-			String url) {
+										 String url) {
 		DBOp op = new BrandInfoDBOp();
 		BrandInfo binfo = new BrandInfo(chineseName, introduction, type, url);
 		if (chineseName == null || chineseName == "" || introduction == null || introduction == "" || type == null
@@ -49,7 +49,7 @@ public class FuncBrand {
 		return true;
 	}
 
-	// æç°ï¼Œæ£€æŸ¥å¯†ç æ˜¯å¦æ­£ç¡®ï¼Œæç°çš„é‡‘é¢æ˜¯å¦æ­£ç¡®
+	// ÌáÏÖ£¬¼ì²éÃÜÂëÊÇ·ñÕıÈ·£¬ÌáÏÖµÄ½ğ¶îÊÇ·ñÕıÈ·
 	public static Boolean checkCashFunc(String email, Double cash, String password) {
 		EWallet ew = new EWallet();
 		ew.setEmail(email);
@@ -83,7 +83,7 @@ public class FuncBrand {
 		}
 	}
 
-	// æç°æµæ°´
+	// ÌáÏÖÁ÷Ë®
 	public static ArrayList<CashMessage> displayCashFunc(String email) {
 		ArrayList<Object> orders = new ArrayList<Object>();
 		ArrayList<CashMessage> result = new ArrayList<CashMessage>();
@@ -105,7 +105,7 @@ public class FuncBrand {
 		return result;
 	}
 
-	// é€šè¿‡å•†å“æ ‡é¢˜æŸ¥æ‰¾å•†å“ä¿¡æ¯
+	// Í¨¹ıÉÌÆ·±êÌâ²éÕÒÉÌÆ·ĞÅÏ¢
 	public static ArrayList<GoodsMessage> searchGoods(String name) {
 		DBOp op = new BrandGoodsDBOp();
 		ArrayList<GoodsMessage> goods = new ArrayList<GoodsMessage>();
@@ -129,10 +129,10 @@ public class FuncBrand {
 		return goods;
 	}
 
-	// å¢åŠ ä¸€ä»¶å•†å“
+	// Ôö¼ÓÒ»¼şÉÌÆ·
 	public static Boolean addGoods(String sku, Double weight, Double width, Double height, Double length, String title,
-			String upc, String ena, String model, Double price, String eBayDescription, String amazonDescription,
-			String warranty, String state, String brandName, String category, String picUrl) {
+								   String upc, String ena, String model, Double price, String eBayDescription, String amazonDescription,
+								   String warranty, String state, String brandName, String category, String picUrl) {
 		DBOp op = new BrandGoodsDBOp();
 		BrandGoods bg = new BrandGoods(sku, weight, width, height, length, title, upc, ena, model, price,
 				eBayDescription, amazonDescription, warranty, state, brandName, category, picUrl);
@@ -143,7 +143,7 @@ public class FuncBrand {
 		return true;
 	}
 
-	// æ ¹æ®å•†å“skuç åˆ é™¤å•†å“
+	// ¸ù¾İÉÌÆ·skuÂëÉ¾³ıÉÌÆ·
 	public static Boolean deleteGoods(String sku) {
 		BrandGoods bg = new BrandGoods();
 		bg.setSku(sku);
@@ -156,7 +156,7 @@ public class FuncBrand {
 		return true;
 	}
 
-	// æ ¹æ®è®¢å•ç¼–å·è¿›è¡Œå‘è´§
+	// ¸ù¾İ¶©µ¥±àºÅ½øĞĞ·¢»õ
 	public static Boolean delivery(String orderNumber) {
 		DBOp op = new BrandOrderDBOp();
 		BrandOrder bo = new BrandOrder(orderNumber, null, null, null, null, null, null);
@@ -166,7 +166,7 @@ public class FuncBrand {
 		return true;
 	}
 
-	// æ ¹æ®è®¢å•ç¼–å·è¿›è¡Œå–æ¶ˆè®¢å•
+	// ¸ù¾İ¶©µ¥±àºÅ½øĞĞÈ¡Ïû¶©µ¥
 	public static Boolean cancelOrder(String orderNumber) {
 		DBOp op = new BrandOrderDBOp();
 		BrandOrder bo = new BrandOrder(orderNumber, null, null, null, null, null, null);
@@ -177,7 +177,7 @@ public class FuncBrand {
 		return true;
 	}
 
-	// å•†å“å…¥ä»“
+	// ÉÌÆ·Èë²Ö
 	public static Boolean PutinStorage(String sku) {
 		BrandGoods bg = new BrandGoods();
 		bg.setSku(sku);
@@ -193,7 +193,7 @@ public class FuncBrand {
 		return true;
 	}
 
-	// å•†å“ä¸Šæ¶
+	// ÉÌÆ·ÉÏ¼Ü
 	public static Boolean PutWay(String sku) {
 		BrandGoods bg = new BrandGoods();
 		bg.setSku(sku);
@@ -209,7 +209,7 @@ public class FuncBrand {
 		return true;
 	}
 
-	// å•†å“ä¸‹æ¶
+	// ÉÌÆ·ÏÂ¼Ü
 	public static Boolean SoldOut(String sku) {
 		BrandGoods bg = new BrandGoods();
 		bg.setSku(sku);
@@ -225,7 +225,7 @@ public class FuncBrand {
 		return true;
 	}
 
-	// å“ç‰Œå•†è®¢å•æœç´¢
+	// Æ·ÅÆÉÌ¶©µ¥ËÑË÷
 	public static ArrayList<GoodsMessage> requestList(String type) {
 		ArrayList<Object> goods = new ArrayList<Object>();
 		ArrayList<GoodsMessage> goodsmessage = new ArrayList<GoodsMessage>();
@@ -234,75 +234,75 @@ public class FuncBrand {
 		BrandGoods bg = new BrandGoods();
 		GoodsMessage goodsmess = new GoodsMessage();
 		switch (type) {
-		case StateName.Cancelled:// è¯·æ±‚å·²å–æ¶ˆçš„å•†å“åˆ—è¡¨
-			bo.setState(StateName.Cancelled);
-			goods = op.select(bo);
+			case StateName.Cancelled:// ÇëÇóÒÑÈ¡ÏûµÄÉÌÆ·ÁĞ±í
+				bo.setState(StateName.Cancelled);
+				goods = op.select(bo);
 
-			for (Object obj : goods) {
-				String sku = (((BrandOrder) obj).getSku());
-				bg.setSku(sku);
-				goodsmess.setTitle(bg.getBrandName());
-				goodsmess.setPrice(bg.getPrice());
-				goodsmess.setQTY(((BrandOrder) obj).getQTY());
-				goodsmess.setSku(((BrandOrder) obj).getSku());
-				goodsmess.setOrderNumber(((BrandOrder) obj).getOrderNumber());
-				goodsmessage.add(goodsmess);
-			}
-			break;
-		case StateName.Completed: // è¯·æ±‚å·²å®Œæˆçš„å•†å“åˆ—è¡¨
-			bo.setState(StateName.Completed);
-			goods = op.select(bo);
-			for (Object obj : goods) {
-				String sku = (((BrandOrder) obj).getSku());
-				bg.setSku(sku);
-				goodsmess.setTitle(bg.getBrandName());
-				goodsmess.setPrice(bg.getPrice());
-				goodsmess.setQTY(((BrandOrder) obj).getQTY());
-				goodsmess.setSku(((BrandOrder) obj).getSku());
-				goodsmess.setOrderNumber(((BrandOrder) obj).getOrderNumber());
-				goodsmess.setTime((java.sql.Date) ((BrandOrder) obj).getTime_Date());
-				goodsmess.setTrackNumber(((BrandOrder) obj).getTrackNumber());
+				for (Object obj : goods) {
+					String sku = (((BrandOrder) obj).getSku());
+					bg.setSku(sku);
+					goodsmess.setTitle(bg.getBrandName());
+					goodsmess.setPrice(bg.getPrice());
+					goodsmess.setQTY(((BrandOrder) obj).getQTY());
+					goodsmess.setSku(((BrandOrder) obj).getSku());
+					goodsmess.setOrderNumber(((BrandOrder) obj).getOrderNumber());
+					goodsmessage.add(goodsmess);
+				}
+				break;
+			case StateName.Completed: // ÇëÇóÒÑÍê³ÉµÄÉÌÆ·ÁĞ±í
+				bo.setState(StateName.Completed);
+				goods = op.select(bo);
+				for (Object obj : goods) {
+					String sku = (((BrandOrder) obj).getSku());
+					bg.setSku(sku);
+					goodsmess.setTitle(bg.getBrandName());
+					goodsmess.setPrice(bg.getPrice());
+					goodsmess.setQTY(((BrandOrder) obj).getQTY());
+					goodsmess.setSku(((BrandOrder) obj).getSku());
+					goodsmess.setOrderNumber(((BrandOrder) obj).getOrderNumber());
+					goodsmess.setTime((java.sql.Date) ((BrandOrder) obj).getTime_Date());
+					goodsmess.setTrackNumber(((BrandOrder) obj).getTrackNumber());
 
-				goodsmessage.add(goodsmess);
-			}
-			break;
-		case StateName.Shiped: // è¯·æ±‚å·²å‘è´§çš„å•†å“åˆ—è¡¨
-			bo.setState(StateName.Shiped);
-			goods = op.select(bo);
-			for (Object obj : goods) {
-				String sku = (((BrandOrder) obj).getSku());
-				bg.setSku(sku);
-				goodsmess.setTitle(bg.getBrandName());
-				goodsmess.setPrice(bg.getPrice());
-				goodsmess.setQTY(((BrandOrder) obj).getQTY());
-				goodsmess.setSku(((BrandOrder) obj).getSku());
-				goodsmess.setOrderNumber(((BrandOrder) obj).getOrderNumber());
-				goodsmess.setTime((java.sql.Date) ((BrandOrder) obj).getTime_Date());
-				goodsmess.setTrackNumber(((BrandOrder) obj).getTrackNumber());
-				goodsmessage.add(goodsmess);
-			}
-			break;
-		case StateName.AwaitingShipment: // è¯·æ±‚å¾…å‘è´§çš„å•†å“åˆ—è¡¨
-			bo.setState(StateName.AwaitingShipment);
-			goods = op.select(bo);
-			for (Object obj : goods) {
-				String sku = (((BrandOrder) obj).getSku());
-				bg.setSku(sku);
-				goodsmess.setTitle(bg.getBrandName());
-				goodsmess.setPrice(bg.getPrice());
-				goodsmess.setQTY(((BrandOrder) obj).getQTY());
-				goodsmess.setSku(((BrandOrder) obj).getSku());
-				goodsmess.setOrderNumber(((BrandOrder) obj).getOrderNumber());
-				goodsmess.setTime((java.sql.Date) ((BrandOrder) obj).getTime_Date());
-				goodsmessage.add(goodsmess);
-			}
-			break;
+					goodsmessage.add(goodsmess);
+				}
+				break;
+			case StateName.Shiped: // ÇëÇóÒÑ·¢»õµÄÉÌÆ·ÁĞ±í
+				bo.setState(StateName.Shiped);
+				goods = op.select(bo);
+				for (Object obj : goods) {
+					String sku = (((BrandOrder) obj).getSku());
+					bg.setSku(sku);
+					goodsmess.setTitle(bg.getBrandName());
+					goodsmess.setPrice(bg.getPrice());
+					goodsmess.setQTY(((BrandOrder) obj).getQTY());
+					goodsmess.setSku(((BrandOrder) obj).getSku());
+					goodsmess.setOrderNumber(((BrandOrder) obj).getOrderNumber());
+					goodsmess.setTime((java.sql.Date) ((BrandOrder) obj).getTime_Date());
+					goodsmess.setTrackNumber(((BrandOrder) obj).getTrackNumber());
+					goodsmessage.add(goodsmess);
+				}
+				break;
+			case StateName.AwaitingShipment: // ÇëÇó´ı·¢»õµÄÉÌÆ·ÁĞ±í
+				bo.setState(StateName.AwaitingShipment);
+				goods = op.select(bo);
+				for (Object obj : goods) {
+					String sku = (((BrandOrder) obj).getSku());
+					bg.setSku(sku);
+					goodsmess.setTitle(bg.getBrandName());
+					goodsmess.setPrice(bg.getPrice());
+					goodsmess.setQTY(((BrandOrder) obj).getQTY());
+					goodsmess.setSku(((BrandOrder) obj).getSku());
+					goodsmess.setOrderNumber(((BrandOrder) obj).getOrderNumber());
+					goodsmess.setTime((java.sql.Date) ((BrandOrder) obj).getTime_Date());
+					goodsmessage.add(goodsmess);
+				}
+				break;
 		}
 
 		return goodsmessage;
 	}
 
-	// ä¿®æ”¹å•†å“ä¿¡æ¯
+	// ĞŞ¸ÄÉÌÆ·ĞÅÏ¢
 	public static boolean updateGoods(String oldtitle, String title, String category, String picUrl) {
 		DBOp op = new BrandGoodsDBOp();
 		BrandGoods bg = new BrandGoods();

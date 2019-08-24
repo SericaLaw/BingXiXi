@@ -159,6 +159,7 @@ public class brandServlet extends HttpServlet {
 	private ArrayList<GoodsMessage> requestWaitingForDeliveryList(JSONObject obj) {
 		System.out.println("这是请求待发货商品列表");
 		ArrayList<GoodsMessage> goods = FuncBrand.requestList(StateName.AwaitingShipment);
+		System.out.println(goods.toString());
 		return goods;
 	}
 
@@ -194,6 +195,7 @@ public class brandServlet extends HttpServlet {
 		System.out.println("这是取消订单");
 		String trackNumber = obj.get("trackNumber").toString();
 		boolean succ = FuncBrand.delivery(trackNumber);
+		System.out.println(succ);
 		return succ;
 	}
 
