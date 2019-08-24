@@ -53,7 +53,12 @@
          }
          $.post("register.brand", JSON.stringify(data), function(data, status) {
              console.log(data)
-             window.location.href = "brand-gmcwallerAcount.html"
+             data = JSON.parse(data)
+             if (data.result)
+                window.location.href = "brand-gmcwallerAcount.html"
+             else {
+                 alert("注册失败")
+             }
          })
     }
 

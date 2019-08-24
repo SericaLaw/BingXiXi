@@ -30,13 +30,13 @@
     </div>
   <form class="form-search">
     Title：
-    <input type="text" class="input-medium search-query">
-    <button onclick="return false;" class="btn btn-purple btn-small">Search <i class="icon-search icon-on-right"></i></button>
+    <input type="text" id="search-keyword" class="input-medium search-query">
+    <button id="search" class="btn btn-purple btn-small">Search <i class="icon-search icon-on-right"></i></button>
   </form>
-  <a href="#" class="btn  btn-success"  style="margin-bottom: 30px">
+  <!-- <a href="#" class="btn  btn-success"  style="margin-bottom: 30px">
     <i class="icon-refresh"></i>
     Pull Orders
-  </a>
+  </a> -->
 
 <div class="tabbable">
       <ul class="nav nav-tabs" id="myTab">
@@ -112,9 +112,6 @@
           <table id="table_bug_report" class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-            <th class="center">
-              <label><input type="checkbox" class="ace-checkbox-2"><span class="lbl"></span></label>
-            </th>
             <th>Title</th>
             <th>Price</th>
             <th class="hidden-480">QTY</th>
@@ -125,8 +122,8 @@
             </tr>
           </thead>
 
-          <tbody>
-            <tr>
+          <tbody id="awaiting-shipment-body">
+            <!-- <tr>
               <td class="center">
                 <label><input type="checkbox" class="input"><span class="lbl"></span></label>
               </td>
@@ -162,9 +159,7 @@
             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
               <thead>
                 <tr>
-                  <th class="center">
-                    <label><input type="checkbox" class="ace-checkbox-2"><span class="lbl"></span></label>
-                  </th>
+                 
                   <th>Title</th>
                   <th>Price</th>
                   <th>QTY</th>
@@ -173,12 +168,12 @@
                   <th>Order No</th>
                   <th>Tracking No</th>
 
-                </tr>
+                </tr> -->
               </thead>
 
-              <tbody>
+              <tbody id="shipped-body">
 
-                <tr>
+                <!-- <tr>
                   <td class="center">
                     <label><input type="checkbox" class="input"><span class="lbl"></span></label>
                   </td>
@@ -251,7 +246,7 @@
                   <td>
                      <a href="bvo-ordertracking.html">3534658889</a>
                   </td>
-                </tr>
+                </tr> -->
 
 
 
@@ -265,9 +260,6 @@
             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
               <thead>
                 <tr>
-                  <th class="center">
-                    <label><input type="checkbox" class="ace-checkbox-2"><span class="lbl"></span></label>
-                  </th>
                   <th>Title</th>
                   <th>Price</th>
                   <th>QTY</th>
@@ -279,9 +271,9 @@
                 </tr>
               </thead>
 
-              <tbody>
+              <tbody id="completed-orders-body">
 
-                <tr>
+                <!-- <tr>
                   <td class="center">
                     <label><input type="checkbox" class="input"><span class="lbl"></span></label>
                   </td>
@@ -338,7 +330,7 @@
                   <td class="hidden-480"><a href="bvo-ordertracking.html">46578990890</a></td>
 
                 </tr>
-
+ -->
 
 
 
@@ -351,9 +343,6 @@
             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
               <thead>
                 <tr>
-                  <th class="center">
-                    <label><input type="checkbox" class="ace-checkbox-2"><span class="lbl"></span></label>
-                  </th>
                   <th>Title</th>
                   <th>Price</th>
                   <th class="hidden-480">QTY</th>
@@ -363,11 +352,9 @@
                 </tr>
               </thead>
 
-              <tbody>
-                <tr>
-                  <td class="center">
-                    <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-                  </td>
+              <tbody id="cancelled-orders-body">
+                <!-- <tr>
+                  
                   <td><a href="bvo-goodsdetail.html">base.com</a></td>
                   <td>$35</td>
                   <td class="hidden-480">20</td>
@@ -378,9 +365,6 @@
 
 
                 <tr>
-                  <td class="center">
-                    <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-                  </td>
                   <td><a href="bvo-goodsdetail.html">base.com</a></td>
                   <td>$35</td>
                   <td class="hidden-480">20</td>
@@ -391,16 +375,13 @@
 
 
                 <tr>
-                  <td class="center">
-                    <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-                  </td>
                   <td><a href="bvo-goodsdetail.html">base.com</a></td>
                   <td>$35</td>
                   <td class="hidden-480">20</td>
                   <td>Gm356677</td>
                   <td>$7000</td>
                   <td>543678788</td>
-                </tr>
+                </tr> -->
 
 
 
@@ -417,10 +398,25 @@
     <script src="js/bootstrap.min.js"></script>
     <script>
       function pay(orderNo) {
-        
         window.location.href = "bvo-orderPayment.html?orderno=" + orderNo
       }
+      $("#search").click(function(e) {
+        e.preventDefault();
+        var keyword = $("#search-keyword").val();
+        if (keyword == "") {
+        	$("table tbody tr")
+            .hide()
+            .show();
+        }
+        else {
+        	 $("table tbody tr")
+             .hide()
+             .filter(":contains('"+keyword+"')")
+             .show();
+        }
+      })
       $(function(){
+        // get awaiting payment
         // $.get("1.url", function(data) {
           data = [
             {
@@ -450,6 +446,113 @@
           $("#awaiting-payment-body").html(content_html);
           
         // })
+        // get awaiting shipment
+                // $.get("1.url", function(data) {
+                  data = [
+            {
+              "title": "max.com",
+              "price": 60,
+              "QTY": 400,
+              "sku": "Q8976511",
+              "orderNo": "4400",
+              "total": 500
+            },
+            {
+              "title": "best.com",
+              "price": 75,
+              "QTY": 6500,
+              "sku": "GM9012203",
+              "orderNo": "OD23336500",
+              "total": 5678
+            }
+          ]
+          var content_html = "";
+          for (var i = 0, n = data.length; i < n; ++i) {
+            var item = data[i];
+            content_html +=  `<tr><td><a href="bvo-goodsdetail.html">`
+            + item.title + `</a></td><td>$` + item.price + `</td><td class="hidden-480">`
+            + item.QTY + `</td><td class="hidden-phone">` + item.sku + `</td><td class="hidden-480">` + item.orderNo + `</td><td>$` + item.total + `</td></tr>`
+          }
+          $("#awaiting-shipment-body").html(content_html);
+          
+        // })
+
+        // get shiped
+        $.get("1.url", function(data, status) {
+          // data = JSON.parse(data)
+          var data = [
+          {
+            "title": "ace.com",
+            "price": 45,
+            "QTY": 3,
+            "sku": "Gm7643377",
+            "orderNo": "546738788",
+            "total": 135,
+            "trackingno": "46578990890"
+          }
+        ]
+          var content_html = ""
+          for (var i = 0, n = data.length; i < n; ++i) {
+            var item = data[i];
+            content_html += `<tr><td><a href="bvo-goodsdetail.html">` + item.title 
+            + `</a></td><td>$` +item.price + `</td><td class="hidden-480">` + item.QTY 
+            +`</td><td>` + item.sku + `</td><td>$` + item.total + `</td><td>` 
+            + item.orderNo + `</td><td class="hidden-480"><a href="bvo-ordertracking.html?tno=`  
+            + item.trackingno + `">` + item.trackingno + `</a></td></tr>`
+          }
+          $("#shipped-body").html(content_html)
+        })
+
+
+        // get completed orders
+       
+        // $.get("1.url", function(data, status) {
+          // data = JSON.parse(data)
+          var data = [
+          {
+            "title": "ace.com",
+            "price": 45,
+            "QTY": 3,
+            "sku": "Gm7643377",
+            "orderNo": "546738788",
+            "total": 135,
+            "trackingno": "46578990890"
+          }
+        ]
+          var content_html = ""
+          for (var i = 0, n = data.length; i < n; ++i) {
+            var item = data[i];
+            content_html += `<tr><td><a href="bvo-goodsdetail.html">` + item.title 
+            + `</a></td><td>$` +item.price + `</td><td class="hidden-480">` + item.QTY 
+            +`</td><td>` + item.sku + `</td><td>$` + item.total + `</td><td>` 
+            + item.orderNo + `</td><td class="hidden-480"><a href="bvo-ordertracking.html?tno=`  
+            + item.trackingno + `">` + item.trackingno + `</a></td></tr>`
+          }
+          $("#completed-orders-body").html(content_html)
+        // })
+
+        // get cancelled orders
+        // $.get("1.url", function(data, status) {
+          // data = JSON.parse(data)
+          var data = [
+            {
+              "title": "base.com",
+              "price": 35,
+              "QTY": 20,
+              "sku": "Gm356677",
+              "total": 7000,
+              "orderno": "543678788"
+            }
+          ]
+            var content_html = ""
+            for (var i = 0, n = data.length; i < n; ++i) {
+              var item = data[i];
+              content_html += `<tr><td><a href="bvo-goodsdetail.html">`
+              + item.title + `</a></td><td>$` + item.price + `</td><td class="hidden-480">`
+              + item.QTY + `</td><td>` + item.sku + `</td><td>$` + item.total + `</td><td>` 
+              + item.orderno + `</td></tr>`
+            }
+        })
         $('.ace-checkbox-2').each(function(){
               $('.ace-checkbox-2').change(function(){
                 if($(this).prop('checked')){
@@ -461,7 +564,7 @@
 
         })
 
-})
+// })
 
 
 
