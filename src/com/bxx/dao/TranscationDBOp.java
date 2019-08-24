@@ -49,7 +49,11 @@ public class TranscationDBOp extends DBOp {
 		try {
 			while (rs.next()) {
 				Transcation trans = new Transcation(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4),
+<<<<<<< HEAD
+						rs.getString(5),rs.getString(6));
+=======
 						rs.getString(5), rs.getDouble(6));
+>>>>>>> a355ee5b68084ce9cfa340d6fdb9b74d190d9cb6
 				arr.add(trans);
 			}
 		} catch (SQLException e) {

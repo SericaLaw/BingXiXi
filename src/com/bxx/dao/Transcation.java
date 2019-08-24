@@ -16,15 +16,23 @@ public class Transcation {
 		// TODO Auto-generated constructor stub
 	}
 
+<<<<<<< HEAD
+	public Transcation(String transcationNumber, String type, String state, Date time, String eWalletEMail,Double balance) {
+=======
 	public Transcation(String transcationNumber, String type, String state, Date time, String eWalletEMail,
 			Double balance) {
+>>>>>>> a355ee5b68084ce9cfa340d6fdb9b74d190d9cb6
 		super();
 		TranscationNumber = transcationNumber;
 		Type = type;
 		State = state;
 		Time = time;
 		EWalletEMail = eWalletEMail;
+<<<<<<< HEAD
+		Balance=balance;
+=======
 		Balance = balance;
+>>>>>>> a355ee5b68084ce9cfa340d6fdb9b74d190d9cb6
 	}
 
 	public String getTranscationNumber() {
@@ -73,6 +81,16 @@ public class Transcation {
 	public void setEWalletEMail(String eWalletEMail) {
 		EWalletEMail = eWalletEMail;
 	}
+	
+	
+
+	public Double getBalance() {
+		return Balance;
+	}
+
+	public void setBalance(Double balance) {
+		Balance = balance;
+	}
 
 	public Double getBalance() {
 		return Balance;
@@ -100,9 +118,16 @@ public class Transcation {
 		if (this.getEWalletEMail() != null) {
 			str += String.format("and EWalletEMail = '%s' ", this.getEWalletEMail());
 		}
+<<<<<<< HEAD
+		if (this.getBalance() != null) {
+			str += String.format("and Balance = '%s' ", this.getBalance());
+		}
+		
+=======
 		if(this.getBalance()!=null) {
 			str += String.format("and Balance = %f ", this.getBalance());
 		}
+>>>>>>> a355ee5b68084ce9cfa340d6fdb9b74d190d9cb6
 		if (str.equals(""))
 			return str;
 		return str.substring(4);
