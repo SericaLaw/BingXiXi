@@ -200,8 +200,8 @@
     <script src="js/jquery-1.9.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
-      function pay(orderNo) {
-        window.location.href = "bvo-orderPayment.html?orderno=" + orderNo
+      function pay(orderNo, qty, total) {
+        window.location.href = "bvo-orderPayment.html?qty=" + qty + "&total=" + total
       }
       $("#search").click(function(e) {
         e.preventDefault();
@@ -245,7 +245,10 @@
             var item = data[i];
             content_html +=  `<tr><td><a href="bvo-goodsdetail.html">`
             + item.name + `</a></td><td>$` + item.price + `</td><td class="hidden-480">`
-            + item.number + `</td><td class="hidden-phone">` + item.sku + `</td><td class="hidden-480">` + item.id + `</td><td>$` + item.number * item.price + `</td><td><a href="#" onclick='pay("` + item.id + `")'>Pay Now</a></td></tr>`
+            + item.number + `</td><td class="hidden-phone">` + item.sku + `</td><td class="hidden-480">` + item.id + `</td><td>$` + item.number * item.price 
+            + `</td><td><a href="#" onclick='pay("` 
+            + item.id + `",` + item.number + `,` + item.number * item.price 
+            + `)'>Pay Now</a></td></tr>`
           }
           $("#awaiting-payment-body").html(content_html);
           

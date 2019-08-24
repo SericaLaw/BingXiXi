@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.bxx.dao.*;
 import com.bxx.common.CashMessage;
 import com.bxx.common.GoodsMessage;
+<<<<<<< HEAD
 import com.bxx.common.OrderMessage;
 import com.bxx.common.StateName;
 import com.bxx.dao.*;
@@ -38,6 +40,12 @@ public class FuncBrand {
 
 	public static Boolean addCompanyFunc(String chineseName, String englishName, String introduction, String type,
 			String url) {
+=======
+
+public class FuncBrand {
+	public static Boolean addCompanyFunc(String chineseName, String englishName, String introduction, String type,
+										 String url) {
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 		DBOp op = new BrandInfoDBOp();
 		BrandInfo binfo = new BrandInfo(chineseName, introduction, type, url);
 		if (chineseName == null || chineseName == "" || introduction == null || introduction == "" || type == null
@@ -46,6 +54,7 @@ public class FuncBrand {
 		else if (!op.insert(binfo))
 			return false;
 
+<<<<<<< HEAD
 		return true;
 	}
 
@@ -84,6 +93,40 @@ public class FuncBrand {
 	}
 
 	// æçŽ°æµæ°´
+=======
+		return false;
+	}
+
+	// ÌáÏÖ£¬¼ì²éÃÜÂëÊÇ·ñÕýÈ·£¬ÌáÏÖµÄ½ð¶îÊÇ·ñÕýÈ·
+	public static Boolean checkCashFunc(String email, Double cash, String password) {
+		DBOp op = new EWalletDBOp();
+		DBOp opt = new TranscationDBOp();
+		EWallet ew = new EWallet(email, null, null, null);
+		ArrayList<Object> ewallet = new ArrayList<Object>();
+		ewallet = op.select(ew);
+		if (password != ewallet.get(2))
+			return false;
+		else if (cash.compareTo((Double) ewallet.get(3)) > 0)
+			return false;
+		Double balance = (Double) ewallet.get(3) - cash;
+		EWallet newew = new EWallet(null, null, null, balance);
+
+		Date date = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmss");
+		String transnumber = ft.format(date).toString();
+
+		Transcation trans = new Transcation(transnumber, "withdrew", "waiting check", date, email, balance);
+
+		if (!op.update(ew, newew))
+			return false;
+		if (!opt.insert(trans))
+			return false;
+
+		return false;
+	}
+
+	// ÌáÏÖÁ÷Ë®
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 	public static ArrayList<CashMessage> displayCashFunc(String email) {
 		ArrayList<Object> orders = new ArrayList<Object>();
 		ArrayList<CashMessage> result = new ArrayList<CashMessage>();
@@ -94,10 +137,18 @@ public class FuncBrand {
 
 		for (Object obj : orders) {
 			CashMessage cashmess = new CashMessage(null, null, null, null);
+<<<<<<< HEAD
 			cashmess.setOrderNumber(((Transcation) obj).getTranscationNumber());
 			cashmess.setCash(((Transcation) obj).getBalance());
 			cashmess.setState(((Transcation) obj).getState());
 			cashmess.setTime(((Transcation) obj).getTime_Date());
+=======
+			// Transcation transcation=new Transcation();
+			cashmess.setOrderNumber(((Transcation)obj).getTranscationNumber());
+			cashmess.setCash(((Transcation)obj).getBalance());
+			cashmess.setState(((Transcation)obj).getState());
+			cashmess.setTime(((Transcation)obj).getTime_Date());
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 
 			result.add(cashmess);
 		}
@@ -105,7 +156,11 @@ public class FuncBrand {
 		return result;
 	}
 
+<<<<<<< HEAD
 	// é€šè¿‡å•†å“æ ‡é¢˜æŸ¥æ‰¾å•†å“ä¿¡æ¯
+=======
+	// Í¨¹ýÉÌÆ·±êÌâ²éÕÒÉÌÆ·ÐÅÏ¢
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 	public static ArrayList<GoodsMessage> searchGoods(String name) {
 		DBOp op = new BrandGoodsDBOp();
 		ArrayList<GoodsMessage> goods = new ArrayList<GoodsMessage>();
@@ -118,20 +173,35 @@ public class FuncBrand {
 		obj_goods = op.select(bg);
 
 		for (Object obj : obj_goods) {
+<<<<<<< HEAD
 			GoodsMessage goodsmess = new GoodsMessage();
 			goodsmess.setTitle(((BrandGoods) obj).getTitle());
 			goodsmess.setCategory(((BrandGoods) obj).getCategory());
 			goodsmess.setState(((BrandGoods) obj).getState());
 			goodsmess.setPicUrl(((BrandGoods) obj).getPicUrl());
+=======
+			GoodsMessage goodsmess = new GoodsMessage(null, null, null, null);
+			goodsmess.setTitle(((BrandGoods)obj).getBrandName());
+			goodsmess.setCategory(((BrandGoods)obj).getCategory());
+			goodsmess.setState(((BrandGoods)obj).getState());
+			goodsmess.setPicUrl(((BrandGoods)obj).getPicUrl());
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 			goods.add(goodsmess);
 		}
 		return goods;
 	}
 
+<<<<<<< HEAD
 	// å¢žåŠ ä¸€ä»¶å•†å“
 	public static Boolean addGoods(String sku, Double weight, Double width, Double height, Double length, String title,
 			String upc, String ena, String model, Double price, String eBayDescription, String amazonDescription,
 			String warranty, String state, String brandName, String category, String picUrl) {
+=======
+	// Ôö¼ÓÒ»¼þÉÌÆ·
+	public static Boolean addGoods(String sku, Double weight, Double width, Double height, Double length, String title,
+								   String upc, String ena, String model, Double price, String eBayDescription, String amazonDescription,
+								   String warranty, String state, String brandName, String category, String picUrl) {
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 		DBOp op = new BrandGoodsDBOp();
 		BrandGoods bg = new BrandGoods(sku, weight, width, height, length, title, upc, ena, model, price,
 				eBayDescription, amazonDescription, warranty, state, brandName, category, picUrl);
@@ -142,7 +212,11 @@ public class FuncBrand {
 		return true;
 	}
 
+<<<<<<< HEAD
 	// æ ¹æ®å•†å“skuç åˆ é™¤å•†å“
+=======
+	// ¸ù¾ÝÉÌÆ·skuÂëÉ¾³ýÉÌÆ·
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 	public static Boolean deleteGoods(String sku) {
 		BrandGoods bg = new BrandGoods();
 		bg.setSku(sku);
@@ -155,6 +229,7 @@ public class FuncBrand {
 		return true;
 	}
 
+<<<<<<< HEAD
 	// æ ¹æ®è®¢å•ç¼–å·è¿›è¡Œå‘è´§
 	public static Boolean delivery(String orderNumber) {
 		DBOp op = new BrandOrderDBOp();
@@ -170,18 +245,44 @@ public class FuncBrand {
 		DBOp op = new BrandOrderDBOp();
 		BrandOrder bo = new BrandOrder(orderNumber, null, null, null, null, null, null);
 		BrandOrder cancel = new BrandOrder(null, null, null, null, null, StateName.Cancelled, null);
+=======
+	// ¸ù¾Ý¶©µ¥±àºÅ½øÐÐ·¢»õ
+	public static Boolean delivery(String orderNumber) {
+		DBOp op = new BrandOrderDBOp();
+		BrandOrder bo = new BrandOrder(orderNumber, null, null, null, null, null, null);
+		BrandOrder deliver = new BrandOrder(null, null, null, null, null, "Shipped", null);
+		if (!op.update(bo, deliver))
+			return false;
+
+		return true;
+	}
+
+	// ¸ù¾Ý¶©µ¥±àºÅ½øÐÐÈ¡Ïû¶©µ¥
+	public static Boolean cancelOrder(String orderNumber) {
+		DBOp op = new BrandOrderDBOp();
+		BrandOrder bo = new BrandOrder(orderNumber, null, null, null, null, null, null);
+		BrandOrder cancel = new BrandOrder(null, null, null, null, null, "cancelled", null);
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 		if (!op.update(bo, cancel))
 			return false;
 
 		return true;
 	}
 
+<<<<<<< HEAD
 	// å•†å“å…¥ä»“
+=======
+	// ÉÌÆ·Èë²Ö
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 	public static Boolean PutinStorage(String sku) {
 		BrandGoods bg = new BrandGoods();
 		bg.setSku(sku);
 		BrandGoods newbg = new BrandGoods();
+<<<<<<< HEAD
 		newbg.setState(StateName.InStorage);
+=======
+		bg.setState("InStorage");
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 
 		DBOp op = new BrandGoodsDBOp();
 		if (sku == null || sku == "")
@@ -192,12 +293,20 @@ public class FuncBrand {
 		return true;
 	}
 
+<<<<<<< HEAD
 	// å•†å“ä¸Šæž¶
+=======
+	// ÉÌÆ·ÉÏ¼Ü
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 	public static Boolean PutWay(String sku) {
 		BrandGoods bg = new BrandGoods();
 		bg.setSku(sku);
 		BrandGoods newbg = new BrandGoods();
+<<<<<<< HEAD
 		newbg.setState(StateName.PutWay);
+=======
+		bg.setState("PutWay");
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 
 		DBOp op = new BrandGoodsDBOp();
 		if (sku == null || sku == "")
@@ -208,12 +317,20 @@ public class FuncBrand {
 		return true;
 	}
 
+<<<<<<< HEAD
 	// å•†å“ä¸‹æž¶
+=======
+	// ÉÌÆ·ÏÂ¼Ü
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 	public static Boolean SoldOut(String sku) {
 		BrandGoods bg = new BrandGoods();
 		bg.setSku(sku);
 		BrandGoods newbg = new BrandGoods();
+<<<<<<< HEAD
 		newbg.setState(StateName.WaitingPutWay);
+=======
+		bg.setState("StoreOut");
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728
 
 		DBOp op = new BrandGoodsDBOp();
 		if (sku == null || sku == "")
@@ -223,6 +340,7 @@ public class FuncBrand {
 
 		return true;
 	}
+<<<<<<< HEAD
 
 	//å“ç‰Œå•†è®¢å•æœç´¢
 	public static ArrayList<GoodsMessage> requestList(String type) {
@@ -314,3 +432,6 @@ public class FuncBrand {
 			return false;
 		return true;
 	}
+=======
+}
+>>>>>>> 10d52231888148ee62b1b12cf40db519b73c9728

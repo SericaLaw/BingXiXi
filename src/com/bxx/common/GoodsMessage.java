@@ -121,3 +121,4 @@ public class GoodsMessage {
 				+ ", TrackNumber=" + TrackNumber + ", Time=" + Time + "]";
 	}
 }
+

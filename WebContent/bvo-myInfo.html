@@ -34,7 +34,7 @@
               <h1 style="color: #2679b5;">借卖方<small><i class="icon-double-angle-right"></i> 我的信息</small></h1>
             </div>
     <div class="inputName">
-        <div style="margin-bottom: 40px">Username:gmcbrand1</div>
+        <div style="margin-bottom: 40px" id="username-title">Username:gmcbrand1</div>
 		<div><label class="green">ID:</label><input id="user-id" type="text" value=""></div>
         <div><label class="green">Name:</label><input type="text" id="user-name" value=""></div>
         <div><label class="green">Email:</label><input type="text" id="email" value=""></div>
@@ -55,13 +55,17 @@
     <script src="js/bootbox.min.js"></script>
     <script type="text/javascript">
     $(function(){
+        if (parent.bvoAccount.loggedIn == false) {
+            window.location.href = "bvo-gmcwallerAcount.html"
+        }
+        $("#username-title").html("Username: " + parent.bvoAccount.name);
         // $.get("1.url", function(data, status) {
             // data = JSON.parse(data);
             data = {
-                "id": "Lucy01",
-                "name": "Lucy",
-                "email": "97656444@123.com",
-                "phone": 1376533621
+                "id": "",
+                "name": "",
+                "email": "",
+                "phone": ""
             }
             $("#user-id").attr("value", data.id);
             $("#user-name").attr("value", data.name);
@@ -72,13 +76,19 @@
     })
         function save() {
             var reqBody = {
-                userId: $("#user-id").val(),
-                name: $("#user-name").val(),
+                SellerID: $("#user-id").val(),
+                SellerName: $("#user-name").val(),
                 email: $("#email").val(),
-                phone: $("#phone").val()
+                tel: $("#phone").val()
             }
-            $.post("1.url", JSON.stringify(reqBody), function(data, status) {
-                
+            $.post("bvo-myInfo.borrow", JSON.stringify(reqBody), function(data, status) {
+                data = JSON.parse(data);
+                if (data.result == true) {
+                    alert("添加成功")
+                }
+                else {
+                    alert("添加失败")
+                }
             })
         }
         function myshop(){
