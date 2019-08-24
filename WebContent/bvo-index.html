@@ -98,7 +98,7 @@ $(document).ready(function(){
         for (var i = 0, n = data.length; i < n; ++i) {
             var item = data[i];
             content_html +=  `<li><a href="bvo-goodsdetail.html?sku=`+item.sku+`">` +
-                    "<img src=\"" + item.imageSrc + "\" /><p>" +
+                    "<img src=\"" + item.picture + "\" /><p>" +
                     item.name + "</p><span>$" + item.price + "</span></a></li>"
         }
         
