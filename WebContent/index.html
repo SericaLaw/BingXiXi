@@ -316,6 +316,18 @@
     var bvoIdxContent = { "name" : "Hi" };
         var globalSharedData = new Array();
         var orderNo = "abc";
+        var bvoAccount = {
+            email: undefined,
+            name: undefined,
+            password: undefined,
+            loggedIn: false
+        }
+        var brandAccount = {
+            email: undefined,
+            name: undefined,
+            password: undefined,
+            loggedIn: false
+        }
     $(document).ready(function() {
         $('.nav-list li ').click(function () {
             $(this).addClass('blue').siblings().removeClass('blue');

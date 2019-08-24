@@ -4,6 +4,7 @@ import java.sql.*;
 
 public class JdbcTool {
 	static final String databasePath = "jdbc:Access:///C:\\Users\\Cao Fang\\Desktop\\BingXiXi\\db.accdb";
+
 	public static Connection conn;
 
 	static {

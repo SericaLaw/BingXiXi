@@ -43,25 +43,43 @@
     </div>
 
     <script type="text/javascript">
+    $(document).ready(function() {
+        if (parent.bvoAccount.loggedIn == true) {
+            window.location.href = "bvo-gmcwallermoney.html"
+        }
+    })
     function gotoWallet(){
         var email = $("#email").val();
         var account = $("#account-name").val();
         var password = $("#password").val();
-        var data = {
+        var reqBody = {
             "email" : email,
             "account": account,
             "password": password
         }
-        $.post("signUp.borrow", JSON.stringify(data), function(data, status) {
+        if (parent.bvoAccount.loggedIn == false) {
+        $.post("signUp.borrow", JSON.stringify(reqBody), function(data, status) {
             console.log(data)
             data = JSON.parse(data)
-            if (data.result == true) {
+            if (data.result == true) {                
+                parent.bvoAccount.email = reqBody.email;
+                parent.bvoAccount.name = reqBody.account;
+                parent.bvoAccount.password = reqBody.password;
+                parent.bvoAccount.loggedIn = true;
                 window.location.href = "bvo-gmcwallermoney.html"
             }
             else {
                 alert("邮箱或账户名已被注册！")
+                arent.bvoAccount.email = undefined;
+                parent.bvoAccount.name = undefined;
+                parent.bvoAccount.password = undefined;
+                parent.bvoAccount.loggedIn = true;
             }
         })
+        }
+        else {
+            window.location.href = "bvo-gmcwallermoney.html"
+        }
     }
 
     </script>

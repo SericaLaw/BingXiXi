@@ -14,7 +14,7 @@ public class TranscationDBOp extends DBOp {
 		String sqlstmt = String.format("insert into Transcation values ('%s', '%s', '%s', '%s', '%s', %f)",
 				tran.getTranscationNumber(), tran.getType(), tran.getState(), tran.getTime(), tran.getEWalletEMail(),
 				tran.getBalance());
-		 System.out.println(sqlstmt);
+//		System.out.println(sqlstmt);
 		return JdbcTool.executeSql(sqlstmt);
 	}
 

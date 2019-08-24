@@ -54,7 +54,7 @@ public class Transcation {
 	public Date getTime_Date() {
 		return Time;
 	}
-	
+
 	public String getTime() {
 		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		if (Time == null)
@@ -100,7 +100,7 @@ public class Transcation {
 		if (this.getEWalletEMail() != null) {
 			str += String.format("and EWalletEMail = '%s' ", this.getEWalletEMail());
 		}
-		if(this.getBalance()!=null) {
+		if (this.getBalance() != null) {
 			str += String.format("and Balance = %f ", this.getBalance());
 		}
 		if (str.equals(""))
