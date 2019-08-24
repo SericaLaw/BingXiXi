@@ -81,9 +81,9 @@ public class indexServlet extends HttpServlet {
 				break;
 		}
 		
-//		for(Message mess:result) {
-//			System.out.println(mess.toString());
-//		}
+		for(Message mess:result) {
+			System.out.println(mess.toString());
+		}
 		
 		out.append(JSON.toJSONString(result));
 		out.flush();

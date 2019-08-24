@@ -82,14 +82,11 @@ public class FuncIndex {
 			BvoGoods bgs = (BvoGoods) obj;
 			BrandGoods brg = getBrandGoodsBySku(bgs.getSku());
 
-			if (brg.getBrandName() == null || brg.getCategory() == null || brg.getPicUrl() == null
-					|| brg.getState() == null)
+			if (brg.getBrandName() == null || brg.getPrice() == null || brg.getPicUrl() == null)
 				continue;
 			mess.setName(brg.getBrandName());
-			mess.setType(brg.getCategory());
 			mess.setPicture(brg.getPicUrl());
-			mess.setState(brg.getState());
-
+			mess.setPrice(brg.getPrice());
 			res.add(mess);
 		}
 		return res;
