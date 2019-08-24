@@ -51,6 +51,52 @@ public class borrowServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest req, HttpServletResponse resp)		 * @api {post} /SignUp/
+	 * @apiName borrowServlet
+	 * @apiParam {json} request body example:
+	 * {
+	 * 	"email": xxx@xxx.com,
+	 *  "account": accountName,
+	 *  "password": pwd
+	 * } 
+	 * bvoInfo
+	 * {  
+	 *   SellerID:xx
+	 *   tel:xx
+	 *   email:xx
+	 *   SellerName:xxx
+	 * }
+	 * storeInfo
+	 * {
+	 * 	StoreName:XX
+	 *  MarketPlaceID:xx
+	 *  SellerID:xx
+	 *  MWS:xx
+	 * }
+	 * dropship{
+	 * push:1
+	 * }
+	 * addtoWishlist{
+	 * list:1
+	 * }
+	 * bvo-orderPayment{
+	 * QTY
+	 * RcverZip
+	 * RcverTel
+	 * RcverName
+	 * RcvAddr
+	 * walletEmail
+	 * total
+	 * }
+	 *  
+	 * @apiSuccess {json} response body example
+	 * {
+	 * "result": true
+	 * }
+	 * 
+	 * 
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
@@ -98,6 +144,70 @@ public class borrowServlet extends HttpServlet {
 				out.append(JSON.toJSONString(result));
 				out.flush();
 				out.close();
+				break;
+			case "/bvo-myInfo":
+				//添加卖方信息
+				//System.out.println(obj.size());
+				System.out.println(obj);
+			    String email = obj.get("email").toString(), 
+				SellerName = obj.get("SellerName").toString(),
+				SellerID = obj.get("SellerID").toString(),
+				tel = obj.get("tel").toString();
+			    /*System.out.println(email);
+			    System.out.println(SellerName);
+			    System.out.println(SellerID);
+			    System.out.println(tel);
+			    */
+			    boolean confirm1=com.bxx.biz.borrowFunc.add_borrower_information( SellerID,tel,email,SellerName);
+				req.getRequestDispatcher("bvo-goodsstoreAdd.html");          
+				break;
+				
+			case "/bvo-shopAdd"://添加店铺信息
+				System.out.println(obj.size());
+				System.out.println(obj);
+				String StoreName = obj.get("StoreName").toString(), 
+				MarketPlaceID = obj.get("MarketPlaceID").toString(),
+				SellerID_store = obj.get("SellerID").toString(),
+				MWS = obj.get("MWS").toString();
+				boolean confirm2=com.bxx.biz.borrowFunc.add_store_information(StoreName,MarketPlaceID,SellerID_store,MWS);
+				break;
+			case "/dropship"://推送获得主键
+				System.out.println(obj);
+				String push_sku = obj.get("sku").toString();
+				boolean confirm3=com.bxx.biz.borrowFunc.modify_push_information(push_sku);
+				break;
+			case "/wishlist"://加入心愿单(心愿单状态修改)
+				System.out.println(obj);
+				String list_sku = obj.get("sku").toString();
+				boolean confirm4=com.bxx.biz.borrowFunc.modify_wishlist_information(list_sku);
+				break;
+			case "/bvo-wishlist"://对心愿单删除(删除数据)
+				
+				System.out.println(obj);
+				break;
+			case "/bvo-orderPayment"://判断余额是否够，然后再添加信息
+				System.out.println(obj);
+				/*String QTY = obj.get("QTY").toString(), 
+						RcverZip = obj.get("RcverZip").toString(),
+						RcverTel = obj.get("RcverTel").toString(),
+						RcverName= obj.get(" RcverName").toString(),
+						RcvAddr = obj.get("RcvAddr").toString(); */
+				 
+			case "/walletpay"://传totalnumber和钱包email
+				String QTY = obj.get("QTY").toString(), 
+				RcverZip = obj.get("RcverZip").toString(),
+				RcverTel = obj.get("RcverTel").toString(),
+				RcverName= obj.get(" RcverName").toString(),
+				RcvAddr = obj.get("RcvAddr").toString(); 
+				String trackNumber = obj.get("trackNumber").toString(), 
+				 walletEmail=obj.get("walletEmail").toString();
+				boolean isafford=com.bxx.biz.borrowFunc.check_wallet_ifafford(trackNumber,walletEmail);
+				if(isafford) {
+					boolean confirm5=com.bxx.biz.borrowFunc.add_payment_information(QTY,RcverZip,RcverTel,RcverName,RcvAddr);
+				}
+				obj.fluentPut("isafford", isafford);
+					out.append(obj.toString());
+					out.flush();
 				break;
 			default:
 				break;
