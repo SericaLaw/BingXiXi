@@ -17,10 +17,16 @@ public class BrandGoods {
 	private String State;
 	private String BrandName;
 	private String Category;
+	private String PicUrl;
+
+	public BrandGoods() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public BrandGoods(String sku, Double weight, Double width, Double height, Double length, String title, String upc,
 			String ena, String model, Double price, String eBayDescription, String amazonDescription, String warranty,
-			String state, String brandName, String category) {
+			String state, String brandName, String category, String picUrl) {
 		super();
 		Sku = sku;
 		Weight = weight;
@@ -38,6 +44,7 @@ public class BrandGoods {
 		State = state;
 		BrandName = brandName;
 		Category = category;
+		PicUrl = picUrl;
 	}
 
 	public String getSku() {
@@ -168,6 +175,14 @@ public class BrandGoods {
 		Category = category;
 	}
 
+	public String getPicUrl() {
+		return PicUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		PicUrl = picUrl;
+	}
+
 	public String toString() {
 		String str = "";
 		if (this.getSku() != null) {
@@ -217,6 +232,9 @@ public class BrandGoods {
 		}
 		if (this.getCategory() != null) {
 			str += String.format("and Category = '%s' ", this.getCategory());
+		}
+		if (this.getPicUrl() != null) {
+			str += String.format("and PicUrl = '%s' ", this.getPicUrl());
 		}
 		if (str.equals(""))
 			return str;

@@ -2,6 +2,7 @@ package com.bxx.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bxx.biz.FuncIndex;
 import com.bxx.biz.FuncSet;
+import com.bxx.common.Message;
 
 /**
  * Servlet implementation class indexServlet
@@ -57,26 +60,30 @@ public class indexServlet extends HttpServlet {
 		System.out.println(obj);
 		String type=parseRequestURI(request);
 		System.out.println(type);
+		ArrayList<Message> result=null;
 		switch (type)
 		{
 			case "/brandPicture":
-				BrandProductPicture(); //请求品牌商商品标题、分类、主图、状态
+				result=FuncIndex.BrandProductPicture(); //请求品牌商商品标题、分类、主图、状态
 				break;
 			case "/brandOrderManage":
-				BrandWaitingOrder();//请求品牌商所有待支付商品标题、价格、数量、sku、订单编号、订单创建时间
+				result=FuncIndex.BrandWaitingOrder();//请求品牌商所有待支付商品标题、价格、数量、sku、订单编号、订单创建时间
 				break;
 			case "/borrowProductView":
-				BorrowProduct(); //请求借卖方商品图片、价格、名称
+				result=FuncIndex.BorrowProduct(); //请求借卖方商品图片、价格、名称
 				break;
 			case "/borrowWishList":
-				WishList();//请求借卖方心愿单图片、价格、sku
+				result=FuncIndex.WishList();//请求借卖方心愿单图片、价格、sku
 				break;
 			case "/borrowOrderManage":
-				BorrowWaitingOrder();//请求品牌商所有待支付商品标题、价格、数量、sku、订单编号、订单创建时间
+				result=FuncIndex.BorrowWaitingOrder();//请求品牌商所有待支付商品标题、价格、数量、sku、订单编号、订单创建时间
 				break;
 			default:
 				break;
 		}
+		out.append(JSON.toJSONString(result));
+		out.flush();
+		out.close();
 	}
 
 }

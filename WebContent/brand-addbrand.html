@@ -173,6 +173,30 @@
             $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+
                     '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
         };
+
+        initToolbarBootstrapBindings();
+        $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
+        $('#btnsave').click(function () {
+        	 var chineseName = $("#chineseName").val();
+             var englishName = $("#englishName").val();
+             var introduction = $("#introduction").val();
+             var type = $("#type").val();
+             var url = $("#url").val();
+             var data = {
+                 "chineseName" : chineseName,
+                 "englishName": englishName,
+                 "introduction": introduction,
+                 "type": type,
+                 "url": url
+             }
+             $.post("add.brand", JSON.stringify(data), function(data, status) {
+                 console.log(data)
+                 window.location.href = "brand-brandInput.html";
+             })
+            
+        })
+      </script>
+      <script>
         $(document).ready(function(){
           initToolbarBootstrapBindings();
           $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
@@ -189,7 +213,7 @@
                   "type": type,
                   "url": url
               }
-              $.post("add.brand", JSON.stringify(data), function(data, status) {
+              $.post("addCompany.brand", JSON.stringify(data), function(data, status) {
                   console.log(data)
                   window.location.href = "brand-brandInput.html";
               })
