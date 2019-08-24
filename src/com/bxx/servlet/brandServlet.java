@@ -67,7 +67,6 @@ public class brandServlet extends HttpServlet {
 		resp.setHeader("Access-Control-Allow-Origin", "*");
 		resp.setHeader("Access-Control-Allow-Methods", "GET,POST");
 		PrintWriter out=resp.getWriter();
-<<<<<<< HEAD
 		
 //		ArrayList<Message> result;
 		String type = this.parseRequestURI(req);
@@ -142,8 +141,6 @@ public class brandServlet extends HttpServlet {
 		return succ;
 	}
 
-
-=======
 
 		String type = this.parseRequestURI(req);
 		System.out.println(type);
