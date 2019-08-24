@@ -3,7 +3,7 @@ package com.bxx.dao;
 import java.sql.*;
 
 public class JdbcTool {
-	static final String databasePath = "jdbc:Access:///F:\\BingXiXi\\BingXiXi\\db.accdb";
+	static final String databasePath = "jdbc:Access:///C:\\Users\\Serica\\Workspace\\BingXiXi\\db.accdb";
 	public static Connection conn;
 
 	static {
