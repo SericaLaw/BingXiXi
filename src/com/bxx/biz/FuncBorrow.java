@@ -173,16 +173,14 @@ public class FuncBorrow {
 			return true;
 	}
 
-	public static boolean add_payment_information(String orderNumber, Integer QTY, String RcverZip, String RcverTel,
+	public static boolean add_payment_information(String orderNumber, String RcverZip, String RcverTel,
 												  String RcverName, String RcvAddr) {
 		BvoOrderManage bom = new BvoOrderManage(), newBom = new BvoOrderManage();
 		DBOp op = new BvoOrderManageDBOp();
-
 		bom.setOrderNumber(orderNumber);
 		ArrayList<Object> arr = op.select(bom);
 		newBom = (BvoOrderManage)arr.get(0);
-
-		newBom.setQTY(QTY);
+		//newBom.setQTY(QTY);
 		newBom.setRcverZip(RcverZip);
 		newBom.setRcverTel(RcverTel);
 		newBom.setRcverName(RcverName);
@@ -192,4 +190,22 @@ public class FuncBorrow {
 		return op.update(bom, newBom);
 	}
 
+	public static boolean deposit(String password, double money) //若password正确，且余额充足，返回true
+	{
+		return true;
+	}
+
+	public static ArrayList<Message> record() // 返回钱包流水的Transaction Number、Available Money、Create Time、State
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static boolean changePassword(String oldPassword, String newPassword)  //修改密码，若旧密码正确，则返回true
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
+
