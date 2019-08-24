@@ -35,11 +35,11 @@
             </div>
     <div class="inputName">
         <div style="margin-bottom: 40px">Username:gmcbrand1</div>
-		<div><label class="green">ID:</label><input type="text" value="Lucy01"></div>
-        <div><label class="green">Name:</label><input type="text" value="Lucy"></div>
-        <div><label class="green">Email:</label><input type="text" value="97656444@123.com"></div>
-        <div><label class="green">Phone:</label><input type="text" value="1376533621"></div>
-        <button class="btn  btn-success save">save</button>
+		<div><label class="green">ID:</label><input id="user-id" type="text" value=""></div>
+        <div><label class="green">Name:</label><input type="text" id="user-name" value=""></div>
+        <div><label class="green">Email:</label><input type="text" id="email" value=""></div>
+        <div><label class="green">Phone:</label><input type="text" id="phone" value=""></div>
+        <button class="btn  btn-success save" onclick="save()">save</button>
         <button class="btn  btn-pink" onclick="myshop()">My Stores</button>
     </div>
 
@@ -55,10 +55,33 @@
     <script src="js/bootbox.min.js"></script>
     <script type="text/javascript">
     $(function(){
-
+        // $.get("1.url", function(data, status) {
+            // data = JSON.parse(data);
+            data = {
+                "id": "Lucy01",
+                "name": "Lucy",
+                "email": "97656444@123.com",
+                "phone": 1376533621
+            }
+            $("#user-id").attr("value", data.id);
+            $("#user-name").attr("value", data.name);
+            $("#email").attr("value", data.email);
+            $("#phone").attr("value", data.phone);
+        // })
 
     })
-       function myshop(){
+        function save() {
+            var reqBody = {
+                userId: $("#user-id").val(),
+                name: $("#user-name").val(),
+                email: $("#email").val(),
+                phone: $("#phone").val()
+            }
+            $.post("1.url", JSON.stringify(reqBody), function(data, status) {
+                
+            })
+        }
+        function myshop(){
             window.location.href = "bvo-goodsstoreAdd.html"
         }
     </script>

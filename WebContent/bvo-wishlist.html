@@ -51,7 +51,7 @@
              <div class="page-header position-relative">
               <h1 style="color: #2679b5;">借卖方<small><i class="icon-double-angle-right"></i> 心愿单</small></h1>
             </div>
-            <button class="btn btn-success"><i class="icon-trash icon-4x icon-only">delete</i></button>
+            <button class="btn btn-success" id="delete"><i class="icon-trash icon-4x icon-only">delete</i></button>
             <ul id="wish-list">
                 <!-- <li class="imglist">
 
@@ -119,7 +119,9 @@
         </div>
         </div>
         <script type="text/javascript">
-        
+            $("#delete").click(1, function(e) {
+                alert(e.data);
+            })
            $(document).ready(function(){
             
                 // $.get("1.url", function(data, status) {
