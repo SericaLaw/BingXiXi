@@ -244,7 +244,7 @@ public class borrowServlet extends HttpServlet {
 				String QTY = obj.get("QTY").toString(), 
 				RcverZip = obj.get("RcverZip").toString(),
 				RcverTel = obj.get("RcverTel").toString(),
-				RcverName= obj.get(" RcverName").toString(),
+				RcverName= obj.get("RcverName").toString(),
 				RcvAddr = obj.get("RcvAddr").toString(); 
 				Double trackNumber = obj.getDouble("trackNumber"); 
 				String walletEmail=obj.get("walletEmail").toString();

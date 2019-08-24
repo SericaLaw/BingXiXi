@@ -28,59 +28,62 @@
 
  <form class="form-horizontal" style="width: 60%; margin:20px auto">
             <div class="control-group">
-             <label class="control-label" for="form-field-1">Receiver</label>
+             <label class="control-label" for="rcver-name">Receiver</label>
              <div class="controls">
-                 <input type="text" id="form-field-4" value="luji">
+                 <input type="text" id="rcver-name" placeholder="请输入收货人姓名">
              </div>
          </div>
             <div class="control-group">
-              <label class="control-label" for="form-field-1">Ship To</label>
+              <label class="control-label" for="rcver-addr">Ship To</label>
                 <div class="controls">
-                    <input type="text" id="form-field-4" placeholder="Address">
+                    <input type="text" id="rcver-addr" placeholder="请输入收货地址">
                 </div>
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <select>
-                        <option value="0">State</option>
-                        <option value="1">AL</option>
-                    </select>
+                  <select>
+                    <option disabled selected value="">请选择国家</option>
+                    <option value="中国">中国</option>
+                  </select>
                 </div>
              </div>
             <div class="control-group">
                     <div class="controls">
                         <select>
-                            <option value="0">city</option>
-                            <option value="1">AL</option>
+                          <option disabled selected value="">请选择城市</option>
+                          <option value="北京">北京</option>
+                          <option value="上海">上海</option>
+                          <option value="广州">广州</option>
+                          <option value="深圳">深圳</option>
                         </select>
                     </div>
                </div>
            <div class="control-group">
-              <label class="control-label" for="form-field-1">Quantity</label>
+              <label class="control-label" for="qty-input">Quantity</label>
               <div class="controls">
-                <input type="text" id="form-field-4" value="2">
+                <input type="text" id="qty-input" disabled>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="form-field-1">Mobile</label>
+              <label class="control-label" for="rcver-mobile">Mobile</label>
               <div class="controls">
-                <input type="text" id="form-field-4" value="1354678655">
+                <input type="text" id="rcver-mobile" placeholder="请输入收货人手机">
               </div>
             </div>
              <div class="control-group">
-              <label class="control-label" for="form-field-1">ZIP code</label>
+              <label class="control-label" for="rcver-zip">ZIP code</label>
               <div class="controls">
-                <input type="text" id="form-field-4" value="510000">
+                <input type="text" id="rcver-zip" placeholder="请输入收货人邮编">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="form-field-1">Shipping Method</label>
               <div class="controls">
                 <label>
-                  <input name="form-field-radio" type="radio"><span class="lbl"> 2-5天  $10 </span><br>
+                  <input name="ship-day" type="radio" value="10" checked><span class="lbl"> 2-5天  $10 </span><br>
                 </label>
                 <label>
-                  <input name="form-field-radio" type="radio"><span class="lbl"> 5-10天  $5 </span><br>
+                  <input name="ship-day" type="radio" value="5"><span class="lbl"> 5-10天  $5 </span><br>
                 </label>
               </div>
             </div>
@@ -89,10 +92,10 @@
         </form>
 
               <h3 style="text-align: center">
-                Total：<b class="red">$100</b>
+                Total：$<b class="red" id="total-cost"></b>
               </h3>
 
-<div style="text-align: center"><button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="icon-beaker"></i> Pay Now</button></div>
+<div style="text-align: center"><button id="pay-now-btn" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="icon-beaker"></i> Pay Now</button></div>
 
 
 
@@ -140,23 +143,51 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootbox.min.js"></script>
     <script>
-      function getQueryVariable(variable)
-{
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
-}
+      function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+                var pair = vars[i].split("=");
+                if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+      }
+      $('input:radio[name="ship-day"]').click(function() {
+        totalCost = +getQueryVariable("total") + (+$('input:radio[name="ship-day"]:checked').val())
+        $("#total-cost").html(totalCost)
+      })
+      
       $(function(){
-        alert(getQueryVariable("orderno"))
+        var totalCost = 
+          +getQueryVariable("total") + (+$('input:radio[name="ship-day"]:checked').val());
+        $("#qty-input").attr("value", +getQueryVariable("qty"))
+        $("#total-cost").html(totalCost);
+        $('#pay-now-btn').click(function() {
+          
+        })
         $('.sure').click(function(){
-            bootbox.alert("Success！")
+            var info = {
+              QTY: $("#qty-input").val(),
+              RcverZip: $("#rcver-zip").val(),
+              RcverTel: $("#rcver-mobile").val(),
+              RcverName: $("#rcver-name").val(),
+              RcvAddr: $("#rcver-addr").val(),
+              walletEmail: parent.bvoAccount.email || "123@123.com"
+            }
+            console.log(info)
+            $.post("walletpay.borrow", JSON.stringify(info), function(data) {
+              data = JSON.parse(data)
+              if (data.isafford) {
+                bootbox.alert("支付成功！")
             setTimeout(function(){
                window.location.href = "bvo-orderlist.html";
             },2000)
+              }
+              else {
+                bootbox.alert("支付失败！")
+              }
+            })
+            
 
         })
 })
