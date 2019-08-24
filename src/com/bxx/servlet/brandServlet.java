@@ -13,8 +13,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bxx.biz.FuncBrand;
 import com.bxx.biz.FuncSet;
-import com.bxx.dao.BrandGoods;
-import com.bxx.dao.BrandOrder;
+import com.bxx.common.Message;
+import com.bxx.common.CashMessage;
+import com.bxx.common.GoodsMessage;
+
 
 public class brandServlet extends HttpServlet {
 	
@@ -64,6 +66,7 @@ public class brandServlet extends HttpServlet {
 		resp.setHeader("Access-Control-Allow-Methods", "GET,POST");
 		PrintWriter out=resp.getWriter();
 		
+//		ArrayList<Message> result;
 		String type = this.parseRequestURI(req);
 		System.out.println(type);
 		switch(type) {
@@ -90,8 +93,14 @@ public class brandServlet extends HttpServlet {
 		case "/updateGoods":     //修改商品信息
 			this.updateGoods(obj);
 			break;
-		case "/updateState":     //更新商品状态  入仓+上架+下架
-			this.updateState(obj);
+		case "/PutinStorage":    //入仓
+			this.PutinStorage(obj);
+			break;
+		case "/putWay":          //上架 
+			this.putWay(obj);
+			break;
+		case "/soldOut":         //下架
+			this.soldOut(obj);
 			break;
 		case "/delivery":        //发货
 			this.delivery(obj);
@@ -103,18 +112,36 @@ public class brandServlet extends HttpServlet {
 			System.out.println("Not yet!");
 		}
 		
-		out.append(obj.toString());
+		out.append(JSON.toJSONString(obj));
 		out.flush();
-		out.close();	
+		out.close();
 	}
 	
 	
-	private int updateState(JSONObject obj) {
+	private boolean soldOut(JSONObject obj) {
 		// TODO Auto-generated method stub
-		String name = obj.get("goodsName").toString();
-		int state = FuncBrand.updateState(name);
-		return state;
+		String sku = obj.get("sku").toString();
+		boolean succ = FuncBrand.SoldOut(sku);
+		return succ;
 	}
+
+
+
+	private boolean putWay(JSONObject obj) {
+		// TODO Auto-generated method stub
+		String sku = obj.get("sku").toString();
+		boolean succ = FuncBrand.PutWay(sku);
+		return succ;
+	}
+
+	private boolean PutinStorage(JSONObject obj) {
+		// TODO Auto-generated method stub
+		String sku = obj.get("sku").toString();
+		boolean succ = FuncBrand.PutinStorage(sku);
+		return succ;
+	}
+
+
 
 	private boolean cancelOrder(JSONObject obj) {
 		// TODO Auto-generated method stub
@@ -173,8 +200,8 @@ public class brandServlet extends HttpServlet {
 	
 	private Boolean checkCash(JSONObject obj) {
 		// TODO Auto-generated method stub
-		String cash = obj.get("cash").toString(),
-				email = obj.get("email").toString(),
+		double cash = obj.getDouble("cash");
+		String	email = obj.get("email").toString(),
 				password = obj.get("password").toString();
 				
 		System.out.println(obj);
@@ -186,47 +213,48 @@ public class brandServlet extends HttpServlet {
 		return succ;
 	}
 	
-	private ArrayList<BrandOrder> displayCash(JSONObject obj) {
+	private ArrayList<CashMessage> displayCash(JSONObject obj) {
 		// TODO Auto-generated method stub
 		
 		String email = obj.get("email").toString();
 				
 		System.out.println(obj);
 		//email怎么获取？
-		ArrayList<BrandOrder>orders = FuncBrand.displayCashFunc(email);
+		ArrayList<CashMessage>orders = FuncBrand.displayCashFunc(email);
 		
 		obj.clear();
 		return orders;
 	}
 	
-	private BrandGoods searchGoods(JSONObject obj) {
+	private ArrayList<GoodsMessage> searchGoods(JSONObject obj) {
 		// TODO Auto-generated method stub
 		String name = obj.get("goodsName").toString();
-		BrandGoods goods = FuncBrand.searchGoods(name);
+		ArrayList<GoodsMessage> goods = FuncBrand.searchGoods(name);
 		return goods;
 	}	
 	
 	private boolean addGoods(JSONObject obj) {
 		// TODO Auto-generated method stub
 		String sku = obj.get("sku").toString(),
-				weight = obj.get("weight").toString(),
-				width = obj.get("width").toString(),
-				height = obj.get("height").toString(),
-				length = obj.get("length").toString(),
-				title = obj.get("title").toString(),
 				upc = obj.get("upc").toString(),
 				ena = obj.get("ena").toString(),
 				model = obj.get("model").toString(),
-				price = obj.get("sprice").toString(),
 				eBayDescription = obj.get("eBayDescription").toString(),
 				amazonDescription = obj.get("amazonDescription").toString(),
 				warranty = obj.get("warranty").toString(),
 				state = obj.get("state").toString(),
 				brandName = obj.get("brandName").toString(),
-				category = obj.get("category").toString();
-		boolean succ = FuncBrand.addGoods(sku, weight, height, length, title, upc, 
+				category = obj.get("category").toString(),
+				title = obj.get("title").toString(),
+				picUrl = obj.get("picUrl").toString();
+		Double weight = obj.getDoubleValue("weight"),
+				width = obj.getDoubleValue("width"),
+				height = obj.getDoubleValue("height"),
+				length = obj.getDoubleValue("length"),
+				price = obj.getDoubleValue("price");
+		boolean succ = FuncBrand.addGoods(sku, weight, width, height, length, title, upc, 
 				ena, model, price, eBayDescription, amazonDescription,
-				warranty, state, brandName, category);
+				warranty, state, brandName, category, picUrl);
 		System.out.println(succ);
 		obj.clear();
 		obj.fluentPut("result", succ);
