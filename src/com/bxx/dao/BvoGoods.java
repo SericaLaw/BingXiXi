@@ -6,6 +6,11 @@ public class BvoGoods {
 	private Boolean IfDropShip;
 	private Boolean IfWishList;
 
+	public BvoGoods() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public BvoGoods(String sku, Integer inventory, Boolean ifDropShip, Boolean ifWishList) {
 		super();
 		Sku = sku;

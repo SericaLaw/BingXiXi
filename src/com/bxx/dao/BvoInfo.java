@@ -6,6 +6,11 @@ public class BvoInfo {
 	private String EMail;
 	private String SellerName;
 
+	public BvoInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public BvoInfo(String sellerID, String tel, String eMail, String sellerName) {
 		super();
 		SellerID = sellerID;

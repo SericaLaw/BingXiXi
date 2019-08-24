@@ -6,6 +6,11 @@ public class BrandInfo {
 	private String Type;
 	private String CertiAddr;
 
+	public BrandInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public BrandInfo(String brandName, String cOIntro, String type, String certiAddr) {
 		super();
 		BrandName = brandName;

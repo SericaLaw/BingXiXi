@@ -7,6 +7,11 @@ public class StoreInfo {
 	private String MarketID;
 	private String MWS;
 
+	public StoreInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public StoreInfo(String storeName, String storeUrl, String sellerID, String marketID, String mWS) {
 		super();
 		StoreName = storeName;

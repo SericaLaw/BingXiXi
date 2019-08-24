@@ -12,7 +12,7 @@ public class BvoOrderManageDBOp extends DBOp {
 	public boolean insert(Object obj) {
 		BvoOrderManage bom = (BvoOrderManage) obj;
 		String sqlstmt = String.format(
-				"insert into BvoOrderManage values ('%s', %f, '%s', %f, '%s', '%s', '%s', '%s', '%s', '%s')",
+				"insert into BvoOrderManage values ('%s', %d, '%s', %f, '%s', '%s', '%s', '%s', '%s', '%s')",
 				bom.getOrderNumber(), bom.getQTY(), bom.getSku(), bom.getTotalPrice(), bom.getTrackNumber(),
 				bom.getState(), bom.getRcverName(), bom.getRcvAddr(), bom.getRcverTel(), bom.getRcverZip());
 		// System.out.println(sqlstmt);
@@ -49,7 +49,7 @@ public class BvoOrderManageDBOp extends DBOp {
 		ArrayList<Object> arr = new ArrayList<Object>();
 		try {
 			while (rs.next()) {
-				BvoOrderManage boma = new BvoOrderManage(rs.getString(1), rs.getDouble(2), rs.getString(3),
+				BvoOrderManage boma = new BvoOrderManage(rs.getString(1), rs.getInt(2), rs.getString(3),
 						rs.getDouble(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),
 						rs.getString(9), rs.getString(10));
 				arr.add(boma);
