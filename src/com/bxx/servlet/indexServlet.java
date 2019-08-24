@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bxx.biz.FuncIndex;
-import com.bxx.biz.FuncSet;
 import com.bxx.common.Message;
 
 /**

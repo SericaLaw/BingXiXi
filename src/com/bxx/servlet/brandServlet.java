@@ -11,12 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bxx.biz.FuncBorrow;
 import com.bxx.biz.FuncBrand;
+<<<<<<< HEAD
 import com.bxx.biz.FuncSet;
 import com.bxx.common.Message;
 import com.bxx.common.CashMessage;
 import com.bxx.common.GoodsMessage;
 
+=======
+import com.bxx.dao.BrandGoods;
+import com.bxx.dao.BrandOrder;
+>>>>>>> 8d857e29be03ce4e04fac83bdf58574fe701aade
 
 public class brandServlet extends HttpServlet {
 	
@@ -34,7 +40,6 @@ public class brandServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(req, resp);
 	}
 	/**
@@ -54,7 +59,6 @@ public class brandServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		System.out.println("这是BrandServlet的Post请求");
 		
 		JSONObject obj = JSON.parseObject(req.getReader().readLine());
@@ -118,11 +122,18 @@ public class brandServlet extends HttpServlet {
 	}
 	
 	
+<<<<<<< HEAD
 	private boolean soldOut(JSONObject obj) {
 		// TODO Auto-generated method stub
 		String sku = obj.get("sku").toString();
 		boolean succ = FuncBrand.SoldOut(sku);
 		return succ;
+=======
+	private int updateState(JSONObject obj) {
+		String name = obj.get("goodsName").toString();
+		int state = FuncBrand.updateState(name);
+		return state;
+>>>>>>> 8d857e29be03ce4e04fac83bdf58574fe701aade
 	}
 
 
@@ -144,26 +155,22 @@ public class brandServlet extends HttpServlet {
 
 
 	private boolean cancelOrder(JSONObject obj) {
-		// TODO Auto-generated method stub
 		String trackNumber = obj.get("trackNumber").toString();
 		boolean succ = FuncBrand.cancelOrder(trackNumber);
 		return succ;
 	}
 
 	private boolean delivery(JSONObject obj) {
-		// TODO Auto-generated method stub
 		String trackNumber = obj.get("trackNumber").toString();
 		boolean succ = FuncBrand.delivery(trackNumber);
 		return succ;
 	}
 
 	private void updateGoods(JSONObject obj) {
-		// TODO Auto-generated method stub
 		//FuncBrand.updateGoods();
 	}
 
 	private boolean deleteGoods(JSONObject obj) {
-		// TODO Auto-generated method stub
 		String name = obj.get("goodsName").toString();
 		boolean succ = FuncBrand.deleteGoods(name);
 		System.out.println(succ);
@@ -177,7 +184,7 @@ public class brandServlet extends HttpServlet {
 				account = obj.get("account").toString(),
 				password = obj.get("password").toString();
 		System.out.println(obj);
-		boolean succ = FuncSet.signUpFunc(email, account, password);
+		boolean succ = FuncBorrow.signUpFunc(email, account, password);
 		System.out.println(succ);
 		obj.clear();
 		obj.fluentPut("result", succ);
@@ -199,9 +206,14 @@ public class brandServlet extends HttpServlet {
 	}
 	
 	private Boolean checkCash(JSONObject obj) {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		double cash = obj.getDouble("cash");
 		String	email = obj.get("email").toString(),
+=======
+		Double cash = Double.parseDouble(obj.get("cash").toString());
+		String email = obj.get("email").toString(),
+>>>>>>> 8d857e29be03ce4e04fac83bdf58574fe701aade
 				password = obj.get("password").toString();
 				
 		System.out.println(obj);
@@ -213,28 +225,41 @@ public class brandServlet extends HttpServlet {
 		return succ;
 	}
 	
+<<<<<<< HEAD
 	private ArrayList<CashMessage> displayCash(JSONObject obj) {
 		// TODO Auto-generated method stub
+=======
+	private ArrayList<Object> displayCash(JSONObject obj) {
+		// TODO ???
+>>>>>>> 8d857e29be03ce4e04fac83bdf58574fe701aade
 		
 		String email = obj.get("email").toString();
 				
 		System.out.println(obj);
 		//email怎么获取？
+<<<<<<< HEAD
 		ArrayList<CashMessage>orders = FuncBrand.displayCashFunc(email);
+=======
+		ArrayList<Object>orders = FuncBrand.displayCashFunc(email);
+>>>>>>> 8d857e29be03ce4e04fac83bdf58574fe701aade
 		
 		obj.clear();
 		return orders;
 	}
 	
+<<<<<<< HEAD
 	private ArrayList<GoodsMessage> searchGoods(JSONObject obj) {
 		// TODO Auto-generated method stub
+=======
+	private BrandGoods searchGoods(JSONObject obj) {
+		// ???
+>>>>>>> 8d857e29be03ce4e04fac83bdf58574fe701aade
 		String name = obj.get("goodsName").toString();
 		ArrayList<GoodsMessage> goods = FuncBrand.searchGoods(name);
 		return goods;
 	}	
 	
 	private boolean addGoods(JSONObject obj) {
-		// TODO Auto-generated method stub
 		String sku = obj.get("sku").toString(),
 				upc = obj.get("upc").toString(),
 				ena = obj.get("ena").toString(),

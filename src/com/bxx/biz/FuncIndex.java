@@ -5,6 +5,13 @@ import com.bxx.common.Message;
 import com.bxx.dao.*;
 
 public class FuncIndex {
+//	public static void main(String[] args) {
+//		for(Message mess:BorrowWaitingOrder()) {
+//			System.out.println(mess.toString());
+//		}	
+//		System.out.println("===== success =====");
+//	}
+	
 	public static BrandGoods getBrandGoodsBySku(String sku) {
 		BrandGoods bg = new BrandGoods();
 		bg.setSku(sku);
@@ -83,6 +90,7 @@ public class FuncIndex {
 			Message mess = new Message();
 			BvoGoods bgs = (BvoGoods)obj;
 			BrandGoods brg = getBrandGoodsBySku(bgs.getSku());
+			mess.setName(brg.getBrandName());
 			mess.setPicture(brg.getPicUrl());
 			mess.setPrice(brg.getPrice());
 			mess.setSku(brg.getSku());

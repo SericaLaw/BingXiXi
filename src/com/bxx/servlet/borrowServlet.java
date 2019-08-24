@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bxx.biz.FuncBorrow;
-import com.bxx.biz.FuncSet;
 import com.bxx.common.Message;
 
 /**
@@ -69,7 +68,7 @@ public class borrowServlet extends HttpServlet {
 				String email = obj.get("email").toString(), 
 				account = obj.get("account").toString(),
 				password = obj.get("password").toString();
-				boolean succ = FuncSet.signUpFunc(email, account, password);
+				boolean succ = FuncBorrow.signUpFunc(email, account, password);
 				obj.clear();
 				obj.fluentPut("result", succ);
 				out.append(obj.toString());
