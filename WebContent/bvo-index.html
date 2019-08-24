@@ -38,10 +38,8 @@
     <body>
 
         <div class="main">
-            <h5 style="margin-top: 45px;">Feature ProductsS</h5>
-
-            这里开始列举
-            <ul>
+            <h5 style="margin-top: 45px;">Feature Products</h5>
+            <ul id="product-list">
                 <li>
                     <a href="bvo-goodsdetail.html">
                     <div class="img"></div><img src="image/61X0zlgsL9L._SL1001_.jpg"  alt="" />
@@ -78,52 +76,34 @@
                     </a>
                 </li>
             </ul>
-             <h5>Feature Products</h5>
-            <ul>
-                <li>
-                    <a href="bvo-goodsdetail.html">
-                    <div class="img"></div><img src="image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/rBAAaVb2LbGARcUQAAFpw8tY5Qc060_b_360x360.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-            </ul>
         </div>
     </body>
 </html>
 <script>
 $(document).ready(function(){
-  alert("鼠标在该段落上按下！");
-  $("h5").mousedown(function(){
-    $.post("1.do")
-  });
+    
+    $.get("1.url", function(data, status) {
+        data = JSON.parse(data);
+        console.log(data)
+        // mock
+        data = [{
+            "imageSrc": "image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg",
+            "title": "Glass Housing Multi-purpose 12L Portable Convection Oven",
+            "price": "16.00",
+            "sku": "2545464471",
+            
+        }];
+        var content_html = ""
+        
+        for (var i = 0, n = data.length; i < n; ++i) {
+            var item = data[i];
+            content_html +=  "<li><a href=\"bvo-goodsdetail.html\">" +
+                    "<img src=\"" + item.imageSrc + "\" /><p>" +
+                    item.title + "</p><span>$" + item.price + "</span></a></li>"
+        }
+        
+        $("#product-list").append(content_html)
+    })
+  
 });
 </script>

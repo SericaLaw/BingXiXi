@@ -37,13 +37,13 @@
             <div id="page-content" class="clearfix">
 
             <div class="goods-header">
-                <div class="goods-header-left"><img src="image/61X0zlgsL9L._SL1001_.jpg" alt="" /></div>
+                <div class="goods-header-left"><img id="item-image" src="image/61X0zlgsL9L._SL1001_.jpg" alt="" /></div>
                 <div class="goods-header-right">
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <p class="red">$16.00</p>
-                    <p>sku:2545464471</p>
-                    <p>Brand：GMY</p>
-                    <p>Stock in US：32</p>
+                    <p id="title">Glass Housing Multi-purpose 12L Portable Convection Oven</p>
+                    <p id="price" class="red">$16.00</p>
+                    <p id="sku">sku:2545464471</p>
+                    <p id="brand">Brand：GMY</p>
+                    <p id ="stock">Stock in US：32</p>
 
                     <button class="btn btn-primary"><a style="color:#fff" href="bvo-goodsstorechoose.html">Dropship Now</a></button>
                     <button class="btn btn-primary">Add to Wish List</button>
@@ -72,4 +72,33 @@
     </body>
     <script src="js/jquery-1.9.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+    
+            $.get("1.url", function(data, status) {
+                data = JSON.parse(data);
+                console.log(data)
+                // mock
+                data = {
+                    "imageSrc": "image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg",
+                    "title": "Glass Housing Multi-purpose 12L Portable Convection Oven",
+                    "price": "16.00",
+                    "sku": "2545464471",
+                    "brand": "GMY",
+                    "stock": 32,
+                    "ebay": "Raw denim you probably haven't heard of them jean shorts Austin.",
+                    "amazon": "Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid."
+                    
+                };
+                
+                $("#title").text(data.title);
+                $("#price").text("$" + data.price);
+                $("sku").text("sku: " + data.sku);
+                $("#brand").text("Brand: " + data.brand);
+                $("stock").text("Stock in US: " + data.stock);
+                $("#")
+            })
+        
+        });
+    </script>
 </html>
