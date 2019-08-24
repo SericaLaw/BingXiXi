@@ -125,7 +125,7 @@ public class FuncBorrow {
 	}
 
 	public static boolean add_store_information(String StoreName, String MarketPlaceID, String SellerID_store,
-			String MWS) {
+												String MWS) {
 		StoreInfo sinfo = new StoreInfo(StoreName, null, SellerID_store, MarketPlaceID, MWS);
 		DBOp op = new StoreInfoDBOp();
 		if (StoreName == null || StoreName == "" || SellerID_store == null || SellerID_store == ""
@@ -174,24 +174,25 @@ public class FuncBorrow {
 	}
 
 	public static boolean add_payment_information(String orderNumber, Integer QTY, String RcverZip, String RcverTel,
-			String RcverName, String RcvAddr) {
+												  String RcverName, String RcvAddr) {
 		BvoOrderManage bom = new BvoOrderManage(), newBom = new BvoOrderManage();
 		DBOp op = new BvoOrderManageDBOp();
-		
+
 		bom.setOrderNumber(orderNumber);
 		ArrayList<Object> arr = op.select(bom);
 		newBom = (BvoOrderManage)arr.get(0);
-		
+
 		newBom.setQTY(QTY);
 		newBom.setRcverZip(RcverZip);
 		newBom.setRcverTel(RcverTel);
 		newBom.setRcverName(RcverName);
 		newBom.setRcvAddr(RcvAddr);
 		newBom.setState("Awaiting Shipment");
-		
+
 		return op.update(bom, newBom);
 	}
 
+<<<<<<< HEAD
 	public static boolean deposit(String password, double money) //ÈôpasswordÕýÈ·£¬ÇÒÓà¶î³ä×ã£¬·µ»Øtrue
 	{
 		return true;
@@ -210,3 +211,6 @@ public class FuncBorrow {
 	}
 
 }
+=======
+}
+>>>>>>> a355ee5b68084ce9cfa340d6fdb9b74d190d9cb6
