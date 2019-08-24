@@ -9,19 +9,21 @@ public class Transcation {
 	private String State;
 	private Date Time;
 	private String EWalletEMail;
+	private Double Balance;
 
 	public Transcation() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transcation(String transcationNumber, String type, String state, Date time, String eWalletEMail) {
+	public Transcation(String transcationNumber, String type, String state, Date time, String eWalletEMail,Double balance) {
 		super();
 		TranscationNumber = transcationNumber;
 		Type = type;
 		State = state;
 		Time = time;
 		EWalletEMail = eWalletEMail;
+		Balance=balance;
 	}
 
 	public String getTranscationNumber() {
@@ -66,6 +68,16 @@ public class Transcation {
 	public void setEWalletEMail(String eWalletEMail) {
 		EWalletEMail = eWalletEMail;
 	}
+	
+	
+
+	public Double getBalance() {
+		return Balance;
+	}
+
+	public void setBalance(Double balance) {
+		Balance = balance;
+	}
 
 	@Override
 	public String toString() {
@@ -85,6 +97,10 @@ public class Transcation {
 		if (this.getEWalletEMail() != null) {
 			str += String.format("and EWalletEMail = '%s' ", this.getEWalletEMail());
 		}
+		if (this.getBalance() != null) {
+			str += String.format("and Balance = '%s' ", this.getBalance());
+		}
+		
 		if (str.equals(""))
 			return str;
 		return str.substring(4);

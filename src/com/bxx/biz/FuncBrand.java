@@ -1,7 +1,8 @@
 package com.bxx.biz;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-<<<<<<< HEAD
 import com.bxx.common.CashMessage;
 import com.bxx.common.GoodsMessage;
 import com.bxx.common.Message;
@@ -52,6 +53,10 @@ public class FuncBrand {
 	
 	
 
+	//è‹¥åpart
+	
+		//å¢åŠ ä¸€ä¸ªå…¬å¸ä¿¡æ¯
+
 	public static Boolean addCompanyFunc(String chineseName, String englishName, String introduction, String type,
 			String url) {
 		// TODO Auto-generated method stub
@@ -65,10 +70,11 @@ public class FuncBrand {
 		return false;
 	}
 
-	
+	//æç°ï¼Œæ£€æŸ¥å¯†ç æ˜¯å¦æ­£ç¡®ï¼Œæç°çš„é‡‘é¢æ˜¯å¦æ­£ç¡®
 	public static Boolean checkCashFunc(String email, Double cash, String password) {
 		// TODO Auto-generated method stub
 		DBOp op=new  EWalletDBOp();
+		DBOp opt=new TranscationDBOp();
 		EWallet ew=new EWallet(email,null,null,null);
 		ArrayList<Object> ewallet=new ArrayList<Object>();
 		ewallet=op.select(ew);
@@ -78,34 +84,72 @@ public class FuncBrand {
 			return false;
 		Double balance=(Double)ewallet.get(3)-cash;
 		EWallet newew=new EWallet(null,null,null,balance);
+		
+		Date date=new Date();
+		SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmss");
+		String transnumber=ft.format(date).toString();
+		
+		
+		Transcation trans=new Transcation(transnumber,"withdrew","waiting check",date ,email,balance);
+		
 		if(!op.update(ew, newew))
+			return false;
+		if(!opt.insert(trans))
 			return false;
 		
 		return false;
 	}
     
-
+	//æç°æµæ°´
 	public static ArrayList<CashMessage> displayCashFunc(String email) {
 		// TODO Auto-generated method stub	
-		ArrayList<CashMessage> orders = new ArrayList<CashMessage>();
+		ArrayList<Object> orders = new ArrayList<Object>();
+		ArrayList<CashMessage>result=new ArrayList<CashMessage>();
+		
 		DBOp op=new TranscationDBOp();
-		Transcation tran=new Transcation(null,"withdrow",null,null,email);
+		Transcation tran=new Transcation(null,null,null,null,email,null);
 		orders=op.select(tran);
 		
-		return orders;
+		
+		
+		for(Object obj:orders) {
+			CashMessage cashmess = new CashMessage(null, null, null, null);
+			//Transcation transcation=new Transcation();
+			cashmess.setOrderNumber((String) orders.get(0));
+			cashmess.setCash( (Double) orders.get(6));
+			cashmess.setState((String) orders.get(2));
+			cashmess.setTime((Date) orders.get(3));
+			
+			result.add(cashmess);
+		}
+		
+		return result;
 	}
-
+	//é€šè¿‡å•†å“æ ‡é¢˜æŸ¥æ‰¾å•†å“ä¿¡æ¯
 	public static ArrayList<GoodsMessage> searchGoods(String name) {
 		// TODO Auto-generated method stub
 		DBOp op=new BrandGoodsDBOp();
 		ArrayList<GoodsMessage> goods=new ArrayList<GoodsMessage>();
-		BrandGoods bg=new BrandGoods(null,null,null,null,null,null,null,null,null,null,null,null,null,null,name,null,null);
+		ArrayList<Object> obj_goods=new ArrayList<Object>();
+		BrandGoods bg=new BrandGoods();
+		bg.setBrandName(name);
+		
 		if(name==null||name=="")
 			return null;
-		goods=op.select(bg);
+		obj_goods=op.select(bg);
+		
+		for(Object obj:obj_goods) {
+			GoodsMessage goodsmess=new GoodsMessage(null,null,null,null);
+			goodsmess.setTitle((String) obj_goods.get(14));
+			goodsmess.setCategory((String) obj_goods.get(15));
+			goodsmess.setState((String) obj_goods.get(13));
+			goodsmess.setPicUrl((String) obj_goods.get(16));
+			goods.add(goodsmess);
+		}
 		return goods;
 	}
-
+   
+	//å¢åŠ ä¸€ä»¶å•†å“
 	public static Boolean addGoods(String sku, Double weight,Double width, Double height, Double length, String title, String upc,
 			String ena, String model, Double price, String eBayDescription, String amazonDescription, String warranty,
 			String state, String brandName, String category,String picUrl) {
@@ -121,9 +165,11 @@ public class FuncBrand {
         return true;
 	}
 
+	//æ ¹æ®å•†å“skuç åˆ é™¤å•†å“
 	public static Boolean deleteGoods(String sku) {
 		// TODO Auto-generated method stub
-		BrandGoods bg=new BrandGoods(sku,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
+		BrandGoods bg=new BrandGoods();
+		bg.setSku(sku);
 		DBOp op=new BrandGoodsDBOp();
 		if(sku==null||sku=="")
 			return false;
@@ -133,6 +179,7 @@ public class FuncBrand {
 		return true;
 	}
 
+	//æ ¹æ®è®¢å•ç¼–å·è¿›è¡Œå‘è´§
 	public static Boolean delivery(String orderNumber) {
 		// TODO Auto-generated method stub
 		DBOp op=new BrandOrderDBOp();
@@ -144,6 +191,7 @@ public class FuncBrand {
 		return true;
 	}
 
+	//æ ¹æ®è®¢å•ç¼–å·è¿›è¡Œå–æ¶ˆè®¢å•
 	public static Boolean cancelOrder(String orderNumber) {
 		// TODO Auto-generated method stub
 		DBOp op=new BrandOrderDBOp();
@@ -156,13 +204,16 @@ public class FuncBrand {
 	}
 
 
+	//å•†å“å…¥ä»“
 	public static Boolean PutinStorage(String sku) {
 		// TODO Auto-generated method stub
 	
 		
-		BrandGoods bg=new BrandGoods(sku,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-		BrandGoods newbg=new BrandGoods(null,null,null,null,null,null,null,null,null,null,null,null,null,"InStorage",null,null,null);
-
+		BrandGoods bg=new BrandGoods();
+		bg.setSku(sku);
+		BrandGoods newbg=new BrandGoods();
+		bg.setState("InStorage");
+		
 		DBOp op=new BrandGoodsDBOp();
 		if(sku==null||sku=="")
 			return false;
@@ -173,11 +224,14 @@ public class FuncBrand {
 	}
 	
 
+	//å•†å“ä¸Šæ¶
 	public static Boolean PutWay(String sku) {
 		// TODO Auto-generated method stub
 		
-		BrandGoods bg=new BrandGoods(sku,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-		BrandGoods newbg=new BrandGoods(null,null,null,null,null,null,null,null,null,null,null,null,null,"PutWay",null,null,null);
+		BrandGoods bg=new BrandGoods();
+		bg.setSku(sku);
+		BrandGoods newbg=new BrandGoods();
+		bg.setState("PutWay");
 
 		DBOp op=new BrandGoodsDBOp();
 		if(sku==null||sku=="")
@@ -188,11 +242,14 @@ public class FuncBrand {
 		return true;
 	}
 	
+	//å•†å“ä¸‹æ¶
 	public static Boolean SoldOut(String sku) {
 		// TODO Auto-generated method stub
 		
-		BrandGoods bg=new BrandGoods(sku,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-		BrandGoods newbg=new BrandGoods(null,null,null,null,null,null,null,null,null,null,null,null,null,"StoreOut",null,null,null);
+		BrandGoods bg=new BrandGoods();
+		bg.setSku(sku);
+		BrandGoods newbg=new BrandGoods();
+		bg.setState("StoreOut");
 
 		DBOp op=new BrandGoodsDBOp();
 		if(sku==null||sku=="")
@@ -202,173 +259,4 @@ public class FuncBrand {
 		
 		return true;
 	}
-=======
-import com.bxx.dao.*;
-import com.bxx.biz.*;
-
-public class FuncBrand {
-	//Ôö¼ÓÒ»¸ö¹«Ë¾ĞÅÏ¢
-		public static boolean addCompanyFunc(String chineseName, String englishName, String introduction, String type,
-				String url) {
-			// TODO Auto-generated method stub
-			DBOp op=new BrandInfoDBOp();
-			BrandInfo binfo=new BrandInfo(chineseName,introduction,type,url);
-			if(chineseName==null||chineseName==""||introduction==null||introduction==""||type==null||type==""||url==null||url=="")
-				return false;
-			else if(!op.insert(binfo))
-				return false;
-			
-			return false;
-		}
-
-		//ÌáÏÖ£¬¼ì²éÃÜÂëÊÇ·ñÕıÈ·£¬ÌáÏÖµÄ½ğ¶îÊÇ·ñÕıÈ·
-		public static boolean checkCashFunc(String email, Double cash, String password) {
-			// TODO Auto-generated method stub
-			DBOp op=new  EWalletDBOp();
-			EWallet ew=new EWallet(email,null,null,null);
-			ArrayList<Object> ewallet=new ArrayList<Object>();
-			ewallet=op.select(ew);
-			if(password!=ewallet.get(2))
-				return false;//ÃÜÂë´íÎó
-			else if(cash.compareTo((Double) ewallet.get(3))>0 )
-				return false;//Óà¶î²»×ã
-			Double balance=(Double)ewallet.get(3)-cash;
-			EWallet newew=new EWallet(null,null,null,balance);
-			if(!op.update(ew, newew))
-				return false;
-			
-			return false;
-		}
-	    
-		//ÌáÏÖÁ÷Ë®
-		public static ArrayList<Object> displayCashFunc(String email) {
-			// TODO Auto-generated method stub	
-			ArrayList<Object> orders = new ArrayList<Object>();
-			DBOp op=new TranscationDBOp();
-			Transcation tran=new Transcation(null,"withdrow",null,null,email);
-			orders=op.select(tran);
-			
-			return orders;
-		}
-
-		public static ArrayList<Object> searchGoods(String name) {
-			// TODO Auto-generated method stub
-			//Í¨¹ıÉÌÆ·±êÌâ²éÕÒÉÌÆ·ĞÅÏ¢
-			DBOp op=new BrandGoodsDBOp();
-			ArrayList<Object> goods=new ArrayList<Object>();
-			BrandGoods bg=new BrandGoods(null,null,null,null,null,null,null,null,null,null,null,null,null,null,name,null,null);
-			if(name==null||name=="")
-				return null;
-			goods=op.select(bg);
-			return goods;
-		}
-
-		public static boolean addGoods(String sku, Double weight,Double width, Double height, Double length, String title, String upc,
-				String ena, String model, Double price, String eBayDescription, String amazonDescription, Date warranty,
-				String state, String brandName, String category,String picUrl) {
-			// TODO Auto-generated method stub
-			//Ôö¼ÓÒ»¼şÉÌÆ·
-			DBOp op=new BrandGoodsDBOp();
-			BrandGoods bg=new BrandGoods(sku, weight, width, height, title, length, upc,
-					ena, model, price, eBayDescription, amazonDescription, warranty,
-				  state, brandName, category, picUrl);
-			if(sku==null||sku=="")//Ö÷¼ü
-				return false;
-	        if(!op.insert(bg))//²åÈëÊ§°Ü
-	        	return false;
-	        return true;
-		}
-
-		public static boolean deleteGoods(String sku) {
-			// TODO Auto-generated method stub
-			//¸ù¾İÉÌÆ·±êÌâÉ¾³ıÉÌÆ·
-			BrandGoods bg=new BrandGoods(sku,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-			DBOp op=new BrandGoodsDBOp();
-			if(sku==null||sku=="")
-				return false;
-			if(!op.delete(bg))
-				return false;
-			
-			return true;
-		}
-
-		public static boolean delivery(String orderNumber) {
-			// TODO Auto-generated method stub
-			//¸ù¾İ¶©µ¥±àºÅ½øĞĞ·¢»õ
-			DBOp op=new BrandOrderDBOp();
-			BrandOrder bo=new BrandOrder(orderNumber,null,null,null,null,null,null);
-			BrandOrder deliver=new BrandOrder(null,null,null,null,null,"Shipped",null);
-			if(!op.update(bo, deliver))
-				return false;
-			
-			return true;
-		}
-
-		public static boolean cancelOrder(String orderNumber) {
-			// TODO Auto-generated method stub
-			//¸ù¾İ¶©µ¥±àºÅ½øĞĞÈ¡Ïû¶©µ¥
-			DBOp op=new BrandOrderDBOp();
-			BrandOrder bo=new BrandOrder(orderNumber,null,null,null,null,null,null);
-			BrandOrder cancel=new BrandOrder(null,null,null,null,null,"cancelled",null);
-			if(!op.update(bo, cancel))
-				return false;
-			
-			return true;
-		}
-
-		//ÉÌÆ·Èë²Ö
-		public static boolean PutinStorage(String sku) {
-			// TODO Auto-generated method stub
-			//¸üĞÂÉÌÆ·×´Ì¬  ·µ»ØÈë²ÖorÉÏ¼ÜorÏÂ¼Ü×´Ì¬ ÓÃ²»Í¬µÄintÖµ±íÊ¾£¿
-			
-			BrandGoods bg=new BrandGoods(sku,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-			BrandGoods newbg=new BrandGoods(null,null,null,null,null,null,null,null,null,null,null,null,null,"InStorage",null,null,null);
-
-			DBOp op=new BrandGoodsDBOp();
-			if(sku==null||sku=="")
-				return false;
-			if(!op.update(bg, newbg))
-				return false;
-			
-			return true;
-		}
-		
-		//ÉÌÆ·ÉÏ¼Ü
-		public static boolean PutWay(String sku) {
-			// TODO Auto-generated method stub
-			//¸üĞÂÉÌÆ·×´Ì¬  ·µ»ØÈë²ÖorÉÏ¼ÜorÏÂ¼Ü×´Ì¬ ÓÃ²»Í¬µÄintÖµ±íÊ¾£¿
-			
-			BrandGoods bg=new BrandGoods(sku,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-			BrandGoods newbg=new BrandGoods(null,null,null,null,null,null,null,null,null,null,null,null,null,"PutWay",null,null,null);
-
-			DBOp op=new BrandGoodsDBOp();
-			if(sku==null||sku=="")
-				return false;
-			if(!op.update(bg, newbg))
-				return false;
-			
-			return true;
-		}
-		
-		//ÉÌÆ·ÏÂ¼Ü
-		public static boolean SoldOut(String sku) {
-			// TODO Auto-generated method stub
-			//¸üĞÂÉÌÆ·×´Ì¬  ·µ»ØÈë²ÖorÉÏ¼ÜorÏÂ¼Ü×´Ì¬ ÓÃ²»Í¬µÄintÖµ±íÊ¾£¿
-			
-			BrandGoods bg=new BrandGoods(sku,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null);
-			BrandGoods newbg=new BrandGoods(null,null,null,null,null,null,null,null,null,null,null,null,null,"StoreOut",null,null,null);
-
-			DBOp op=new BrandGoodsDBOp();
-			if(sku==null||sku=="")
-				return false;
-			if(!op.update(bg, newbg))
-				return false;
-			
-			return true;
-		}
-
-		public static int updateState(String name) {
-
-		}
->>>>>>> 8d857e29be03ce4e04fac83bdf58574fe701aade
 }

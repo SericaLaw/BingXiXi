@@ -50,7 +50,7 @@ public class TranscationDBOp extends DBOp {
 		try {
 			while (rs.next()) {
 				Transcation trans = new Transcation(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4),
-						rs.getString(5));
+						rs.getString(5),rs.getString(6));
 				arr.add(trans);
 			}
 		} catch (SQLException e) {
