@@ -173,16 +173,14 @@ public class FuncBorrow {
 			return true;
 	}
 
-	public static boolean add_payment_information(String orderNumber, Integer QTY, String RcverZip, String RcverTel,
+	public static boolean add_payment_information(String orderNumber, String RcverZip, String RcverTel,
 												  String RcverName, String RcvAddr) {
 		BvoOrderManage bom = new BvoOrderManage(), newBom = new BvoOrderManage();
 		DBOp op = new BvoOrderManageDBOp();
-
 		bom.setOrderNumber(orderNumber);
 		ArrayList<Object> arr = op.select(bom);
 		newBom = (BvoOrderManage)arr.get(0);
-
-		newBom.setQTY(QTY);
+		//newBom.setQTY(QTY);
 		newBom.setRcverZip(RcverZip);
 		newBom.setRcverTel(RcverTel);
 		newBom.setRcverName(RcverName);
@@ -192,7 +190,6 @@ public class FuncBorrow {
 		return op.update(bom, newBom);
 	}
 
-<<<<<<< HEAD
 	public static boolean deposit(String password, double money) //ÈôpasswordÕýÈ·£¬ÇÒÓà¶î³ä×ã£¬·µ»Øtrue
 	{
 		return true;
@@ -211,6 +208,4 @@ public class FuncBorrow {
 	}
 
 }
-=======
-}
->>>>>>> a355ee5b68084ce9cfa340d6fdb9b74d190d9cb6
+

@@ -109,7 +109,7 @@ public class borrowServlet extends HttpServlet {
 		String type=parseRequestURI(request);
 		ArrayList<Message> result;
 		String email=null,account=null,password=null;
-		boolean succ=null;
+		boolean succ=true;
 		switch (type)
 		{
 			case "/signUp":
@@ -177,17 +177,21 @@ public class borrowServlet extends HttpServlet {
 				//添加卖方信息
 				//System.out.println(obj.size());
 				System.out.println(obj);
-			    String email = obj.get("email").toString(), 
-				SellerName = obj.get("SellerName").toString(),
-				SellerID = obj.get("SellerID").toString(),
-				tel = obj.get("tel").toString();
+			    email = obj.get("email").toString();
+				String SellerName = obj.get("SellerName").toString();
+				String SellerID = obj.get("SellerID").toString();
+				String tel = obj.get("tel").toString();
 			    /*System.out.println(email);
 			    System.out.println(SellerName);
 			    System.out.println(SellerID);
 			    System.out.println(tel);
 			    */
-			    boolean confirm1=com.bxx.biz.borrowFunc.add_borrower_information( SellerID,tel,email,SellerName);
-				req.getRequestDispatcher("bvo-goodsstoreAdd.html");          
+			    boolean confirm1=FuncBorrow.add_borrower_information( SellerID,tel,email,SellerName);
+				obj.clear();
+				obj.fluentPut("result", confirm1);
+				out.append(obj.toString());
+				out.flush();
+				out.close();
 				break;
 				
 			case "/bvo-shopAdd"://添加店铺信息
@@ -197,17 +201,32 @@ public class borrowServlet extends HttpServlet {
 				MarketPlaceID = obj.get("MarketPlaceID").toString(),
 				SellerID_store = obj.get("SellerID").toString(),
 				MWS = obj.get("MWS").toString();
-				boolean confirm2=com.bxx.biz.borrowFunc.add_store_information(StoreName,MarketPlaceID,SellerID_store,MWS);
+				boolean confirm2=FuncBorrow.add_store_information(StoreName,MarketPlaceID,SellerID_store,MWS);
+				obj.clear();
+				obj.fluentPut("result", confirm2);
+				out.append(obj.toString());
+				out.flush();
+				out.close();
 				break;
 			case "/dropship"://推送获得主键
 				System.out.println(obj);
 				String push_sku = obj.get("sku").toString();
-				boolean confirm3=com.bxx.biz.borrowFunc.modify_push_information(push_sku);
+				boolean confirm3=FuncBorrow.modify_push_information(push_sku);
+				obj.clear();
+				obj.fluentPut("result", confirm3);
+				out.append(obj.toString());
+				out.flush();
+				out.close();
 				break;
 			case "/wishlist"://加入心愿单(心愿单状态修改)
 				System.out.println(obj);
 				String list_sku = obj.get("sku").toString();
-				boolean confirm4=com.bxx.biz.borrowFunc.modify_wishlist_information(list_sku);
+				boolean confirm4=FuncBorrow.modify_wishlist_information(list_sku);
+				obj.clear();
+				obj.fluentPut("result", confirm4);
+				out.append(obj.toString());
+				out.flush();
+				out.close();
 				break;
 			case "/bvo-wishlist"://对心愿单删除(删除数据)
 				
@@ -227,11 +246,11 @@ public class borrowServlet extends HttpServlet {
 				RcverTel = obj.get("RcverTel").toString(),
 				RcverName= obj.get(" RcverName").toString(),
 				RcvAddr = obj.get("RcvAddr").toString(); 
-				String trackNumber = obj.get("trackNumber").toString(), 
-				 walletEmail=obj.get("walletEmail").toString();
-				boolean isafford=com.bxx.biz.borrowFunc.check_wallet_ifafford(trackNumber,walletEmail);
+				Double trackNumber = obj.getDouble("trackNumber"); 
+				String walletEmail=obj.get("walletEmail").toString();
+				boolean isafford=FuncBorrow.check_wallet_ifafford(trackNumber,walletEmail);
 				if(isafford) {
-					boolean confirm5=com.bxx.biz.borrowFunc.add_payment_information(QTY,RcverZip,RcverTel,RcverName,RcvAddr);
+					boolean confirm5=FuncBorrow.add_payment_information(QTY,RcverZip,RcverTel,RcverName,RcvAddr);
 				}
 				obj.fluentPut("isafford", isafford);
 					out.append(obj.toString());
