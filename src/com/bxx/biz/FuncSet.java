@@ -1,5 +1,7 @@
 package com.bxx.biz;
 
+import java.util.ArrayList;
+
 import com.bxx.dao.*;
 
 public class FuncSet {
@@ -17,10 +19,18 @@ public class FuncSet {
 		return false;
 	}
 
-	public static boolean checkFunc(String cash, String password) {
+	public static boolean checkFunc(String email, String cash, String password) {
 		// TODO Auto-generated method stub
-		System.out.println("此处需要数据库改操作");
+		System.out.println("此处需要数据库查与改操作");
 		//提现，检查密码是否正确，提现的金额是否正确
 		return false;
+	}
+
+	public static ArrayList<BrandOrder> displayFunc(String email) {
+		// TODO Auto-generated method stub
+		System.out.println("此处需要数据库查操作");
+		//提现流水
+		ArrayList<BrandOrder> orders = new ArrayList<BrandOrder>();
+		return orders;
 	}
 }

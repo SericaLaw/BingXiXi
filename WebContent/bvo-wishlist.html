@@ -52,8 +52,8 @@
               <h1 style="color: #2679b5;">借卖方<small><i class="icon-double-angle-right"></i> 心愿单</small></h1>
             </div>
             <button class="btn btn-success"><i class="icon-trash icon-4x icon-only">delete</i></button>
-            <ul>
-                <li class="imglist">
+            <ul id="wish-list">
+                <!-- <li class="imglist">
 
                     <a href="bvo-goodsdetail.html">
                     <label><input type="checkbox" class="input"><span class="lbl"></span></label>
@@ -114,14 +114,39 @@
                     <input type="checkbox" />
                     </div>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
         </div>
         <script type="text/javascript">
-            $(function(){
-
-            })
+        
+           $(document).ready(function(){
+            
+                $.get("1.url", function(data, status) {
+                    data = JSON.parse(data);
+                    console.log(data)
+                    // mock
+                    data = [{
+                        "imageSrc": "image/7145urh2rSL._SL1001_.jpg",
+                        "title": "Glass Housing Multi-purpose 12L Portable Convection Oven",
+                        "price": "16.00",
+                        "sku": "GM08713"
+                    }];
+                    content_html = ""
+                    
+                    for (var i = 0, n = data.length; i < n; ++i) {
+                        var item = data[i];
+                        content_html +=  `<li class="imglist"><a href="bvo-goodsdetail.html"><label><input type="checkbox" class="input"><span class="lbl"></span></label><img src="`
+                        + item.imageSrc + `"  alt="" /><div class="right"><p>`
+                        + item.title + `</p><span class="red">$` 
+                        + item.price + `</span><p>sku:`
+                        + item.sku + `</p><input type="checkbox" /></div></a></li>`
+                    }
+                    
+                    $("#wish-list").append(content_html)
+                })
+            
+            });
         </script>
     </body>
 </html>
