@@ -40,7 +40,7 @@
         <div class="main">
             <h5 style="margin-top: 45px;">Feature Products</h5>
             <ul id="product-list">
-                <li>
+                <!-- <li>
                     <a href="bvo-goodsdetail.html">
                     <div class="img"></div><img src="image/61X0zlgsL9L._SL1001_.jpg"  alt="" />
                     <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
@@ -74,17 +74,18 @@
                     <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
                     <span>$16.00</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </body>
 </html>
 <script>
+    
 $(document).ready(function(){
     
-    $.get("1.url", function(data, status) {
-        data = JSON.parse(data);
-        console.log(data)
+    // $.get("1.url", function(data, status) {
+        // data = JSON.parse(data);
+        // console.log(data)
         // mock
         data = [{
             "imageSrc": "image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg",
@@ -97,13 +98,13 @@ $(document).ready(function(){
         
         for (var i = 0, n = data.length; i < n; ++i) {
             var item = data[i];
-            content_html +=  "<li><a href=\"bvo-goodsdetail.html\">" +
+            content_html +=  `<li><a href="bvo-goodsdetail.html?sku=`+item.sku+`">` +
                     "<img src=\"" + item.imageSrc + "\" /><p>" +
                     item.title + "</p><span>$" + item.price + "</span></a></li>"
         }
         
         $("#product-list").append(content_html)
-    })
+    // })
   
 });
 </script>

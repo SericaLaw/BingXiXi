@@ -6,7 +6,7 @@ public class BvoOrderManage {
 	private String Sku;
 	private Double TotalPrice;
 	private String TrackNumber;
-	private String State;//Awaiting Payment, Awaiting Shipment, Shiped, Completed Orders, Cancelled Orders
+	private String State;//Awaiting Payment, Awaiting Shipment, Shiped, Completed, Cancelled
 	private String RcverName;
 	private String RcvAddr;
 	private String RcverTel;

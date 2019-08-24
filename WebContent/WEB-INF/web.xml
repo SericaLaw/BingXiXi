@@ -30,4 +30,22 @@
         <url-pattern>*.brand</url-pattern>
     </servlet-mapping>
     
+        <servlet>
+        <servlet-name>borrow</servlet-name>
+        <servlet-class>com.bxx.servlet.borrowServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>borrow</servlet-name>
+        <url-pattern>*.borrow</url-pattern>
+    </servlet-mapping>
+    
+      <servlet>
+        <servlet-name>index</servlet-name>
+        <servlet-class>com.bxx.servlet.indexServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>*.index</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

@@ -313,9 +313,16 @@
 <script src="js/jquery-1.9.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script>
-    $('.nav-list li ').click(function () {
-        $(this).addClass('blue').siblings().removeClass('blue');
-    })
     var bvoIdxContent = { "name" : "Hi" };
+        var globalSharedData = new Array();
+        var orderNo = "abc";
+    $(document).ready(function() {
+        $('.nav-list li ').click(function () {
+            $(this).addClass('blue').siblings().removeClass('blue');
+        })
+        
+        
+    })
+    
 </script>
 </html>

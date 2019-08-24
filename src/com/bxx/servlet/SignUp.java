@@ -14,7 +14,7 @@ import com.alibaba.*;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import com.bxx.biz.FuncSet;
+import com.bxx.biz.FuncBorrow;
 
 /**
  * Servlet implementation class SignUp
@@ -79,7 +79,7 @@ public class SignUp extends HttpServlet {
 				password = obj.get("password").toString();
 		
 		
-		boolean succ = FuncSet.signUpFunc(email, account, password);
+		boolean succ = FuncBorrow.signUpFunc(email, account, password);
 		
 		
 		obj.clear();

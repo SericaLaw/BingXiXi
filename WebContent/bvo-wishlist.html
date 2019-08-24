@@ -122,9 +122,9 @@
         
            $(document).ready(function(){
             
-                $.get("1.url", function(data, status) {
-                    data = JSON.parse(data);
-                    console.log(data)
+                // $.get("1.url", function(data, status) {
+                //     data = JSON.parse(data);
+                //     console.log(data)
                     // mock
                     data = [{
                         "imageSrc": "image/7145urh2rSL._SL1001_.jpg",
@@ -136,7 +136,8 @@
                     
                     for (var i = 0, n = data.length; i < n; ++i) {
                         var item = data[i];
-                        content_html +=  `<li class="imglist"><a href="bvo-goodsdetail.html"><label><input type="checkbox" class="input"><span class="lbl"></span></label><img src="`
+                        content_html +=  `<li class="imglist"><a href="bvo-goodsdetail.html?sku=`
+                        + item.sku + `"><label><input type="checkbox" class="input"><span class="lbl"></span></label><img src="`
                         + item.imageSrc + `"  alt="" /><div class="right"><p>`
                         + item.title + `</p><span class="red">$` 
                         + item.price + `</span><p>sku:`
@@ -146,7 +147,7 @@
                     $("#wish-list").append(content_html)
                 })
             
-            });
+            // });
         </script>
     </body>
 </html>
