@@ -124,7 +124,6 @@
             <th>sku</th>
             <th class="hidden-480">订单编号</th>
             <th class="hidden-480">订单创建时间</th>
-
             <th>操作</th>
             </tr>
           </thead>
@@ -143,7 +142,7 @@
 
               </td>
               <td>
-                <button class="btn btn-minier btn-purple send-out">发货</button>
+                <button onclick="sendOut(75684894)"  class="btn btn-minier btn-purple send-out">发货</button>
               </td>
             </tr>
 
@@ -428,7 +427,15 @@
 
 
     <script>
+function sendOut(orderNum) {
+          var data = {
+            "orderNo": orderNum
+          }
+          // $.post("1.url",  JSON.stringify(data), function(data, status) {
 
+          // })
+          bootbox.alert("已发货!" + orderNum);
+        }
       $(function(){
 
         $('.ace-checkbox-2').each(function(){
@@ -442,9 +449,16 @@
 
         })
 
-        $('.send-out').click(function(){
-          bootbox.alert("已发货!");
-        })
+        // $('.send-out').click(function(){
+        //   var data = {
+        //     "orderNo": 123
+        //   }
+        //   $.post("1.url",  JSON.stringfy(data), function(data, status) {
+
+        //   })
+        //   bootbox.alert("已发货!");
+        // })
+        
         $('.cancel').click(function(){
           bootbox.alert("订单已取消!");
         })
