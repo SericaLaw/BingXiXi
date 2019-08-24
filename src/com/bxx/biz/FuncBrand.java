@@ -40,25 +40,7 @@ public class FuncBrand {
 		SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmss");
 		String transnumber = ft.format(date).toString();
 
-<<<<<<< HEAD
-//		public static boolean addGoods(String sku, Double weight,Double width, Double height, Double length, String title, String upc,
-//				String ena, String model, Double price, String eBayDescription, String amazonDescription, Date warranty,
-//				String state, String brandName, String category,String picUrl) {
-//			// TODO Auto-generated method stub
-//			//增加一件商品
-//			DBOp op=new BrandGoodsDBOp();
-//			BrandGoods bg=new BrandGoods(sku, weight, width, height, title, length, upc,
-//					ena, model, price, eBayDescription, amazonDescription, warranty,
-//				  state, brandName, category, picUrl);
-//			if(sku==null||sku=="")//主键
-//				return false;
-//	        if(!op.insert(bg))//插入失败
-//	        	return false;
-//	        return true;
-//		}
-=======
 		Transcation trans = new Transcation(transnumber, "withdrew", "waiting check", date, email, balance);
->>>>>>> bd849962597a842be5f45527a98d8d25beb15084
 
 		if (!op.update(ew, newew))
 			return false;
@@ -88,11 +70,6 @@ public class FuncBrand {
 			result.add(cashmess);
 		}
 
-<<<<<<< HEAD
-//		public static int updateState(String name) {
-//
-//		}
-=======
 		return result;
 	}
 
@@ -215,5 +192,4 @@ public class FuncBrand {
 
 		return true;
 	}
->>>>>>> bd849962597a842be5f45527a98d8d25beb15084
 }

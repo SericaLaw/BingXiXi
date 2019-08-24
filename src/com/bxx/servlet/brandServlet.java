@@ -13,6 +13,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bxx.biz.FuncBorrow;
 import com.bxx.biz.FuncBrand;
+import com.bxx.common.CashMessage;
+import com.bxx.common.GoodsMessage;
 import com.bxx.dao.BrandGoods;
 import com.bxx.dao.BrandOrder;
 
@@ -76,12 +78,12 @@ public class brandServlet extends HttpServlet {
 		case "/displayCash":     //提现流水
 			this.displayCash(obj);
 			break;
-//		case "/searchGoods":     //根据商品标题查找商品
-//			this.searchGoods(obj);
-//			break;
-//		case "/addGoods":        //增加商品
-//			this.addGoods(obj);
-//			break;
+		case "/searchGoods":     //根据商品标题查找商品
+			this.searchGoods(obj);
+			break;
+		case "/addGoods":        //增加商品
+			this.addGoods(obj);
+			break;
 		case "/deleteGoods":     //删除商品
 			this.deleteGoods(obj);
 			break;
@@ -178,49 +180,49 @@ public class brandServlet extends HttpServlet {
 		return succ;
 	}
 	
-	private ArrayList<Object> displayCash(JSONObject obj) {
-		// TODO ???
-		
+	private ArrayList<CashMessage> displayCash(JSONObject obj) {
 		String email = obj.get("email").toString();
 				
 		System.out.println(obj);
 		//email怎么获取？
-		ArrayList<Object>orders = FuncBrand.displayCashFunc(email);
+		ArrayList<CashMessage>orders = FuncBrand.displayCashFunc(email);
 		
 		obj.clear();
 		return orders;
 	}
-//
-//	private BrandGoods searchGoods(JSONObject obj) {
-//		// ???
-//		String name = obj.get("goodsName").toString();
-//		BrandGoods goods = FuncBrand.searchGoods(name);
-//		return goods;
-//	}
 
-//	private boolean addGoods(JSONObject obj) {
-//		String sku = obj.get("sku").toString(),
-//				weight = obj.get("weight").toString(),
-//				width = obj.get("width").toString(),
-//				height = obj.get("height").toString(),
-//				length = obj.get("length").toString(),
-//				title = obj.get("title").toString(),
-//				upc = obj.get("upc").toString(),
-//				ena = obj.get("ena").toString(),
-//				model = obj.get("model").toString(),
-//				price = obj.get("sprice").toString(),
-//				eBayDescription = obj.get("eBayDescription").toString(),
-//				amazonDescription = obj.get("amazonDescription").toString(),
-//				warranty = obj.get("warranty").toString(),
-//				state = obj.get("state").toString(),
-//				brandName = obj.get("brandName").toString(),
-//				category = obj.get("category").toString();
-//		boolean succ = FuncBrand.addGoods(sku, weight, height, length, title, upc,
-//				ena, model, price, eBayDescription, amazonDescription,
-//				warranty, state, brandName, category);
-//		System.out.println(succ);
-//		obj.clear();
-//		obj.fluentPut("result", succ);
-//		return succ;
-//	}
+	private ArrayList<GoodsMessage> searchGoods(JSONObject obj) {
+		// ???
+		String name = obj.get("goodsName").toString();
+		ArrayList<GoodsMessage> goods = FuncBrand.searchGoods(name);
+		return goods;
+	}
+
+	private boolean addGoods(JSONObject obj) {
+		String sku = obj.get("sku").toString(),
+				upc = obj.get("upc").toString(),
+				ena = obj.get("ena").toString(),
+				model = obj.get("model").toString(),
+				eBayDescription = obj.get("eBayDescription").toString(),
+				amazonDescription = obj.get("amazonDescription").toString(),
+				warranty = obj.get("warranty").toString(),
+				state = obj.get("state").toString(),
+				brandName = obj.get("brandName").toString(),
+				category = obj.get("category").toString(),
+				title = obj.get("title").toString(),
+				picUrl = obj.get("picUrl").toString();
+		Double weight = obj.getDoubleValue("weight"),
+				width = obj.getDoubleValue("width"),
+				height = obj.getDoubleValue("height"),
+				length = obj.getDoubleValue("length"),
+				price = obj.getDoubleValue("price");
+		boolean succ = FuncBrand.addGoods(sku, weight, width, height, length, title, upc, 
+				ena, model, price, eBayDescription, amazonDescription,
+				warranty, state, brandName, category, picUrl);
+		System.out.println(succ);
+		obj.clear();
+		obj.fluentPut("result", succ);
+		return succ;
+	}
+
 }

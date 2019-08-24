@@ -42,7 +42,7 @@ public class EWalletDBOp extends DBOp {
 			sqlstmt = "select * from EWallet";
 		else
 			sqlstmt = String.format("select * from EWallet where %s", ew.toString());
-		// System.out.println(sqlstmt);
+//		 System.out.println(sqlstmt);
 		ResultSet rs = JdbcTool.executeSqlByQuery(sqlstmt);
 		ArrayList<Object> arr = new ArrayList<Object>();
 		try {

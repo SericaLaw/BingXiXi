@@ -15,7 +15,9 @@ public class FuncBorrow {
 		// boolean succ = add_borrower_information("3", "cf", "1", "1");
 		// boolean succ = add_store_information("store001", "market01", "111", "ddd");
 		// boolean succ = modify_push_information("12345");
-		boolean succ = modify_wishlist_information("12345");
+		// boolean succ = modify_wishlist_information("12345");
+		// boolean succ = check_wallet_ifafford(499.9, "123456789@qq.com");
+		boolean succ = add_payment_information("123456", 555, "zip", "tel", "name", "addr");
 
 		System.out.println(succ);
 
@@ -166,30 +168,39 @@ public class FuncBorrow {
 		EWallet ew = new EWallet();
 		ew.setEmail(walletEmail);
 		ArrayList<Object> arr = op.select(ew);
-		Double balance = ((EWallet) arr.get(0)).getBalance();
-		if (totalMoney > balance)
+
+		try {
+			Double balance = ((EWallet) arr.get(0)).getBalance();
+			if (totalMoney > balance)
+				return false;
+			else
+				return true;
+		} catch (Exception e) {
 			return false;
-		else
-			return true;
+		}
 	}
 
 	public static boolean add_payment_information(String orderNumber, Integer QTY, String RcverZip, String RcverTel,
 			String RcverName, String RcvAddr) {
 		BvoOrderManage bom = new BvoOrderManage(), newBom = new BvoOrderManage();
 		DBOp op = new BvoOrderManageDBOp();
-		
+
 		bom.setOrderNumber(orderNumber);
 		ArrayList<Object> arr = op.select(bom);
-		newBom = (BvoOrderManage)arr.get(0);
-		
-		newBom.setQTY(QTY);
-		newBom.setRcverZip(RcverZip);
-		newBom.setRcverTel(RcverTel);
-		newBom.setRcverName(RcverName);
-		newBom.setRcvAddr(RcvAddr);
-		newBom.setState("Awaiting Shipment");
-		
-		return op.update(bom, newBom);
+		try {
+			newBom = (BvoOrderManage) arr.get(0);
+			
+			newBom.setQTY(QTY);
+			newBom.setRcverZip(RcverZip);
+			newBom.setRcverTel(RcverTel);
+			newBom.setRcverName(RcverName);
+			newBom.setRcvAddr(RcvAddr);
+			newBom.setState("Awaiting Shipment");
+
+			return op.update(bom, newBom);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }
