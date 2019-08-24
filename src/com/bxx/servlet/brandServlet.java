@@ -1,6 +1,7 @@
 package com.bxx.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bxx.biz.FuncSet;
+import com.bxx.dao.BrandOrder;
 
 public class brandServlet extends HttpServlet {
 	
@@ -57,11 +59,28 @@ public class brandServlet extends HttpServlet {
 				password = obj.get("password").toString();
 				
 		System.out.println(obj);
-		boolean succ = FuncSet.checkFunc(cash, password);
-		System.out.println(succ);
+		//email怎么获取？
+//		boolean succ = FuncSet.checkFunc(email, cash, password);
+//		System.out.println(succ);
+//		obj.clear();
+//		obj.fluentPut("result", succ);
+//		return succ;
+		return false;
+	}
+	
+	private ArrayList<BrandOrder> display(JSONObject obj) {
+		// TODO Auto-generated method stub
+		
+//		String transaction = obj.get("transaction").toString(),
+//				cash = obj.get("cash").toString(),
+//				date = obj.get("date").toString(),
+//				status = obj.get("status").toString();
+				
+		System.out.println(obj);
+		ArrayList<BrandOrder>orders = FuncSet.displayFunc("email");
+		
 		obj.clear();
-		obj.fluentPut("result", succ);
-		return succ;
+		return orders;
 	}
 	
 	@Override
@@ -106,18 +125,15 @@ public class brandServlet extends HttpServlet {
 		case "/add":         //增加一个公司信息
 			this.add(obj);
 			break;
-		case "/check":     //提现
+		case "/check":       //提现
 			this.check(obj);
+		case "/display":     //提现流水
+			this.display(obj);
 			break;
 		default:
 			System.out.println("Not yet!");
 		}
 			
-		
-		
-		
-
 	
-	}
-	
+	}	
 }
