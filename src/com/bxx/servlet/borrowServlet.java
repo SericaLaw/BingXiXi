@@ -2,6 +2,7 @@ package com.bxx.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bxx.biz.FuncBorrow;
 import com.bxx.biz.FuncSet;
+import com.bxx.common.Message;
 
 /**
  * Servlet implementation class borrowServlet
@@ -59,11 +62,46 @@ public class borrowServlet extends HttpServlet {
 		JSONObject obj = JSON.parseObject(request.getReader().readLine());
 		System.out.println(obj);
 		String type=parseRequestURI(request);
+		ArrayList<Message> result;
 		switch (type)
 		{
-			case "1.borrow":
+			case "/signUp":
+				String email = obj.get("email").toString(), 
+				account = obj.get("account").toString(),
+				password = obj.get("password").toString();
+				boolean succ = FuncSet.signUpFunc(email, account, password);
+				obj.clear();
+				obj.fluentPut("result", succ);
+				out.append(obj.toString());
+				out.flush();
+				out.close();
 				break;
-			
+			case "/awaitingShipment":
+				result=FuncBorrow.awaitingShipment(); 
+				out.append(JSON.toJSONString(result));
+				out.flush();
+				out.close();
+				break;
+			case "/shiped":
+				result=FuncBorrow.shiped(); 
+				out.append(JSON.toJSONString(result));
+				out.flush();
+				out.close();
+				break;
+			case "/completed":
+				result=FuncBorrow.completed(); 
+				out.append(JSON.toJSONString(result));
+				out.flush();
+				out.close();
+				break;
+			case "/cancelled":
+				result=FuncBorrow.cancelled(); 
+				out.append(JSON.toJSONString(result));
+				out.flush();
+				out.close();
+				break;
+			default:
+				break;
 		}
 	}
 

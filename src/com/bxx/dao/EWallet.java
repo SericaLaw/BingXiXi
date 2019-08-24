@@ -6,6 +6,11 @@ public class EWallet {
 	private String Password;
 	private Double Balance;
 
+	public EWallet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public EWallet(String email, String accountName, String password, Double balance) {
 		super();
 		Email = email;

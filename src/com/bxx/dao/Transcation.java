@@ -10,6 +10,11 @@ public class Transcation {
 	private Date Time;
 	private String EWalletEMail;
 
+	public Transcation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Transcation(String transcationNumber, String type, String state, Date time, String eWalletEMail) {
 		super();
 		TranscationNumber = transcationNumber;
