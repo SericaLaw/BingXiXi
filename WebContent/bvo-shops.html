@@ -42,7 +42,7 @@
                 <div><label>Store Name</label><input type="text"></div>
                 <div><label>Seller ID</label><input type="text"></div>
                 <div><label>Marketplace ID</label><input type="text"></div>
-                <div><label>MWS Auth Token</label><input type="text"></div>
+                <!-- <div><label>MWS Auth Token</label><input type="text"></div> -->
                 <div class="button save"><button class="btn" style="margin-right: 10px">cancel</button><button class="btn btn-primary">save</button></div>
             </div>
         </div>
@@ -50,9 +50,12 @@
     </div>
     <script type="text/javascript">
     $(function(){
+        var choice;
         $(".shop").click(function(event) {
             $(".goodscontent h3").text($(this).text());
             $(".shop").hide();
+            choice = event.target.innerHTML
+            console.log(choice)
             $(".goodsname").show();
         });
         $(".save").click(function(){

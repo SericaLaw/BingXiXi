@@ -83,28 +83,27 @@
     
 $(document).ready(function(){
     
-    // $.get("1.url", function(data, status) {
-        // data = JSON.parse(data);
-        // console.log(data)
-        // mock
-        data = [{
-            "imageSrc": "image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg",
-            "title": "Glass Housing Multi-purpose 12L Portable Convection Oven",
-            "price": "16.00",
-            "sku": "2545464471",
+    $.get("borrowProductView.index", function(data, status) {
+        data = JSON.parse(data);
+        console.log(data)
+        // data = [{
+        //     "imageSrc": "image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg",
+        //     "title": "Glass Housing Multi-purpose 12L Portable Convection Oven",
+        //     "price": "16.00",
+        //     "sku": "2545464471",
             
-        }];
+        // }];
         var content_html = ""
         
         for (var i = 0, n = data.length; i < n; ++i) {
             var item = data[i];
             content_html +=  `<li><a href="bvo-goodsdetail.html?sku=`+item.sku+`">` +
                     "<img src=\"" + item.imageSrc + "\" /><p>" +
-                    item.title + "</p><span>$" + item.price + "</span></a></li>"
+                    item.name + "</p><span>$" + item.price + "</span></a></li>"
         }
         
         $("#product-list").append(content_html)
-    // })
+    })
   
 });
 </script>

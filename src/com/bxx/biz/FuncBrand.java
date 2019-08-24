@@ -62,21 +62,21 @@ public class FuncBrand {
 			return goods;
 		}
 
-		public static boolean addGoods(String sku, Double weight,Double width, Double height, Double length, String title, String upc,
-				String ena, String model, Double price, String eBayDescription, String amazonDescription, Date warranty,
-				String state, String brandName, String category,String picUrl) {
-			// TODO Auto-generated method stub
-			//增加一件商品
-			DBOp op=new BrandGoodsDBOp();
-			BrandGoods bg=new BrandGoods(sku, weight, width, height, title, length, upc,
-					ena, model, price, eBayDescription, amazonDescription, warranty,
-				  state, brandName, category, picUrl);
-			if(sku==null||sku=="")//主键
-				return false;
-	        if(!op.insert(bg))//插入失败
-	        	return false;
-	        return true;
-		}
+//		public static boolean addGoods(String sku, Double weight,Double width, Double height, Double length, String title, String upc,
+//				String ena, String model, Double price, String eBayDescription, String amazonDescription, Date warranty,
+//				String state, String brandName, String category,String picUrl) {
+//			// TODO Auto-generated method stub
+//			//增加一件商品
+//			DBOp op=new BrandGoodsDBOp();
+//			BrandGoods bg=new BrandGoods(sku, weight, width, height, title, length, upc,
+//					ena, model, price, eBayDescription, amazonDescription, warranty,
+//				  state, brandName, category, picUrl);
+//			if(sku==null||sku=="")//主键
+//				return false;
+//	        if(!op.insert(bg))//插入失败
+//	        	return false;
+//	        return true;
+//		}
 
 		public static boolean deleteGoods(String sku) {
 			// TODO Auto-generated method stub
@@ -166,7 +166,7 @@ public class FuncBrand {
 			return true;
 		}
 
-		public static int updateState(String name) {
-
-		}
+//		public static int updateState(String name) {
+//
+//		}
 }
