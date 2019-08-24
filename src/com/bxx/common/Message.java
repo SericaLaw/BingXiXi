@@ -8,7 +8,7 @@ public class Message {
 	private String picture;// 图片
 	private String sku;// sku
 	private String id;// 订单编号
-	private int number;// 数量
+	private Integer number;// 数量
 	private Date time;// 时间
 	private String state;
 	private Double price;
@@ -53,11 +53,11 @@ public class Message {
 		this.id = id;
 	}
 
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 

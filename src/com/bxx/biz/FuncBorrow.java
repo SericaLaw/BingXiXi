@@ -8,26 +8,26 @@ import com.bxx.biz.FuncIndex;
 
 public class FuncBorrow {
 	public static void main(String[] args) {
-//		for(Message mess:cancelled()) {
-//			System.out.println(mess.toString());
-//		}	
-		
-//		boolean succ = add_borrower_information("3", "cf", "1", "1");
-//		boolean succ = add_store_information("store001", "market01", "111", "ddd");
-//		boolean succ = modify_push_information("12345");
+		// for(Message mess:cancelled()) {
+		// System.out.println(mess.toString());
+		// }
+
+		// boolean succ = add_borrower_information("3", "cf", "1", "1");
+		// boolean succ = add_store_information("store001", "market01", "111", "ddd");
+		// boolean succ = modify_push_information("12345");
 		boolean succ = modify_wishlist_information("12345");
-		
+
 		System.out.println(succ);
-		
+
 		System.out.println("===== success =====");
 	}
-	
+
 	public static boolean signUpFunc(String email, String account, String password) {
 		EWallet ew = new EWallet(email, account, password, null);
 		DBOp op = new EWalletDBOp();
 		return op.insert(ew);
 	}
-	
+
 	public static ArrayList<Message> awaitingShipment() // «Î«Û¥˝‘À ‰µƒ
 	{
 		DBOp op = new BvoOrderManageDBOp();
@@ -35,9 +35,9 @@ public class FuncBorrow {
 		bom.setState("Awaiting Shipment");
 		ArrayList<Object> arr = op.select(bom);
 		ArrayList<Message> res = new ArrayList<Message>();
-		for(Object obj:arr) {
+		for (Object obj : arr) {
 			Message mess = new Message();
-			BvoOrderManage bo = (BvoOrderManage)obj;
+			BvoOrderManage bo = (BvoOrderManage) obj;
 			BrandGoods bg = FuncIndex.getBrandGoodsBySku(bo.getSku());
 			mess.setName(bg.getBrandName());
 			mess.setPrice(bg.getPrice());
@@ -56,9 +56,9 @@ public class FuncBorrow {
 		bom.setState("Shiped");
 		ArrayList<Object> arr = op.select(bom);
 		ArrayList<Message> res = new ArrayList<Message>();
-		for(Object obj:arr) {
+		for (Object obj : arr) {
 			Message mess = new Message();
-			BvoOrderManage bo = (BvoOrderManage)obj;
+			BvoOrderManage bo = (BvoOrderManage) obj;
 			BrandGoods bg = FuncIndex.getBrandGoodsBySku(bo.getSku());
 			mess.setName(bg.getBrandName());
 			mess.setPrice(bg.getPrice());
@@ -77,9 +77,9 @@ public class FuncBorrow {
 		bom.setState("Completed");
 		ArrayList<Object> arr = op.select(bom);
 		ArrayList<Message> res = new ArrayList<Message>();
-		for(Object obj:arr) {
+		for (Object obj : arr) {
 			Message mess = new Message();
-			BvoOrderManage bo = (BvoOrderManage)obj;
+			BvoOrderManage bo = (BvoOrderManage) obj;
 			BrandGoods bg = FuncIndex.getBrandGoodsBySku(bo.getSku());
 			mess.setName(bg.getBrandName());
 			mess.setPrice(bg.getPrice());
@@ -98,9 +98,9 @@ public class FuncBorrow {
 		bom.setState("Cancelled");
 		ArrayList<Object> arr = op.select(bom);
 		ArrayList<Message> res = new ArrayList<Message>();
-		for(Object obj:arr) {
+		for (Object obj : arr) {
 			Message mess = new Message();
-			BvoOrderManage bo = (BvoOrderManage)obj;
+			BvoOrderManage bo = (BvoOrderManage) obj;
 			BrandGoods bg = FuncIndex.getBrandGoodsBySku(bo.getSku());
 			mess.setName(bg.getBrandName());
 			mess.setPrice(bg.getPrice());
@@ -125,7 +125,7 @@ public class FuncBorrow {
 	}
 
 	public static boolean add_store_information(String StoreName, String MarketPlaceID, String SellerID_store,
-			String MWS) {
+												String MWS) {
 		StoreInfo sinfo = new StoreInfo(StoreName, null, SellerID_store, MarketPlaceID, MWS);
 		DBOp op = new StoreInfoDBOp();
 		if (StoreName == null || StoreName == "" || SellerID_store == null || SellerID_store == ""
@@ -141,7 +141,7 @@ public class FuncBorrow {
 		BvoGoods newbg = new BvoGoods(null, null, true, null);
 		DBOp op = new BvoGoodsDBOp();
 		BvoGoods oldbg = new BvoGoods(push_sku, null, null, null);
-		if(op.select(oldbg).isEmpty())
+		if (op.select(oldbg).isEmpty())
 			return false;
 		if (!op.update(oldbg, newbg))
 			return false;
@@ -153,11 +153,43 @@ public class FuncBorrow {
 		BvoGoods newbg = new BvoGoods(null, null, null, true);
 		DBOp op = new BvoGoodsDBOp();
 		BvoGoods oldbg = new BvoGoods(wish_sku, null, null, null);
-		if(op.select(oldbg).isEmpty())
+		if (op.select(oldbg).isEmpty())
 			return false;
 		if (!op.update(oldbg, newbg))
 			return false;
 
 		return true;
 	}
+
+	public static boolean check_wallet_ifafford(Double totalMoney, String walletEmail) {
+		DBOp op = new EWalletDBOp();
+		EWallet ew = new EWallet();
+		ew.setEmail(walletEmail);
+		ArrayList<Object> arr = op.select(ew);
+		Double balance = ((EWallet) arr.get(0)).getBalance();
+		if (totalMoney > balance)
+			return false;
+		else
+			return true;
+	}
+
+	public static boolean add_payment_information(String orderNumber, Integer QTY, String RcverZip, String RcverTel,
+												  String RcverName, String RcvAddr) {
+		BvoOrderManage bom = new BvoOrderManage(), newBom = new BvoOrderManage();
+		DBOp op = new BvoOrderManageDBOp();
+
+		bom.setOrderNumber(orderNumber);
+		ArrayList<Object> arr = op.select(bom);
+		newBom = (BvoOrderManage)arr.get(0);
+
+		newBom.setQTY(QTY);
+		newBom.setRcverZip(RcverZip);
+		newBom.setRcverTel(RcverTel);
+		newBom.setRcverName(RcverName);
+		newBom.setRcvAddr(RcvAddr);
+		newBom.setState("Awaiting Shipment");
+
+		return op.update(bom, newBom);
+	}
+
 }
