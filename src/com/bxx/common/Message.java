@@ -84,4 +84,11 @@ public class Message {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
+	@Override
+	public String toString() {
+		return "Message [name=" + name + ", type=" + type + ", picture=" + picture + ", sku=" + sku + ", id=" + id
+				+ ", number=" + number + ", time=" + time + ", state=" + state + ", price=" + price + "]";
+	}
+
 }

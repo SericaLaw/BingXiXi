@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bxx.biz.FuncIndex;
 import com.bxx.biz.FuncSet;
 
 /**
@@ -60,19 +61,19 @@ public class indexServlet extends HttpServlet {
 		switch (type)
 		{
 			case "/brandPicture":
-				BrandProductPicture(); //请求品牌商商品标题、分类、主图、状态
+				FuncIndex.BrandProductPicture(); //请求品牌商商品标题、分类、主图、状态
 				break;
 			case "/brandOrderManage":
-				BrandWaitingOrder();//请求品牌商所有待支付商品标题、价格、数量、sku、订单编号、订单创建时间
+				FuncIndex.BrandWaitingOrder();//请求品牌商所有待支付商品标题、价格、数量、sku、订单编号、订单创建时间
 				break;
 			case "/borrowProductView":
-				BorrowProduct(); //请求借卖方商品图片、价格、名称
+				FuncIndex.BorrowProduct(); //请求借卖方商品图片、价格、名称
 				break;
 			case "/borrowWishList":
-				WishList();//请求借卖方心愿单图片、价格、sku
+				FuncIndex.WishList();//请求借卖方心愿单图片、价格、sku
 				break;
 			case "/borrowOrderManage":
-				BorrowWaitingOrder();//请求品牌商所有待支付商品标题、价格、数量、sku、订单编号、订单创建时间
+				FuncIndex.BorrowWaitingOrder();//请求品牌商所有待支付商品标题、价格、数量、sku、订单编号、订单创建时间
 				break;
 			default:
 				break;
