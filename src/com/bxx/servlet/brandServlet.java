@@ -17,7 +17,7 @@ import com.bxx.dao.BrandGoods;
 import com.bxx.dao.BrandOrder;
 
 public class brandServlet extends HttpServlet {
-	
+
 	private String parseRequestURI(HttpServletRequest request) {
 		/**
 		 * 解析请求路径，获取到请求的路径
@@ -29,7 +29,7 @@ public class brandServlet extends HttpServlet {
 		lasturl = lasturl.substring(0, lasturl.lastIndexOf("."));
 		return lasturl;
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
@@ -43,7 +43,7 @@ public class brandServlet extends HttpServlet {
 	 *  "account": accountName,
 	 *  "password": pwd
 	 * } 
-	 * 
+	 *
 	 * @apiSuccess {json} response body example
 	 * {
 	 * "result": true
@@ -52,61 +52,61 @@ public class brandServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("这是BrandServlet的Post请求");
-		
+
 		JSONObject obj = JSON.parseObject(req.getReader().readLine());
 		//System.out.println(obj);
-		
+
 		req.setCharacterEncoding("UTF-8");
 		resp.setHeader("content-type","text/html;charset=UTF-8");
 		resp.setHeader("Access-Control-Allow-Origin", "*");
 		resp.setHeader("Access-Control-Allow-Methods", "GET,POST");
 		PrintWriter out=resp.getWriter();
-		
+
 		String type = this.parseRequestURI(req);
 		System.out.println(type);
 		switch(type) {
-		case "/register":        //注册公司
-			this.register(obj);
-			break;
-		case "/addCompany":      //增加一个公司信息
-			this.addCompany(obj);
-			break;
-		case "/checkCash":       //提现
-			this.checkCash(obj);
-		case "/displayCash":     //提现流水
-			this.displayCash(obj);
-			break;
-//		case "/searchGoods":     //根据商品标题查找商品
-//			this.searchGoods(obj);
-//			break;
-//		case "/addGoods":        //增加商品
-//			this.addGoods(obj);
-//			break;
-		case "/deleteGoods":     //删除商品
-			this.deleteGoods(obj);
-			break;
-		case "/updateGoods":     //修改商品信息
-			this.updateGoods(obj);
-			break;
-//		case "/updateState":     //更新商品状态  入仓+上架+下架
-//			this.updateState(obj);
-//			break;
-		case "/delivery":        //发货
-			this.delivery(obj);
-			break;
-		case "/cancelOrder":     //取消订单 
-			this.cancelOrder(obj);
-			break;
-		default:
-			System.out.println("Not yet!");
+			case "/register":        //注册公司
+				this.register(obj);
+				break;
+			case "/addCompany":      //增加一个公司信息
+				this.addCompany(obj);
+				break;
+			case "/checkCash":       //提现
+				this.checkCash(obj);
+//			case "/displayCash":     //提现流水
+//				this.displayCash(obj);
+//				break;
+//			case "/searchGoods":     //根据商品标题查找商品
+//				this.searchGoods(obj);
+//				break;
+//			case "/addGoods":        //增加商品
+//				this.addGoods(obj);
+//				break;
+//			case "/deleteGoods":     //删除商品
+//				this.deleteGoods(obj);
+//				break;
+			case "/updateGoods":     //修改商品信息
+				this.updateGoods(obj);
+				break;
+//			case "/updateState":     //更新商品状态  入仓+上架+下架
+//				this.updateState(obj);
+//				break;
+			case "/delivery":        //发货
+				this.delivery(obj);
+				break;
+			case "/cancelOrder":     //取消订单
+				this.cancelOrder(obj);
+				break;
+			default:
+				System.out.println("Not yet!");
 		}
-		
+
 		out.append(obj.toString());
 		out.flush();
-		out.close();	
+		out.close();
 	}
-	
-	
+
+//
 //	private int updateState(JSONObject obj) {
 //		String name = obj.get("goodsName").toString();
 //		int state = FuncBrand.updateState(name);
@@ -139,7 +139,7 @@ public class brandServlet extends HttpServlet {
 	}
 
 	private Boolean register(JSONObject obj) {
-		String email = obj.get("email").toString(), 
+		String email = obj.get("email").toString(),
 				account = obj.get("account").toString(),
 				password = obj.get("password").toString();
 		System.out.println(obj);
@@ -149,7 +149,7 @@ public class brandServlet extends HttpServlet {
 		obj.fluentPut("result", succ);
 		return succ;
 	}
-	
+
 	private Boolean addCompany(JSONObject obj) {
 		String chineseName = obj.get("chineseName").toString(),
 				englishName = obj.get("englishName").toString(),
@@ -163,12 +163,12 @@ public class brandServlet extends HttpServlet {
 		obj.fluentPut("result", succ);
 		return succ;
 	}
-	
+
 	private Boolean checkCash(JSONObject obj) {
 		Double cash = Double.parseDouble(obj.get("cash").toString());
 		String email = obj.get("email").toString(),
 				password = obj.get("password").toString();
-				
+
 		System.out.println(obj);
 		//email怎么获取？
 		boolean succ = FuncBrand.checkCashFunc(email, cash, password);
@@ -177,19 +177,19 @@ public class brandServlet extends HttpServlet {
 		obj.fluentPut("result", succ);
 		return succ;
 	}
-	
-	private ArrayList<Object> displayCash(JSONObject obj) {
-		// TODO ???
-		
-		String email = obj.get("email").toString();
-				
-		System.out.println(obj);
-		//email怎么获取？
-		ArrayList<Object>orders = FuncBrand.displayCashFunc(email);
-		
-		obj.clear();
-		return orders;
-	}
+
+//	private ArrayList<Object> displayCash(JSONObject obj) {
+//		// TODO ???
+//
+//		String email = obj.get("email").toString();
+//
+//		System.out.println(obj);
+//		//email怎么获取？
+//		ArrayList<Object>orders = FuncBrand.displayCashFunc(email);
+//
+//		obj.clear();
+//		return orders;
+//	}
 //
 //	private BrandGoods searchGoods(JSONObject obj) {
 //		// ???
@@ -197,7 +197,7 @@ public class brandServlet extends HttpServlet {
 //		BrandGoods goods = FuncBrand.searchGoods(name);
 //		return goods;
 //	}
-
+//
 //	private boolean addGoods(JSONObject obj) {
 //		String sku = obj.get("sku").toString(),
 //				weight = obj.get("weight").toString(),
