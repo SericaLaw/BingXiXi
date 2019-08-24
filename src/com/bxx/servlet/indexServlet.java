@@ -80,6 +80,11 @@ public class indexServlet extends HttpServlet {
 			default:
 				break;
 		}
+		
+//		for(Message mess:result) {
+//			System.out.println(mess.toString());
+//		}
+		
 		out.append(JSON.toJSONString(result));
 		out.flush();
 		out.close();

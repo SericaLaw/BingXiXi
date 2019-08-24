@@ -6,15 +6,14 @@ import com.bxx.dao.JdbcTool;
 import com.bxx.dao.Transcation;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 
 public class TranscationDBOp extends DBOp {
 	@Override
 	public boolean insert(Object obj) {
 		Transcation tran = (Transcation) obj;
-		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String sqlstmt = String.format("insert into Transcation values ('%s', '%s', '%s', '%s', '%s')",
-				tran.getTranscationNumber(), tran.getType(), tran.getState(), tran.getTime(), tran.getEWalletEMail());
+		String sqlstmt = String.format("insert into Transcation values ('%s', '%s', '%s', '%s', '%s', %f)",
+				tran.getTranscationNumber(), tran.getType(), tran.getState(), tran.getTime(), tran.getEWalletEMail(),
+				tran.getBalance());
 		 System.out.println(sqlstmt);
 		return JdbcTool.executeSql(sqlstmt);
 	}
@@ -50,7 +49,7 @@ public class TranscationDBOp extends DBOp {
 		try {
 			while (rs.next()) {
 				Transcation trans = new Transcation(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4),
-						rs.getString(5));
+						rs.getString(5), rs.getDouble(6));
 				arr.add(trans);
 			}
 		} catch (SQLException e) {

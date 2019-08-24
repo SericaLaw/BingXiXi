@@ -9,19 +9,22 @@ public class Transcation {
 	private String State;
 	private Date Time;
 	private String EWalletEMail;
+	private Double Balance;
 
 	public Transcation() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transcation(String transcationNumber, String type, String state, Date time, String eWalletEMail) {
+	public Transcation(String transcationNumber, String type, String state, Date time, String eWalletEMail,
+			Double balance) {
 		super();
 		TranscationNumber = transcationNumber;
 		Type = type;
 		State = state;
 		Time = time;
 		EWalletEMail = eWalletEMail;
+		Balance = balance;
 	}
 
 	public String getTranscationNumber() {
@@ -48,9 +51,13 @@ public class Transcation {
 		State = state;
 	}
 
+	public Date getTime_Date() {
+		return Time;
+	}
+	
 	public String getTime() {
 		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		if(Time==null)
+		if (Time == null)
 			return null;
 		return ft.format(Time).toString();
 	}
@@ -65,6 +72,14 @@ public class Transcation {
 
 	public void setEWalletEMail(String eWalletEMail) {
 		EWalletEMail = eWalletEMail;
+	}
+
+	public Double getBalance() {
+		return Balance;
+	}
+
+	public void setBalance(Double balance) {
+		Balance = balance;
 	}
 
 	@Override
@@ -84,6 +99,9 @@ public class Transcation {
 		}
 		if (this.getEWalletEMail() != null) {
 			str += String.format("and EWalletEMail = '%s' ", this.getEWalletEMail());
+		}
+		if(this.getBalance()!=null) {
+			str += String.format("and Balance = %f ", this.getBalance());
 		}
 		if (str.equals(""))
 			return str;
