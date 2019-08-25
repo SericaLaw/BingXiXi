@@ -18,5 +18,6 @@ public class StateName {
 	public static final String Output = "Output";//支出
 	
 	public static final String WaitingCheck = "WaitingCheck";//待审核
-	public static final String Checked = "Checked";//已审核
+	public static final String Checked_Not_Passed = "Checked:0";//已审核，未通过
+	public static final String Checked_Passed = "Checked:1";//已审核，已通过
 }
