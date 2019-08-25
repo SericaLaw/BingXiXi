@@ -39,10 +39,10 @@
             <button class="btn btn-primary btn-block shop">eBay</button>
 
             <div class="goodsname hide control-group">
-                <div><label>Store Name</label><input type="text"></div>
-                <div><label>Seller ID</label><input type="text"></div>
-                <div><label>Marketplace ID</label><input type="text"></div>
-                <!-- <div><label>MWS Auth Token</label><input type="text"></div> -->
+                <div><label>Store Name</label><input type="text" id="store-name"></div>
+                <div><label>Seller ID</label><input type="text" id="seller-id"></div>
+                <div><label>Marketplace ID</label><input type="text" id="market-id"></div>
+                <div><label>MWS Auth Token</label><input type="text" id="mws-token"></div>
                 <div class="button save"><button class="btn" style="margin-right: 10px">cancel</button><button class="btn btn-primary">save</button></div>
             </div>
         </div>
@@ -59,7 +59,22 @@
             $(".goodsname").show();
         });
         $(".save").click(function(){
-            window.location.href = "bvo-goodsstoreAdd.html?type=" + choice;
+            var reqBody = {
+                "StoreName": $("#store-name").val(),
+                "MarketPlaceID": $("#market-id").val(),
+                "SellerID": $("#seller-id").val(),
+                "MWS": $("#mws-token").val()
+            }
+            console.log(JSON.stringify(reqBody))
+            $.post("bvo-shopAdd.borrow", JSON.stringify(reqBody), function(data) {
+                data = JSON.stringify(data)
+                if (data.result == true) {
+                    alert("添加成功！")
+                }
+                else {
+                    alert("添加失败！")
+                }
+            })
         })
     })
     </script>

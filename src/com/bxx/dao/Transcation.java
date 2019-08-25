@@ -17,7 +17,7 @@ public class Transcation {
 	}
 
 	public Transcation(String transcationNumber, String type, String state, Date time, String eWalletEMail,
-					   Double balance) {
+			Double balance) {
 		super();
 		TranscationNumber = transcationNumber;
 		Type = type;
@@ -100,7 +100,7 @@ public class Transcation {
 		if (this.getEWalletEMail() != null) {
 			str += String.format("and EWalletEMail = '%s' ", this.getEWalletEMail());
 		}
-		if(this.getBalance()!=null) {
+		if (this.getBalance() != null) {
 			str += String.format("and Balance = %f ", this.getBalance());
 		}
 		if (str.equals(""))

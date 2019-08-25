@@ -119,7 +119,7 @@ public class BvoOrderManage {
 			str += String.format("and OrderNumber = '%s' ", this.getOrderNumber());
 		}
 		if (this.getQTY() != null) {
-			str += String.format("and QTY = %f ", this.getQTY());
+			str += String.format("and QTY = %d ", this.getQTY());
 		}
 		if (this.getSku() != null) {
 			str += String.format("and Sku = '%s' ", this.getSku());

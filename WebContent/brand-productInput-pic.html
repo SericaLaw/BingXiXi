@@ -92,126 +92,13 @@
     </div>
       <form class="form-search">
           商品标题：
-          <input type="text" class="input-medium search-query">
-          <button onclick="return false;" class="btn btn-purple btn-small">Search <i class="icon-search icon-on-right"></i></button>
+          <input id="product" type="text" class="input-medium search-query">
+          <button id="search" class="btn btn-purple btn-small">Search <i class="icon-search icon-on-right"></i></button>
       </form>
+   
 
-      <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-      <thead>
-        <tr>
-          <th class="center">
-            <label><input type="checkbox" class="ace-checkbox-2"><span class="lbl"></span></label>
-          </th>
-          <th>商品标题</th>
-          <th>分类</th>
-          <th class="hidden-480">主图</th>
-          <th class="hidden-480">状态</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-
-      <tbody>
-
-        <tr>
-          <td class="center">
-            <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-          </td>
-          <td>MP3</td>
-          <td>电子产品</td>
-          <td class="hidden-480"><img src="image/goods.png" alt="" class="imgList"></td>
-          <td class="hidden-480"><span class="label label-sm label-warning">待入仓</span></td>
-          <td>
-            <div class="inline position-relative" >
-              <button class="btn btn-mini btn-info" data-toggle="modal" data-target="#myModal"><i class="icon-edit"></i></button>
-              <button class="btn btn-mini btn-danger"><i class="icon-trash"></i></button>
-                <button class="btn btn-mini btn-success">
-                    入仓
-                </button>
-            </div>
-          </td>
-        </tr>
-
-
-        <tr>
-          <td class="center">
-            <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-          </td>
-          <td>电饭锅</td>
-          <td>电器</td>
-          <td><img src="image/goods.png" alt="" class="imgList"></td>
-          <td><span class="label label-success">入仓中</span></td>
-          <td>
-            <div class="inline position-relative" >
-              <button class="btn btn-mini btn-info" data-toggle="modal" data-target="#myModal"><i class="icon-edit"></i></button>
-              <button class="btn btn-mini btn-danger"><i class="icon-trash"></i></button>
-
-            </div>
-          </td>
-        </tr>
-
-
-        <tr>
-          <td class="center">
-            <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-          </td>
-          <td>电冰箱</td>
-          <td>电器</td>
-          <td><img src="image/goods.png" alt="" class="imgList"></td>
-          <td><span class="label label-inverse arrowed-in">待上架</span></td>
-          <td>
-            <div class="inline position-relative" >
-               <button class="btn btn-mini btn-info" data-toggle="modal" data-target="#myModal"><i class="icon-edit"></i></button>
-              <button class="btn btn-mini btn-danger"><i class="icon-trash"></i></button>
-                <button class="btn btn-mini btn-success">
-                    上架
-                </button>
-            </div>
-          </td>
-        </tr>
-
-
-        <tr>
-          <td class="center">
-            <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-          </td>
-          <td>耳机</td>
-          <td>电子产品</td>
-          <td><img src="image/goods.png" alt="" class="imgList"></td>
-          <td><span class="label label-sm label-info arrowed arrowed-righ">上架中</span></td>
-          <td>
-            <div class="inline position-relative" >
-              <button class="btn btn-mini btn-info" data-toggle="modal" data-target="#myModal"><i class="icon-edit"></i></button>
-              <button class="btn btn-mini btn-danger"><i class="icon-trash"></i></button>
-                <button class="btn btn-mini btn-success">
-                    下架
-                </button>
-            </div>
-          </td>
-        </tr>
-
-
-        <tr>
-          <td class="center">
-            <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-          </td>
-          <td>电饭煲</td>
-          <td>电器</td>
-          <td class="hidden-480"><img src="image/goods.png" alt="" class="imgList"></td>
-          <td><span class="label label-sm label-info arrowed arrowed-righ">上架中</span></td>
-
-          <td>
-            <div class="inline position-relative" >
-              <button class="btn btn-mini btn-info" data-toggle="modal" data-target="#myModal"><i class="icon-edit"></i></button>
-              <button class="btn btn-mini btn-danger"><i class="icon-trash"></i></button>
-                <button class="btn btn-mini btn-success">
-                    下架
-                </button>
-            </div>
-          </td>
-        </tr>
-
-              </tbody>
-    </table>
+    <div id="item-table"></div>
+    
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">新增</button>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -303,6 +190,68 @@
     <script src="webuploader/webuploader.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootbox.min.js"></script>
+        <script type="text/javascript">
+    $(document).ready(function(){
+    var product_pic=[
+    		{
+    			name:"MP3",
+    			type:"电子产品",
+    			pic:"image/goods.png",
+    			state:"待入仓",
+    		},
+    		{
+    			name:"电饭锅",
+    			type:"电器",
+    			pic:"image/goods.png",
+    			state:"入仓中",
+    		},
+    		{
+    			name:"电冰箱",
+    			type:"电器",
+    			pic:"image/goods.png",
+    			state:"待上架",
+    		},
+    		{
+    			name:"电饭锅",
+    			type:"电器",
+    			pic:"image/goods.png",
+    			state:"上架中",
+    		},
+    ];
+
+    var table="<table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>分类</th><th class='hidden-480'>主图</th><th class='hidden-480'>状态</th><th>操作</th></tr></thead><tbody>";
+    table+="<tbody>";
+    for(var i=0;i<product_pic.length;i++){
+    	table+=`<tr><td class='center'><label><input type='checkbox' class='input'><span class='lbl'></span></label></td><td>`
+    	+product_pic[i].name
+    	+`</td><td>`
+    	+product_pic[i].type
+    	+`</td><td class='hidden-480'><img src=`
+    	+product_pic[i].pic
+    	+` alt='' class='imgList'></td><td class='hidden-480'><span class=`;
+    	if(product_pic[i].state=="待入仓")
+    		table+="'label label-sm label-warning'>";
+    		else if(product_pic[i].state=="入仓中")
+    			table+="'label label-success'>";
+    			else if(product_pic[i].state=="待上架")
+    				table+="'label label-inverse arrowed-in'>";
+    				else if(product_pic[i].state=="上架中")
+    					table+="'label label-sm label-info arrowed arrowed-righ'>";
+    	table+=product_pic[i].state
+    	table+=`</span></td><td><div class='inline position-relative' ><button class='btn btn-mini btn-info' data-toggle='modal' data-target='#myModal'><i class='icon-edit'></i></button><button class='btn btn-mini btn-danger'><i class='icon-trash'></i></button>`;
+    	if(product_pic[i].state=="待入仓")
+    		table+="<button class='btn btn-mini btn-success'>入仓";
+    		else if(product_pic[i].state=="待上架")
+    		table+="<button class='btn btn-mini btn-success'>上架";
+    		else if(product_pic[i].state=="上架中")
+    		table+="<button class='btn btn-mini btn-success'>下架";
+    	table+="</div></td></tr>";
+    }
+    table+="</tbody></table>";
+    $("#item-table").append(table);
+    })
+    </script>
+    
    <script type="text/javascript">
   $(function(){
    /*init webuploader*/
@@ -411,8 +360,58 @@
         })
 
         $('.btn-danger').click(function(){
+        	$.post();
+        	$(this).parent().parent().parent().remove();
             bootbox.alert("删除成功！");
         })
+        $('.btn-success').click(function(){
+        	var x=$(this).parents("tr").find("td").eq(4).find("span");
+        	var product=$(this).parents("tr").find("td").eq(1).text();//被操作的商品
+        	var a=$(this).text();
+        	if(a=="入仓")
+        	{
+        		x.text("入仓中");
+        	    x.attr("class","label label-success");
+        	    $.post("PutinStorage.brand", JSON.stringify({sku: "123"}), function(data) {
+                if (data == "true") {}
+              });
+        	    $(this).remove();
+        	}
+        	else if(a=="上架")
+        	{
+        		x.text("上架中")
+        		x.attr("class","label label-sm label-info arrowed arrowed-righ");
+        		$.post("PutinStorage.brand", JSON.stringify({sku: "123"}), function(data) {
+                if (data == "true") {}
+              });
+        		$(this).text("下架");
+        	}
+        	else if(a=="下架")
+        	{
+        		x.text("待上架");
+        		x.attr("class","label label-inverse arrowed-in");
+        		$.post("soldOut.brand", JSON.stringify({sku: "123"}), function(data) {
+                if (data == "true") {}
+              })
+        		$(this).text("上架");
+        	}
+        })
+        $('#search').click(function(e){
+        e.preventDefault();
+        var sstxt=$('#product').val();
+        if (sstxt == "") {
+        	$("table tbody tr")
+            .hide()
+            .show();
+        }
+        else {
+        	 $("table tbody tr")
+             .hide()
+             .filter(":contains('"+sstxt+"')")
+             .show();
+        }
+       
+     })
   });
  </script>
     </body>

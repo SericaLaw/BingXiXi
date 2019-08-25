@@ -46,7 +46,7 @@
                     <p id ="stock"></p>
 
                     <button class="btn btn-primary" id="dropship-btn"><a style="color:#fff" href="bvo-goodsstorechoose.html">Dropship Now</a></button>
-                    <button class="btn btn-primary">Add to Wish List</button>
+                    <button class="btn btn-primary" id="wishlist-btn">Add to Wish List</button>
                 </div>
             </div>
 
@@ -114,9 +114,31 @@
                 $("#stock").text("Stock in US: " + data.stock);
                 $("#ebay").text(data.ebay)
                 $("#Amazon").text(data.amazon)
-
                 $("#dropship-btn").click(function() {
-                   
+                    $.post("wishlist.borrow", JSON.stringify({
+                        "sku": sku
+                    }), function(data) {
+                        data = JSON.parse(data);
+                        if (data.result == true) {
+                            alert("推送成功")
+                        }
+                        else {
+                            alert("推送失败")
+                        }
+                    })
+                })
+                $("#wishlist-btn").click(function() {
+                    $.post("wishlist.borrow", JSON.stringify({
+                        "sku": sku
+                    }), function(data) {
+                        data = JSON.parse(data);
+                        if (data.result == true) {
+                            alert("添加成功")
+                        }
+                        else {
+                            alert("添加失败")
+                        }
+                    })
                 })
             })
         

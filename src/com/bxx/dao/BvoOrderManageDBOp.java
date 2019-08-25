@@ -32,7 +32,7 @@ public class BvoOrderManageDBOp extends DBOp {
 		BvoOrderManage oldEw = (BvoOrderManage) oldObj, newEw = (BvoOrderManage) newObj;
 		String sqlstmt = String.format("update BvoOrderManage set %s where %s", newEw.toString().replaceAll("and", ","),
 				oldEw.toString());
-		// System.out.println(sqlstmt);
+//		 System.out.println(sqlstmt);
 		return JdbcTool.executeSql(sqlstmt);
 	}
 
