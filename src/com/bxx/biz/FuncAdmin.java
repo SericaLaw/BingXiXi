@@ -50,6 +50,7 @@ public class FuncAdmin {
 		return result;
 	}
 
+
 	public static boolean check(String username, Date time, boolean result) //将对应用户、对应时间的流水状态改成已审核
 	{
 		DBOp op = new TranscationDBOp();
