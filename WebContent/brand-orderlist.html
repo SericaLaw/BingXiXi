@@ -48,9 +48,11 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootbox.min.js"></script>
 	<script type="text/javascript">
-	function sendOut() {
-		var orderNumber=$(this).parents("tr").find("td").eq(5).text();
-		console.log(orderNumber)
+	function sendOut(orderNumber) {
+	// $(".send-out").click(function() {
+		// $('.send-out').remove()
+		// var orderNumber=$(this).parents("tr").find("td").eq(5).text();
+		alert(orderNumber)
 		var reqBody = {
 			trackNumber: orderNumber
 		}
@@ -63,14 +65,17 @@
 			}
 			buildPage();
 		})
+	// })
+	
 		
 	}
 	 
-	function cancel(){
-		var orderNumber=$(this).parents("tr").find("td").eq(5).text();
+	function cancel(orderNumber){
+		// var orderNumber=$(this).parents("tr").find("td").eq(5).text();
 		var reqBody = {
 			trackNumber: orderNumber
 		}
+		alert(reqBody.trackNumber)
 		$.post("cancelOrder.borrow", JSON.stringify(reqBody), function(data){
 			if (data == "true") {
 				bootbox.alert("订单已取消!");
@@ -83,31 +88,50 @@
     }
 	function buildPage() {
 		
-		var awaiting, delivered, completed, cancelled;
-		$.get("requestWaitingForDeliveryList.brand", function(data) {
-			data = JSON.parse(data);
-			console.log(data)
-			awaiting = data
-			$.get("requesDeliveredList.brand", function(data) {
+		var awaitingPayment, awaiting, delivered, completed, cancelled;
+		$.post("brandOrderManage.index", "", function(data) {
+			data = JSON.parse(data)
+			awaitingPayment = data
+			$.get("requestWaitingForDeliveryList.brand", function(data) {
 				data = JSON.parse(data);
 				console.log(data)
-				delivered = data
-				$.get("requestcompletedList.brand", function(data) {
+				awaiting = data
+				$.get("requesDeliveredList.brand", function(data) {
 					data = JSON.parse(data);
 					console.log(data)
-					completed = data
-					$.get("requestCanceledList.brand", function(data) {
+					delivered = data
+					$.get("requestcompletedList.brand", function(data) {
 						data = JSON.parse(data);
 						console.log(data)
-						cancelled = data
-						var tabTable="<div class='tabbable'><ul class='nav nav-tabs' id='myTab'><li class='active'><a data-toggle='tab' href='#AwaitingPayment'> 待支付</a></li><li class=''><a data-toggle='tab' href='#AwaitingShipment'> 待发货</a></li><li class=''><a data-toggle='tab' href='#shipped'>已发货</a></li><li class=''><a data-toggle='tab' href='#complete'>已完成</a></li><li class=''><a data-toggle='tab' href='#canceled'>已取消</a></li></ul><div class='tab-content'>";
-						var AwaitingPaymentTable="<div id='AwaitingPayment' class='tab-pane active'><p><table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>价格</th><th class='hidden-480'>数量</th><th>sku</th><th class='hidden-480'>订单编号</th><th class='hidden-480'>订单创建时间</th></tr></thead><tbody>";
-						var AwaitingShipmentTable="<div id='AwaitingShipment' class='tab-pane'><p><table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>价格</th><th class='hidden-480'>数量</th><th>sku</th><th class='hidden-480'>订单编号</th><th class='hidden-480'>订单创建时间</th><th>操作</th></tr></thead><tbody>";
-						var shippedTable="<div id='shipped' class='tab-pane'><p><table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>价格</th><th class='hidden-480'>数量</th><th>sku</th><th>订单编号</th><th class='hidden-480'>订单创建时间</th><th class='hidden-480'>物流跟踪号</th><th>操作</th></tr></thead><tbody>";
-						var completeTable="<div id='complete' class='tab-pane'><p><table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>价格</th><th class='hidden-480'>数量</th><th>sku</th><th>订单编号</th><th class='hidden-480'>订单创建时间</th><th class='hidden-480'>物流跟踪号</th></tr></thead><tbody>";
-						var canceledTable="<div id='canceled' class='tab-pane'><p><table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>价格</th><th class='hidden-480'>数量</th><th>sku</th><th>订单编号</th><th class='hidden-480'>订单创建时间</th></tr></thead><tbody>";
-						for (var i = 0, n = awaiting.length; i < n; ++i) {
-							AwaitingPaymentTable+=`<tr><td class="center"><label><input type="checkbox" class="input"><span class="lbl"></span></label></td><td><a href="">`
+						completed = data
+						$.get("requestCanceledList.brand", function(data) {
+							data = JSON.parse(data);
+							console.log(data)
+							cancelled = data
+							var tabTable="<div class='tabbable'><ul class='nav nav-tabs' id='myTab'><li class='active'><a data-toggle='tab' href='#AwaitingPayment'> 待支付</a></li><li class=''><a data-toggle='tab' href='#AwaitingShipment'> 待发货</a></li><li class=''><a data-toggle='tab' href='#shipped'>已发货</a></li><li class=''><a data-toggle='tab' href='#complete'>已完成</a></li><li class=''><a data-toggle='tab' href='#canceled'>已取消</a></li></ul><div class='tab-content'>";
+							var AwaitingPaymentTable="<div id='AwaitingPayment' class='tab-pane active'><p><table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>价格</th><th class='hidden-480'>数量</th><th>sku</th><th class='hidden-480'>订单编号</th><th class='hidden-480'>订单创建时间</th></tr></thead><tbody>";
+							var AwaitingShipmentTable="<div id='AwaitingShipment' class='tab-pane'><p><table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>价格</th><th class='hidden-480'>数量</th><th>sku</th><th class='hidden-480'>订单编号</th><th class='hidden-480'>订单创建时间</th><th>操作</th></tr></thead><tbody>";
+							var shippedTable="<div id='shipped' class='tab-pane'><p><table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>价格</th><th class='hidden-480'>数量</th><th>sku</th><th>订单编号</th><th class='hidden-480'>订单创建时间</th><th class='hidden-480'>物流跟踪号</th><th>操作</th></tr></thead><tbody>";
+							var completeTable="<div id='complete' class='tab-pane'><p><table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>价格</th><th class='hidden-480'>数量</th><th>sku</th><th>订单编号</th><th class='hidden-480'>订单创建时间</th><th class='hidden-480'>物流跟踪号</th></tr></thead><tbody>";
+							var canceledTable="<div id='canceled' class='tab-pane'><p><table id='table_bug_report' class='table table-striped table-bordered table-hover'><thead><tr><th class='center'><label><input type='checkbox' class='ace-checkbox-2'><span class='lbl'></span></label></th><th>商品标题</th><th>价格</th><th class='hidden-480'>数量</th><th>sku</th><th>订单编号</th><th class='hidden-480'>订单创建时间</th></tr></thead><tbody>";
+							for (var i = 0, n = awaitingPayment.length; i < n; ++i) {
+								AwaitingPaymentTable+=`<tr><td class="center"><label><input type="checkbox" class="input"><span class="lbl"></span></label></td><td><a href="">`
+									+awaitingPayment[i].title
+									+`</a></td><td>`
+									+awaitingPayment[i].price
+									+`</td><td class="hidden-480">`
+									+awaitingPayment[i].qTY
+									+`</td><td class="">`
+									+awaitingPayment[i].sku
+									+`</td><td class="hidden-480">`
+									+awaitingPayment[i].orderNumber
+									+`</td><td>`
+									+awaitingPayment[i].time
+									+`</td></tr>`;
+								
+							}
+							for (var i = 0, n = awaiting.length; i < n; ++i) {
+								AwaitingShipmentTable+=`<tr><td class="center"><label><input type="checkbox" class="input"><span class="lbl"></span></label></td><td><a href="">`
 								+awaiting[i].title
 								+`</a></td><td>`
 								+awaiting[i].price
@@ -117,85 +141,72 @@
 								+awaiting[i].sku
 								+`</td><td class="hidden-480">`
 								+awaiting[i].orderNumber
-								+`</td><td>`
-								+awaiting[i].time
-								+`</td></tr>`;
-							AwaitingShipmentTable+=`<tr><td class="center"><label><input type="checkbox" class="input"><span class="lbl"></span></label></td><td><a href="">`
-							+awaiting[i].title
-							+`</a></td><td>`
-							+awaiting[i].price
-							+`</td><td class="hidden-480">`
-							+awaiting[i].qTY
-							+`</td><td class="">`
-							+awaiting[i].sku
-							+`</td><td class="hidden-480">`
-							+awaiting[i].orderNumber
-							+`</td><td>` + awaiting[i].time + `</td><td><button class="btn btn-minier btn-purple" onclick="sendOut()">发货</button></td></tr>`;
-						}
-						for (var i = 0, n = delivered.length; i < n; ++i) {
-							shippedTable+=`<tr><td class="center"><label><input type="checkbox" class="input" ><span class="lbl"></span></label></td><td><a href="">`
-								+delivered[i].name
-								+`</a></td><td>`
-								+delivered[i].price
-								+`</td><td class="hidden-480">`
-								+delivered[i].qTY
-								+`</td><td>`
-								+delivered[i].sku
-								+`</td><td>`
-								+delivered[i].orderNumber
-								+`</td><td>`
-								+delivered[i].time
-								+`</td><td><a href="">`
-								+delivered[i].trackNumber
-								+`</a></td><td><button class="btn btn-minier btn-yellow" onclick=cancel()>取消</button></td></tr>`;
-						}
-						for (var i = 0, n = completed.length; i < n; ++i) {
-							completeTable+=`<tr><td class="center"><label><input type="checkbox" class="input"><span class="lbl"></span></label></td><td><a href="">`
-								+completed[i].name
-								+`</a></td><td>`
-								+completed[i].price
-								+`</td><td class="hidden-480">`
-								+completed[i].qTY
-								+`</td><td>`
-								+completed[i].sku
-								+`</td><td>`
-								+completed[i].orderNumber
-								+`</td><td class="hidden-phone">`
-								+completed[i].time
-								+`</td><td class="hidden-480"><a href="">`
-								+completed[i].trackNumber
-								+`</a></td></tr>`;
-						}
-						for (var i = 0, n = cancelled.length; i < n; ++i) {
-							canceledTable+=`<tr><td class="center"><label><input type="checkbox" class="input"><span class="lbl"></span></label></td><td><a href="">`
-								+cancelled[i].name
-								+`</a></td><td>`
-								+cancelled[i].price
-								+`</td><td class="hidden-480">`
-								+cancelled[i].qTY
-								+`</td><td class="hidden-phone">`
-								+cancelled[i].sku
-								+`</td><td class="hidden-480">`
-								+cancelled[i].orderNumber
-								+`</td><td>` +cancelled[i].time + `</td></tr>`;
+								+`</td><td>` + awaiting[i].time + `</td><td><button class="btn btn-minier btn-purple send-out" onclick="sendOut("` + awaiting[i].orderNumber + `")">发货</button></td></tr>`;
+							}
+							for (var i = 0, n = delivered.length; i < n; ++i) {
+								shippedTable+=`<tr><td class="center"><label><input type="checkbox" class="input" ><span class="lbl"></span></label></td><td><a href="">`
+									+delivered[i].title
+									+`</a></td><td>`
+									+delivered[i].price
+									+`</td><td class="hidden-480">`
+									+delivered[i].qTY
+									+`</td><td>`
+									+delivered[i].sku
+									+`</td><td>`
+									+delivered[i].orderNumber
+									+`</td><td>`
+									+delivered[i].time
+									+`</td><td><a href="">`
+									+delivered[i].trackNumber
+									+`</a></td><td><button class="btn btn-minier btn-yellow" onclick=cancel("` + delivered[i].orderNumber + `")>取消</button></td></tr>`;
+							}
+							for (var i = 0, n = completed.length; i < n; ++i) {
+								completeTable+=`<tr><td class="center"><label><input type="checkbox" class="input"><span class="lbl"></span></label></td><td><a href="">`
+									+completed[i].title
+									+`</a></td><td>`
+									+completed[i].price
+									+`</td><td class="hidden-480">`
+									+completed[i].qTY
+									+`</td><td>`
+									+completed[i].sku
+									+`</td><td>`
+									+completed[i].orderNumber
+									+`</td><td class="hidden-phone">`
+									+completed[i].time
+									+`</td><td class="hidden-480"><a href="">`
+									+completed[i].trackNumber
+									+`</a></td></tr>`;
+							}
+							for (var i = 0, n = cancelled.length; i < n; ++i) {
+								canceledTable+=`<tr><td class="center"><label><input type="checkbox" class="input"><span class="lbl"></span></label></td><td><a href="">`
+									+cancelled[i].title
+									+`</a></td><td>`
+									+cancelled[i].price
+									+`</td><td class="hidden-480">`
+									+cancelled[i].qTY
+									+`</td><td class="hidden-phone">`
+									+cancelled[i].sku
+									+`</td><td class="hidden-480">`
+									+cancelled[i].orderNumber
+									+`</td><td>` +cancelled[i].time + `</td></tr>`;
+								
+							}
 							
-						}
-						
-						AwaitingPaymentTable+="</tbody></table></p></div>";
-						AwaitingShipmentTable+="</tbody></table></p></div>";
-						shippedTable+="</tbody></table></p></div>";
-						completeTable+="</tbody></table></p></div>";
-						canceledTable+="</tbody></table></p></div>";
-						tabTable+=AwaitingPaymentTable+AwaitingShipmentTable+shippedTable+completeTable+canceledTable;
-						tabTable+="</div></div>";
-						$("#item-table").html(tabTable);
+							AwaitingPaymentTable+="</tbody></table></p></div>";
+							AwaitingShipmentTable+="</tbody></table></p></div>";
+							shippedTable+="</tbody></table></p></div>";
+							completeTable+="</tbody></table></p></div>";
+							canceledTable+="</tbody></table></p></div>";
+							tabTable+=AwaitingPaymentTable+AwaitingShipmentTable+shippedTable+completeTable+canceledTable;
+							tabTable+="</div></div>";
+							$("#item-table").html(tabTable);
+						});
 					});
 				});
+			
+			
 			});
-		
-		
-		});
-		
+		})
     	
 	}
     $(document).ready(function(){
