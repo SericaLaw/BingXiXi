@@ -122,7 +122,7 @@ public class FuncIndex {
 	{
 		DBOp op = new BvoOrderManageDBOp();
 		BvoOrderManage bom = new BvoOrderManage();
-		bom.setState("Awaiting Payment");
+		bom.setState(StateName.AwaitingPayment);
 		ArrayList<Object> arr = op.select(bom);
 		ArrayList<Message> res = new ArrayList<Message>();
 		for (Object obj : arr) {
