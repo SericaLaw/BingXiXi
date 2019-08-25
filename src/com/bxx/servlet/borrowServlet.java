@@ -81,7 +81,6 @@ public class borrowServlet extends HttpServlet {
 		ArrayList<OrderMessage> order_result;
 		String email = null, account = null, password = null;
 		boolean succ = true;
-		
 		switch (type) {
 		case "/signUp":
 			email = obj.get("email").toString();
