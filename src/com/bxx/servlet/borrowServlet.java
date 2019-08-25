@@ -253,8 +253,9 @@ public class borrowServlet extends HttpServlet {
 					boolean confirm5=FuncBorrow.add_payment_information(QTY,RcverZip,RcverTel,RcverName,RcvAddr);
 				}
 				obj.fluentPut("isafford", isafford);
-					out.append(obj.toString());
-					out.flush();
+				out.append(obj.toString());
+				out.flush();
+				out.close();
 				break;
 			default:
 				break;
