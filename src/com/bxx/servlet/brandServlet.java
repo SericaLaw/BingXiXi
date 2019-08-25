@@ -185,8 +185,9 @@ public class brandServlet extends HttpServlet {
 	}
 
 	private boolean cancelOrder(JSONObject obj) {
-		System.out.println("这是请求已取消商品列表");
+		System.out.println("这是请求已取消商品列表here");
 		String trackNumber = obj.get("trackNumber").toString();
+		System.out.println(trackNumber);
 		boolean succ = FuncBrand.cancelOrder(trackNumber);
 		return succ;
 	}

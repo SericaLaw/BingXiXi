@@ -174,6 +174,7 @@ public class FuncBrand {
 	// 根据订单编号进行取消订单
 	public static Boolean cancelOrder(String orderNumber) {
 		DBOp op = new BrandOrderDBOp();
+		System.out.println(orderNumber);
 		BrandOrder bo = new BrandOrder(orderNumber, null, null, null, null, null, null);
 		BrandOrder cancel = new BrandOrder(null, null, null, null, null, StateName.Cancelled, null);
 		if (!op.update(bo, cancel))
@@ -238,17 +239,20 @@ public class FuncBrand {
 		BrandOrder bo = new BrandOrder();
 		BrandGoods bg = new BrandGoods();
 		DBOp opp = new BrandGoodsDBOp();
-		GoodsMessage goodsmess = new GoodsMessage();
+//		GoodsMessage goodsmess = new GoodsMessage();
 		switch (type) {
 			case StateName.Cancelled:// 请求已取消的商品列表
 				bo.setState(StateName.Cancelled);
 				goods = op.select(bo);
 
 				for (Object obj : goods) {
+					GoodsMessage goodsmess = new GoodsMessage();
 					String sku = (((BrandOrder) obj).getSku());
-					bg.setSku(sku);
+
+					BrandGoods tmpbg = new BrandGoods();
+					tmpbg.setSku(sku);
 					try {
-						bg = (BrandGoods) (opp.select(bg)).get(0);
+						bg = (BrandGoods) (opp.select(tmpbg)).get(0);
 					}catch(Exception e){
 						continue;
 					}
@@ -259,7 +263,7 @@ public class FuncBrand {
 					goodsmess.setOrderNumber(((BrandOrder) obj).getOrderNumber());
 					goodsmess.setTime(((BrandOrder) obj).getTime_Date());
 
-					System.out.println(goodsmess.toString());
+//					System.out.println(goodsmess.toString());
 					if(goodsmess.getTitle()==null||goodsmess.getPrice()==null||goodsmess.getQTY()==null||
 					goodsmess.getSku()==null||goodsmess.getOrderNumber()==null||goodsmess.getTime()==null)
 						continue;
@@ -270,10 +274,12 @@ public class FuncBrand {
 				bo.setState(StateName.Completed);
 				goods = op.select(bo);
 				for (Object obj : goods) {
+					GoodsMessage goodsmess = new GoodsMessage();
 					String sku = (((BrandOrder) obj).getSku());
-					bg.setSku(sku);
+					BrandGoods tmpbg = new BrandGoods();
+					tmpbg.setSku(sku);
 					try {
-						bg = (BrandGoods) (opp.select(bg)).get(0);
+						bg = (BrandGoods) (opp.select(tmpbg)).get(0);
 					}catch(Exception e){
 						continue;
 					}
@@ -285,7 +291,7 @@ public class FuncBrand {
 					goodsmess.setTime((java.sql.Date) ((BrandOrder) obj).getTime_Date());
 					goodsmess.setTrackNumber(((BrandOrder) obj).getTrackNumber());
 
-					System.out.println(goodsmess.toString());
+//					System.out.println(goodsmess.toString());
 					if(goodsmess.getTitle()==null||goodsmess.getPrice()==null||goodsmess.getQTY()==null||
 							goodsmess.getSku()==null||goodsmess.getOrderNumber()==null||
 							goodsmess.getTime()==null||goodsmess.getTrackNumber()==null)
@@ -297,11 +303,16 @@ public class FuncBrand {
 				bo.setState(StateName.Shiped);
 				goods = op.select(bo);
 				for (Object obj : goods) {
+					System.out.println("here!!");
+					GoodsMessage goodsmess = new GoodsMessage();
 					String sku = (((BrandOrder) obj).getSku());
-					bg.setSku(sku);
+					BrandGoods tmpbg = new BrandGoods();
+					tmpbg.setSku(sku);
 					try {
-						bg = (BrandGoods) (opp.select(bg)).get(0);
+						System.out.println(sku+":::"+opp.select(bg).size());
+						bg = (BrandGoods) (opp.select(tmpbg)).get(0);
 					}catch(Exception e){
+						System.out.println("what??");
 						continue;
 					}
 					goodsmess.setTitle(bg.getTitle());
@@ -312,7 +323,7 @@ public class FuncBrand {
 					goodsmess.setTime((java.sql.Date) ((BrandOrder) obj).getTime_Date());
 					goodsmess.setTrackNumber(((BrandOrder) obj).getTrackNumber());
 
-					System.out.println(goodsmess.toString());
+//					System.out.println(goodsmess.toString());
 					if(goodsmess.getTitle()==null||goodsmess.getPrice()==null||goodsmess.getQTY()==null||
 							goodsmess.getSku()==null||goodsmess.getOrderNumber()==null||
 							goodsmess.getTime()==null||goodsmess.getTrackNumber()==null)
@@ -324,10 +335,12 @@ public class FuncBrand {
 				bo.setState(StateName.AwaitingShipment);
 				goods = op.select(bo);
 				for (Object obj : goods) {
+					GoodsMessage goodsmess = new GoodsMessage();
 					String sku = (((BrandOrder) obj).getSku());
-					bg.setSku(sku);
+					BrandGoods tmpbg = new BrandGoods();
+					tmpbg.setSku(sku);
 					try {
-						bg = (BrandGoods) (opp.select(bg)).get(0);
+						bg = (BrandGoods) ((opp.select(tmpbg)).get(0));
 					}catch(Exception e){
 						continue;
 					}
@@ -337,7 +350,7 @@ public class FuncBrand {
 					goodsmess.setSku(((BrandOrder) obj).getSku());
 					goodsmess.setOrderNumber(((BrandOrder) obj).getOrderNumber());
 					goodsmess.setTime((java.sql.Date) ((BrandOrder) obj).getTime_Date());
-					System.out.println(goodsmess.toString());
+//					System.out.println(goodsmess.toString());
 					if(goodsmess.getTitle()==null||goodsmess.getPrice()==null||goodsmess.getQTY()==null||
 							goodsmess.getSku()==null||goodsmess.getOrderNumber()==null||
 							goodsmess.getTime()==null)

@@ -282,9 +282,14 @@
               "category": "---"
           };
           $.post("addGoods.brand", JSON.stringify(data), function(data) {
-
+            if (data == "true") {
+              alert("添加成功！")
+              window.location.href = "brand-productInput-attr2.html";
+            }
+            else {
+              alert("添加失败！")
+            }
           })
-          window.location.href = "brand-productInput-attr.html";
         })
 })
 
