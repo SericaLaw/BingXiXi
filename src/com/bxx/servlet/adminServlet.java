@@ -72,7 +72,8 @@ public class adminServlet extends HttpServlet {
 			case "check.admin":
 				String username=obj.getString("username");
 				Date time=obj.getDate("time");
-				FuncAdmin.check(username,time);
+				boolean checkResult=obj.getBoolean("checkResult");
+				FuncAdmin.check(username,time,checkResult);
 				break;
 			default:
 				break;

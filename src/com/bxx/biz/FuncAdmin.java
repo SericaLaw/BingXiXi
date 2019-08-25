@@ -13,7 +13,7 @@ public class FuncAdmin {
 		return null;
 	}
 
-	public static void check(String username, Date time) //将对应用户、对应时间的流水状态改成已审核
+	public static void check(String username, Date time, boolean checkResult) //将对应用户、对应时间的流水状态改成已审核
 	{
 		// TODO Auto-generated method stub
 		
