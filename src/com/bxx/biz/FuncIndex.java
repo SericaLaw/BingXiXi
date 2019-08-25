@@ -2,6 +2,7 @@ package com.bxx.biz;
 
 import java.util.ArrayList;
 import com.bxx.common.Message;
+import com.bxx.common.StateName;
 import com.bxx.dao.*;
 
 public class FuncIndex {
@@ -48,7 +49,7 @@ public class FuncIndex {
 	{
 		DBOp op = new BrandOrderDBOp();
 		BrandOrder bom = new BrandOrder();
-		bom.setState("´ýÖ§¸¶");
+		bom.setState(StateName.AwaitingPayment);
 		ArrayList<Object> arr = op.select(bom);
 		ArrayList<Message> res = new ArrayList<Message>();
 		for (Object obj : arr) {
