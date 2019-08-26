@@ -18,7 +18,11 @@ public class FuncIndex {
 		bg.setSku(sku);
 		DBOp op = new BrandGoodsDBOp();
 		ArrayList<Object> arr = op.select(bg);
-		return (BrandGoods) arr.get(0);
+		try {
+			return (BrandGoods) arr.get(0);
+		}catch (Exception e){
+			return null;
+		}
 	}
 
 	public static ArrayList<Message> BrandProductPicture() // 请求品牌商商品标题、分类、主图、状态
@@ -33,12 +37,13 @@ public class FuncIndex {
 			BrandGoods bgs = (BrandGoods) obj;
 
 			if (bgs.getTitle() == null || bgs.getCategory() == null || bgs.getPicUrl() == null
-					|| bgs.getState() == null)
+					|| bgs.getState() == null||bgs.getSku()==null)
 				continue;
 			mess.setName(bgs.getTitle());
 			mess.setType(bgs.getCategory());
 			mess.setPicture(bgs.getPicUrl());
 			mess.setState(bgs.getState());
+			mess.setSku(bgs.getSku());
 
 			res.add(mess);
 		}
@@ -57,7 +62,7 @@ public class FuncIndex {
 			BrandOrder bo = (BrandOrder) obj;
 			BrandGoods bg = getBrandGoodsBySku(bo.getSku());
 
-			if (bg.getBrandName() == null || bg.getPrice() == null || bo.getSku() == null || bo.getOrderNumber() == null
+			if (bg ==null||bg.getBrandName() == null || bg.getPrice() == null || bo.getSku() == null || bo.getOrderNumber() == null
 					|| bo.getQTY() == null || bo.getTime_Date() == null)
 				continue;
 			mess.setName(bg.getBrandName());
@@ -106,7 +111,7 @@ public class FuncIndex {
 			BvoGoods bgs = (BvoGoods) obj;
 			BrandGoods brg = getBrandGoodsBySku(bgs.getSku());
 
-			if (brg.getBrandName() == null || brg.getPicUrl() == null || brg.getPrice() == null || brg.getSku() == null)
+			if (brg==null || brg.getBrandName() == null || brg.getPicUrl() == null || brg.getPrice() == null || brg.getSku() == null)
 				continue;
 			mess.setName(brg.getBrandName());
 			mess.setPicture(brg.getPicUrl());

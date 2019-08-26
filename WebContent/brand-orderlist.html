@@ -52,7 +52,7 @@
 	// $(".send-out").click(function() {
 		// $('.send-out').remove()
 		// var orderNumber=$(this).parents("tr").find("td").eq(5).text();
-		alert(orderNumber)
+		// alert(orderNumber)
 		var reqBody = {
 			trackNumber: orderNumber
 		}
@@ -75,7 +75,7 @@
 		var reqBody = {
 			trackNumber: orderNumber
 		}
-		alert(reqBody.trackNumber)
+		// alert(reqBody.trackNumber)
 		$.post("cancelOrder.brand", JSON.stringify(reqBody), function(data){
 			if (data == "true") {
 				bootbox.alert("订单已取消!");

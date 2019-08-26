@@ -172,7 +172,8 @@
               RcverTel: $("#rcver-mobile").val(),
               RcverName: $("#rcver-name").val(),
               RcvAddr: $("#rcver-addr").val(),
-              walletEmail: parent.bvoAccount.email || "123@123.com"
+              walletEmail: parent.bvoAccount.email || "123@123.com",
+              orderNumer: +getQueryVariable("order") || 12
             }
             console.log(info)
             $.post("walletpay.borrow", JSON.stringify(info), function(data) {

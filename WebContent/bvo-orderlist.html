@@ -201,7 +201,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script>
       function pay(orderNo, qty, total) {
-        window.location.href = "bvo-orderPayment.html?qty=" + qty + "&total=" + total
+        window.location.href = "bvo-orderPayment.html?qty=" + qty + "&total=" + total + "&order=" + orderNo
       }
       $("#search").click(function(e) {
         e.preventDefault();

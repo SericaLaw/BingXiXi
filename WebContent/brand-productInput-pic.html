@@ -140,13 +140,13 @@
           else if(product_pic[i].state=="PutWay")
             table+="'label label-sm label-info arrowed arrowed-righ'>上架中";
         // table+=product_pic[i].state
-        table+=`</span></td><td><div class='inline position-relative' ><button class='btn btn-mini btn-info' data-toggle='modal' data-target='#myModal'><i class='icon-edit'></i></button><button class='btn btn-mini btn-danger'><i class='icon-trash'></i></button>`;
+        table+=`</span></td><td><div class='inline position-relative' ><button class='btn btn-mini btn-info' data-toggle='modal' data-target='#myModal'><i class='icon-edit'></i></button><button class='btn btn-mini btn-danger' onclick="deleteGoods('` + product_pic[i].sku+`')"><i class='icon-trash'></i></button>`;
         if(product_pic[i].state=="WaitingInStorage")
-          table+="<button class='btn btn-mini btn-success'>入仓";
+          table+=`<button class='btn btn-mini btn-success' onclick="ruCang('` + product_pic[i].sku + `')">入仓`;
           else if(product_pic[i].state=="WaitingPutWay")
-          table+="<button class='btn btn-mini btn-success'>上架";
+          table+=`<button class='btn btn-mini btn-success' onclick="shangJia('` + product_pic[i].sku + `')">上架`;
           else if(product_pic[i].state=="PutWay")
-          table+="<button class='btn btn-mini btn-success'>下架";
+          table+=`<button class='btn btn-mini btn-success' onclick="xiaJia('` + product_pic[i].sku + `')">下架`;
           table+="</div></td></tr>";
         }
         table+="</tbody></table>";
@@ -158,6 +158,35 @@
     </script>
     
    <script type="text/javascript">
+ 
+    function ruCang(sku) {
+      $.post("PutinStorage.brand", JSON.stringify({sku: sku}), function(data) {
+          if (data == "true") {
+            window.location.href = "brand-productInput-pic.html"
+          }
+      });
+    }
+    function shangJia(sku) {
+      $.post("putWay.brand", JSON.stringify({sku: sku}), function(data) {
+          if (data == "true") {
+            window.location.href = "brand-productInput-pic.html"
+          }
+      })
+    }
+    function xiaJia(sku) {
+      $.post("soldOut.brand", JSON.stringify({sku: sku}), function(data) {
+          if (data == "true") {
+            window.location.href = "brand-productInput-pic.html"
+          }
+      })
+    }
+    function deleteGoods(sku) {
+      $.post("deleteGoods.brand", JSON.stringify({goodsName: sku}), function(data) {
+          if (data == "true") {
+            window.location.href = "brand-productInput-pic.html"
+          }
+      })
+    }
   $(function(){
    /*init webuploader*/
    var $list=$("#thelist");   //这几个初始化全局的百度文档上没说明，好蛋疼。
@@ -269,39 +298,7 @@
         	$(this).parent().parent().parent().remove();
             bootbox.alert("删除成功！");
         })
-        $('.btn-success').click(function(){
-        	var x=$(this).parents("tr").find("td").eq(4).find("span");
-        	var product=$(this).parents("tr").find("td").eq(1).text();//被操作的商品
-          alert(product)
-        	var a=$(this).text();
-        	if(a=="入仓")
-        	{
-        		x.text("入仓中");
-        	    x.attr("class","label label-success");
-        	    $.post("PutinStorage.brand", JSON.stringify({sku: "123"}), function(data) {
-                if (data == "true") {}
-              });
-        	    $(this).remove();
-        	}
-        	else if(a=="上架")
-        	{
-        		x.text("上架中")
-        		x.attr("class","label label-sm label-info arrowed arrowed-righ");
-        		$.post("PutinStorage.brand", JSON.stringify({sku: "123"}), function(data) {
-                if (data == "true") {}
-              });
-        		$(this).text("下架");
-        	}
-        	else if(a=="下架")
-        	{
-        		x.text("待上架");
-        		x.attr("class","label label-inverse arrowed-in");
-        		$.post("soldOut.brand", JSON.stringify({sku: "123"}), function(data) {
-                if (data == "true") {}
-              })
-        		$(this).text("上架");
-        	}
-        })
+        
         $('#search').click(function(e){
         e.preventDefault();
         var sstxt=$('#product').val();
